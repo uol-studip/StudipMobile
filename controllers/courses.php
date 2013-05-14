@@ -150,14 +150,30 @@ class CoursesController extends StudipMobileController
         $this->courses          = Course::findAllByUser($this->currentUser()->id);
         $this->dropCom          = Course::connectToDropbox( $this->currentUser()->id, $call_back_link );
     }
+
     function json_courses_action()
     {
-        // get current semester
-        $this->semester = \SemesterData::GetSemesterArray();
-        // get all courses
-        $this->courses  = Course::findAllByUser($this->currentUser()->id);
+        $groups = array();
+        foreach (Course::findAllByUser($this->currentUser()->id) as $course) {
+            if (!isset($groups[$course['sem_number']])) {
+                $groups[$course['sem_number']] = array();
+            }
+            $groups[$course['sem_number']][] = $course;
+        }
+        arsort($groups);
+
+        $ausgabe = array();
+        foreach ($groups as $sem_key => $group) {
+            foreach ($group as $course)
+            {
+                $tmp = array("id" => htmlReady($course['Seminar_id']), "name"=> htmlReady($course['Name']));
+                array_push($ausgabe, $tmp);
+            }
+            break;
+        }
+        $this->render_json($ausgabe);
     }
-    
+
     /*
      * @brief Action for sync files width the dropbox
      *        user takens for dropbox sync saved in sql table 
