@@ -1,18 +1,4 @@
 <?php
-// Copyright (C) 2013  Nils Bussmann
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 require "StudipMobileController.php";
 require dirname(__FILE__) . "/../models/course.php";
@@ -20,7 +6,7 @@ require dirname(__FILE__) . "/../models/course.php";
 use Studip\Mobile\Course;
 
 /**
- *    get the courses and all combined stuff, like files and 
+ *    get the courses and all combined stuff, like files and
  *    members ...
  *    @author Nils Bussmann - nbussman@uos.de
  */
@@ -56,10 +42,10 @@ class CoursesController extends StudipMobileController
         // get files as array and give it to the view
         $this->files        = Course::find_files($id, $this->currentUser()->id);
     }
- 
+
     function show_action( $id = NULL )
     {
-        // get specific course  
+        // get specific course
         $this->course      = Course::find($id);
         // get specific ressources for the course
         $this->resources   = Course::getResources($this->course);
@@ -71,7 +57,7 @@ class CoursesController extends StudipMobileController
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
-        
+
     }
 
     function show_map_action($id)
@@ -88,12 +74,13 @@ class CoursesController extends StudipMobileController
     function dropfiles_action( $id = NULL )
     {
         session_start();
-        //$call_back_link  = "http://localhost/~nbussman/studip2/public/plugins.php/studipmobile/courses/dropfiles/".$id;
-        
+
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
+
         //generate the callbacklink
+        // TODO (mlunzena): this won't work
         $call_back_link =  "http://".$_SERVER['HTTP_HOST'].$this->url_for("courses/dropfiles", htmlReady($id) );
         // give seminar id to the view
         $this->seminar_id       = $id;
@@ -105,6 +92,7 @@ class CoursesController extends StudipMobileController
         // start the sync prozess
         $this->dropCom          = Course::connectToDropbox( $this->currentUser()->id, $call_back_link );
     }
+
     /*
      *  this controller function is called by the view via ajax
      *  the user should be connected to dropbox
@@ -114,11 +102,11 @@ class CoursesController extends StudipMobileController
         // try to upload a specific file to the users dropboxs
         $this->upload_info = Course::DropboxUpload($fileid);
     }
-    
+
     /*
      *  this controller makes sure that the folder structure
-     *  of the specific course is correctly mapped in the 
-     *  users dropbox. 
+     *  of the specific course is correctly mapped in the
+     *  users dropbox.
      *  if not: make the structure
      */
     function createDropboxFolder_action( $semId )
@@ -150,44 +138,4 @@ class CoursesController extends StudipMobileController
         $this->courses          = Course::findAllByUser($this->currentUser()->id);
         $this->dropCom          = Course::connectToDropbox( $this->currentUser()->id, $call_back_link );
     }
-
-    function json_courses_action()
-    {
-        $groups = array();
-        foreach (Course::findAllByUser($this->currentUser()->id) as $course) {
-            if (!isset($groups[$course['sem_number']])) {
-                $groups[$course['sem_number']] = array();
-            }
-            $groups[$course['sem_number']][] = $course;
-        }
-        arsort($groups);
-
-        $ausgabe = array();
-        foreach ($groups as $sem_key => $group) {
-            foreach ($group as $course)
-            {
-                $tmp = array("id" => htmlReady($course['Seminar_id']), "name"=> htmlReady($course['Name']));
-                array_push($ausgabe, $tmp);
-            }
-            break;
-        }
-        $this->render_json($ausgabe);
-    }
-
-    /*
-     * @brief Action for sync files width the dropbox
-     *        user takens for dropbox sync saved in sql table 
-     * @param id the seminar id
-     */
-    
-    // function dropfiles_action( $id = NULL )
-    // {
-    //     session_start();
-    //     $this->seminar_id       = $id;
-    //     $this->consumerKey      = Course::getDropboxKey();
-    //     $this->consumerSecret   = Course::getDropboxKeySecret();
-    //     $this->db_tokens        = Course::get_token($this->currentUser()->id);
-    //     $this->files            = Course::find_files($id, $this->currentUser()->id);
-    //     $this->user_id          = $this->currentUser()->id;
-    // }
 }

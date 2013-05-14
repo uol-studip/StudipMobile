@@ -1,18 +1,4 @@
 <?php
-// Copyright (C) 2013  Nils Bussmann
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 require "StudipMobileController.php";
 
@@ -27,8 +13,8 @@ class ConverterController extends StudipMobileController
      */
     function before()
     {
-            # require a logged in User or else redirect to session/new
-            $this->requireUser();
+        # require a logged in User or else redirect to session/new
+       $this->requireUser();
     }
 
     /*
@@ -37,20 +23,19 @@ class ConverterController extends StudipMobileController
      * @ param $timestamp the unix timecode
      * @ return string representing the day
      */
-    function stamp_to_dat_action( $timestamp )
+    function stamp_to_dat_action($timestamp)
     {
-        return Convert::stamp_to_dat( $timestamp );
+        return Convert::stamp_to_dat($timestamp);
     }
-    
+
     /*
-     * converts a day to a string 
+     * converts a day to a string
      * like 1 => Montag
      * @param $day dayint
      * @return daystring
      */
-    function int_to_day_action( $day)
+    function int_to_day_action($day)
     {
-        return get_weekday( $day );
+        return get_weekday($day);
     }
 }
-?>

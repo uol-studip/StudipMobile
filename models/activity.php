@@ -1,30 +1,15 @@
 <?php
+
 namespace Studip\Mobile;
-// Copyright (C) 2013  Nils Bussmann
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
  *    Activity Class for newest informations
- *    @author Nils Bussmann - nbussman@uos.de
- *    @author André Klaßen - aklassen@uos.de
+ *    @author Elmar Ludwig - elmar@uos.de
  *    @author Nils Bussmann - nbussman@uos.de
  */
 class Activity {
 
-    # TODO args?
-    static function findAllByUser($user_id, $seminar_cur=0, $range = null, $days = 365, $category = null)
+    static function findAllByUser($user_id, $seminar_cur = 0, $range = null, $days = 365, $category = null)
     {
         $days = \Request::int('days', 365);
         return self::get_activities($user_id, $range, $days, $seminar_cur);
@@ -33,19 +18,19 @@ class Activity {
     /**
      * Get all activities for this user as an array.
      */
-    private function get_activities($user_id, $range, $days, $seminar_cur=0)
+    private function get_activities($user_id, $range, $days, $seminar_cur = 0)
     {
         $db = \DBManager::get();
         $now = time();
         $chdate = $now - 24 * 60 * 60 * $days;
         $items = array();
-        
+
         $seminar_add_query = "";
         if (($seminar_cur !== 0))
         {
             $seminar_add_query =" AND Seminar_id = '$seminar_cur'";
         }
-        //echo $seminar_add_query;exit();
+
         if ($range === 'user') {
             $sem_filter = "seminar_user.user_id = '$user_id' AND auth_user_md5.user_id = '$user_id'";
             $inst_filter = "user_inst.user_id = '$user_id' AND auth_user_md5.user_id = '$user_id'";
@@ -62,7 +47,6 @@ class Activity {
         $user_fields = 'auth_user_md5.user_id AS author_id, auth_user_md5.Vorname, auth_user_md5.Nachname, auth_user_md5.username';
 
         // forum
-
         $sql = "SELECT px_topics.*, $sem_fields
                 FROM px_topics
                 JOIN auth_user_md5 USING (user_id)
@@ -285,7 +269,7 @@ class Activity {
         }
 
         // news
-        
+
         if (($seminar_cur == 0) && ($range === 'user')) {
             $sql = "SELECT news.*, news_range.range_id, $user_fields
                     FROM news
@@ -337,7 +321,7 @@ class Activity {
                 'category' => 'news'
             );
         }
-        
+
         if ($seminar_cur == 0)
         {
             $sql = "SELECT news.*, news_range.range_id, $inst_fields
@@ -365,7 +349,7 @@ class Activity {
                     'category' => 'news'
                 );
             }
-        
+
 
             // votings
 
