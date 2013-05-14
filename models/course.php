@@ -17,8 +17,8 @@
 namespace Studip\Mobile;
 
 require_once("resource.php");
-require_once('Dropbox/autoload.php');
-require_once("dropboxCom.php");
+//require_once('Dropbox/autoload.php');
+//require_once("dropboxCom.php");
 class Course {
 
 
@@ -440,7 +440,7 @@ class Course {
 			$seminar_name   = \Helper::cleanFilename( $seminar->getName() );
 			$folder_tree    = \TreeAbstract::GetInstance('StudipDocumentTree', array('range_id' => $semId));
 			//$folder_ids = array_keys($folder_tree->tree_data);
-			//unset($folder_ids[0]); // root element lÃ¶schen
+			//unset($folder_ids[0]); // root element löschen
 			$folder_ids = $folder_tree->getReadableFolders( $GLOBALS['user']->id );
 			
 			
