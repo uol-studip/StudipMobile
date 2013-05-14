@@ -101,9 +101,12 @@ if ($course->metadate)
         ?>
         <div data-role="collapsible" data-theme="c" data-content-theme="d">
            <h3>Beschreibung</h3>
-           <?
-           	echo Helper::correctText($course->description); 
-           ?>
+
+           <? if ($course->description) : ?>
+           <?= Helper::correctText($course->description) ?>
+           <? else : ?>
+             <i><?= _("keine Beschreibung") ?></i>
+           <? endif ?>
         </div>
         <?
         // sonstiges
