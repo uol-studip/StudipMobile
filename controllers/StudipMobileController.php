@@ -80,9 +80,7 @@ class StudipMobileController extends Trails_Controller
 
     function render_json($data)
     {
-        # TODO besser mit trails
-        header('Content-Type: application/json');
-
+        $this->response->add_header('Content-Type', 'application/json');
         $this->render_text(json_encode($this->filter_utf8($data)));
     }
 
