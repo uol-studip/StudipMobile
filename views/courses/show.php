@@ -108,83 +108,19 @@ if ($course->metadate)
              <i><?= _("keine Beschreibung") ?></i>
            <? endif ?>
         </div>
+
         <?
         // sonstiges
         ?>
-        <div data-role="collapsible" data-theme="c" data-content-theme="d">
-           <h3>Weiteres</h3>
-        <?
-                // Nummer
-                if ($course->seminar_number){
-                ?>
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>Nummer:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->seminar_number) ?></div>
-                </div><!-- /grid-a -->
-                <?
-                }
-                // teilnehmer
-                if ($course->participants){
-                ?>
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>Teilnehmer:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->participants) ?></div>
-                </div><!-- /grid-a -->
-                <?
-                }
-                // Voraussetzungen
-                if ($course->requirements){
-                ?>
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>Voraussetzungen:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->requirements) ?></div>
-                </div><!-- /grid-a -->
-                <?
-                }
-                //Leistungsnachweis
-                if ($course->leistungsnachweis){
-                ?>
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>L. Nachweis:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->leistungsnachweis) ?></div>
-                </div><!-- /grid-a -->
-                <?
-                }
-                // ects
-                if ($course->ects){
-                ?>
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>ECTS-Punkte:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->ects) ?> LP</div>
-                </div><!-- /grid-a -->
-                <?
-                }
-                // Lernorganisation
-                if ($course->orga){
-                ?>
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>Lernorganisation:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->orga) ?></div>
-                </div><!-- /grid-a -->
-                <?
-                }
-                // Sonstiges
-                if ($course->Sonstiges){
-                ?> 
-                <div class="ui-grid-a a_bit_smaller_text">
-                	<div class="ui-block-a"><strong>Sonstiges:</strong></div>
-                	<div class="ui-block-b"><?=htmlReady($course->Sonstiges) ?></div>
-                </div><!-- /grid-a -->
-                <?
-                }
-        ?>
-                </div>
-        <?
-}
+        <? if (strlen($misc = trim($this->render_partial('courses/_show_misc')))) : ?>
+          <div data-role="collapsible" data-theme="c" data-content-theme="d">
+            <h3>Weiteres</h3>
+            <?= $misc ?>
+          </div>
+        <? endif ?>
 
+<? } ?>
 
-
-?>
 <br>
 <!--
 <ul id="course-new-content" data-role="listview" style="margin-top: 1.5em; margin-bottom: 1.5em;">
