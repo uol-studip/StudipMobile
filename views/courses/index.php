@@ -21,5 +21,5 @@ $page_id = "courses-index";
 if (sizeof($courses)) {
     echo $this->render_partial('courses/_list.php');
 } else { ?>
-<p>Sie haben zur Zeit keine Veranstaltungen abonniert, an denen Sie teilnehmen können. Bitte nutzen Sie <a href="#">Veranstaltung suchen / hinzufügen</a> um neue Veranstaltungen aufzunehmen</p>
+<p>Sie haben zur Zeit keine Veranstaltungen abonniert, an denen Sie teilnehmen kÃ¶nnen. Bitte nutzen Sie <a href="#">Veranstaltung suchen / hinzufÃ¼gen</a> um neue Veranstaltungen aufzunehmen</p>
 <? } ?>
