@@ -50,8 +50,7 @@ class ConverterController extends StudipMobileController
      */
     function int_to_day_action( $day)
     {
-        
-        return get_weekday( $day )
+        return get_weekday( $day );
     }
 }
 ?>
