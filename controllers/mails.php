@@ -114,8 +114,8 @@ class MailsController extends StudipMobileController
      */
     function send_action ( $empf )
     {
-        $betreff     = $_POST["mail_title"];
-        $nachricht   = $_POST["mail_message"];
+        $betreff     = Request::get("mail_title");
+        $nachricht   = Request::get("mail_message");
         $this->sendmessage = Mail::send( $empf, $betreff, $nachricht, $this->currentUser()->id );
     }
 }
