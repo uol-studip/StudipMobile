@@ -9,7 +9,7 @@ $this->set_layout("layouts/base");
   <? include("side_menu.php"); ?>
 
   <div data-role="header" data-theme="<?=TOOLBAR_THEME ?>">
-    <? include("side_menu_link.php"); ?>
+    <?= $this->render_partial('layouts/side_menu_link') ?>
     <h1><?= $page_title ?: 'Stud.IP' ?></h1>
     <a href="javascript:history.back();" class="externallink" data-ajax="false" data-icon="check" data-transition="slidedown" data-theme="<?=TOOLBAR_ABORT ?>" class="externallink" data-ajax="false">Fertig</a>
   </div><!-- /header -->
