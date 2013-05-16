@@ -100,7 +100,7 @@ class CoursesController extends StudipMobileController
     function upload_action( $fileid )
     {
         // try to upload a specific file to the users dropboxs
-        $this->upload_info = Course::DropboxUpload($fileid);
+        $this->upload_info = Course::dropboxUpload($fileid);
     }
 
     /*
@@ -131,9 +131,13 @@ class CoursesController extends StudipMobileController
      */
     function dropAll_action()
     {
+
+        // TODO (mlunzena) clear up this method
+        throw new Trails_Exception(500, "Not implemented.");
+
         session_start();
         $call_back_link         = $_SERVER['HTTP_HOST'].$this->url_for("courses/dropfiles", htmlReady($id) );
-        $this->files            = Course::finaAllFiles( $this->currentUser()->id );
+        $this->files            = Course::findAllFiles( $this->currentUser()->id );
         $this->user_id          = $this->currentUser()->id;
         $this->courses          = Course::findAllByUser($this->currentUser()->id);
         $this->dropCom          = Course::connectToDropbox( $this->currentUser()->id, $call_back_link );

@@ -60,7 +60,7 @@ if ($course->metadate)
                 ?>
                         <div class="ui-grid-b a_bit_smaller_text" data-theme="c" style="font-size:10pt;">
                         	<div class="ui-block-a"><strong>Beginn:</strong></div>
-                        	<div class="ui-block-b"><?= Helper::stamp_to_dat(htmlReady($course->metadate->seminarStartTime)) ?></div>
+                        	<div class="ui-block-b"><?= \Studip\Mobile\Helper::stamp_to_dat(htmlReady($course->metadate->seminarStartTime)) ?></div>
                         </div><!-- /grid-a -->
                         <div class='little_space'></div>
                 <? 
@@ -75,7 +75,7 @@ if ($course->metadate)
                         ?>
                                 <div class="ui-grid-b a_bit_smaller_text" data-theme="c">
                                 	<div class="ui-block-a"><strong><?= htmlReady($cycle_date->description) ?></strong></div>
-                                	<div class="ui-block-b"><?=Helper::get_weekday($cycle_date->weekday) ?><br> von <?=htmlReady(substr($cycle_date->start_time, 0,5)) ?> Uhr<br>bis <?=htmlReady(substr($cycle_date->end_time, 0,5)) ?> Uhr</div>
+                                	<div class="ui-block-b"><?= \Studip\Mobile\Helper::get_weekday($cycle_date->weekday) ?><br> von <?=htmlReady(substr($cycle_date->start_time, 0,5)) ?> Uhr<br>bis <?= htmlReady(substr($cycle_date->end_time, 0,5)) ?> Uhr</div>
                                 	<? 
                                 	if(isset($resources[$cycle_date->metadate_id][name]))
                                 	{
@@ -103,7 +103,7 @@ if ($course->metadate)
            <h3>Beschreibung</h3>
 
            <? if ($course->description) : ?>
-           <?= Helper::correctText($course->description) ?>
+           <?= \Studip\Mobile\Helper::correctText($course->description) ?>
            <? else : ?>
              <i><?= _("keine Beschreibung") ?></i>
            <? endif ?>

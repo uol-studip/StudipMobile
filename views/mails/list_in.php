@@ -47,8 +47,8 @@ else
     {
             if ( ( !$day ) || ( date("j.m.Y",$mail['mkdate']) != $dayCount ) )
             {	
-            		$wochentag = Helper::get_weekday(date("N", $mail['mkdate']));
-            		$monat      = Helper::get_moth(date("m", $mail['mkdate']));
+            		$wochentag = \Studip\Mobile\Helper::get_weekday(date("N", $mail['mkdate']));
+            		$monat      = \Studip\Mobile\Helper::get_moth(date("m", $mail['mkdate']));
             		$day = $wochentag.date(", j. ",$mail['mkdate']).$monat.date(", Y",$mail['mkdate']);
 
                     $dayCount = date("j.m.Y",$mail['mkdate']);
@@ -65,11 +65,11 @@ else
                     <?
                     if ($mail['readed'] == 0)
                     {
-                            Helper::getColorball("#1B4EA9",10);
+                            \Studip\Mobile\Helper::getColorball("#1B4EA9",10);
                     }
                     else
                     {
-                            Helper::getColorball("#000000",10,true);
+                            \Studip\Mobile\Helper::getColorball("#000000",10,true);
                     }
                     ?>
                     <h3><?= htmlReady($mail['author']) ?></h3>

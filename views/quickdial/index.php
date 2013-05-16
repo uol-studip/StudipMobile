@@ -90,7 +90,7 @@ $page_title = _("Uni Osnabrück");
 						else 	$this_link = "";
 					?>
 						<a href="<?=$this_link ?>" data-ajax='false'>
-						<p><strong><?=Helper::get_weekday($next["weekday"]) ?></strong> <?=htmlReady($next["title"]) ?></p>
+						<p><strong><?=\Studip\Mobile\Helper::get_weekday($next["weekday"]) ?></strong> <?=htmlReady($next["title"]) ?></p>
 						<p>
 							<?=htmlReady($next["description"]) ?>
 						    <span class="ui-li-count">

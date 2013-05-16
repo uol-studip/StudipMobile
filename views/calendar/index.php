@@ -45,7 +45,7 @@ $weekday= date("N");
 	</div>
 
 	<div data-role="content" class="content">
-		<div class="calendar_year"><?=Helper::get_weekday($weekday) ?></div>
+		<div class="calendar_year"><?=\Studip\Mobile\Helper::get_weekday($weekday) ?></div>
 					
 		<table border=0 cellspacing=0 class="calendar_month">
 		<tr>

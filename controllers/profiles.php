@@ -4,6 +4,7 @@ require "StudipMobileController.php";
 require dirname(__FILE__) . "/../models/profile.php";
 
 use Studip\Mobile\Activity;
+use Studip\Mobile\Profile;
 
 /**
  *    get the profile of a user, if visible

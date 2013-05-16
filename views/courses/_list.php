@@ -35,9 +35,7 @@ $groups = array_reverse($groups,true);
 
             <li class="course" data-course="<?= htmlReady($course['Seminar_id']) ?>">
                 <a href="<?= $controller->url_for("courses/show", htmlReady($course['Seminar_id'])) ?>"  class="externallink" data-ajax="false">
-                    <?
-                        Helper::getColorball($course["color"]);
-                    ?>
+                    <? \Studip\Mobile\Helper::getColorball($course["color"]); ?>
                     <h3><?= htmlReady($course['Name']) ?></h3>
                 </a>
             </li>

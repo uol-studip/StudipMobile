@@ -91,7 +91,7 @@ $page_id = "profile-index";
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Sprechzeiten</div>
 									<div class="ui-block-b">
-										<?=Helper::correctText(htmlReady( $data["user_inst"]["sprechzeiten"])) ?>
+										<?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_inst"]["sprechzeiten"])) ?>
 									</div>
 								</div>
 				       		<?
@@ -135,7 +135,7 @@ $page_id = "profile-index";
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Webseite(privat)</div>
-									<div class="ui-block-b"><?=Helper::correctText(htmlReady( $data["user_data"]["home"])) ?>
+									<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_data"]["home"])) ?>
 									</div>
 								</div>
 				       		<?
@@ -145,7 +145,7 @@ $page_id = "profile-index";
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Hobby's</div>
-									<div class="ui-block-b"><?=Helper::correctText(htmlReady( $data["user_data"]["hobby"])) ?></div>
+									<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_data"]["hobby"])) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -154,7 +154,7 @@ $page_id = "profile-index";
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Lebenslauf</div>
-									<div class="ui-block-b"><?=htmlReady( Helper::correctText($data["user_data"]["lebenslauf"])) ?></div>
+									<div class="ui-block-b"><?=htmlReady( \Studip\Mobile\Helper::correctText($data["user_data"]["lebenslauf"])) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -205,7 +205,7 @@ $page_id = "profile-index";
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
 			       			<h3>Publikationen</h3>		
 			       			<p>
-			       			<?=Helper::correctText(htmlReady($data["user_data"]["publi"])) ?>
+			       			<?=\Studip\Mobile\Helper::correctText(htmlReady($data["user_data"]["publi"])) ?>
 			       			</p>
 			       		</div>
 			       	<?
@@ -284,7 +284,7 @@ $page_id = "profile-index";
 		       				?>
 			       			<div class="ui-grid-a">
 										<div class="ui-block-a">Web</div>
-										<div class="ui-block-b"><?=Helper::correctText( htmlReady($data["inst_info"]["inst_url"] )) ?></div>
+										<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText( htmlReady($data["inst_info"]["inst_url"] )) ?></div>
 							</div>
 							<?
 						}
