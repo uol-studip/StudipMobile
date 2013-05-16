@@ -22,6 +22,11 @@ class StudipMobile extends StudipPlugin implements SystemPlugin
      * @param  string  the part of the dispatch path, that were not consumed yet
      */
     function perform($unconsumed_path) {
+
+        // set include path
+        $inc_path = ini_get('include_path') . PATH_SEPARATOR . __DIR__ . '/vendor';
+        ini_set('include_path', $inc_path);
+
         $trails_root = $this->getPluginPath();
         $dispatcher = new Trails_Dispatcher($trails_root,
                                             rtrim(PluginEngine::getURL($this, null, ''), '/'),
