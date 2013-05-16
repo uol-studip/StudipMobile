@@ -41,17 +41,11 @@ class Activity {
         }
 
         if ($range === 'user') {
-            // $sem_filter = "seminar_user.user_id = '$user_id' AND auth_user_md5.user_id = '$user_id'";
-            // $inst_filter = "user_inst.user_id = '$user_id' AND auth_user_md5.user_id = '$user_id'";
-
             $sem_filter = "seminar_user.user_id = :user_id AND auth_user_md5.user_id = :user_id";
             $inst_filter = "user_inst.user_id = :user_id AND auth_user_md5.user_id = :user_id";
             
             $params[':user_id'] = $user_id;
         } else if (isset($range)) {
-            // $sem_filter = "seminar_user.user_id = '$user_id' AND Seminar_id = '$range'";
-            // $inst_filter = "user_inst.user_id = '$user_id' AND Institut_id = '$range'";
-            
             $sem_filter = "seminar_user.user_id = :user_id AND Seminar_id = :range_id";
             $inst_filter = "user_inst.user_id = :user_id AND Institut_id = :range_id";
 
