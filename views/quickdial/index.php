@@ -23,7 +23,7 @@ $page_title = _("Uni Osnabrück");
           <div class="ui-block-a grid">
             <a href="<?= $controller->url_for("activities") ?>" class="externallink" data-ajax="false">
               <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/news.png" /><br />
-              <span>News</span>
+              <span>Activity Stream</span>
             </a>
           </div>
           <div class="ui-block-b grid">
