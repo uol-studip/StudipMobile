@@ -2,6 +2,11 @@
 
 require_once $this->trails_root .'/models/helper.php';
 
+define("TOOLBAR_THEME",         "a");
+define("TOOLBAR_BUTTONS",       "c");
+define("TOOLBAR_ABORT",         "e");
+define("STANDARD_DIVIDER",      "a");
+
 /**
  *    global usefull stuff
  *    @author Marcus Lunzenauer - mlunzena@uos.de

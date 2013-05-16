@@ -5,16 +5,16 @@ $this->set_layout("layouts/base");
 ?>
 <link rel="stylesheet" href="<?= $plugin_path ?>/public/stylesheets/startscreen.css" />
 
-<div data-role="page" id="<?= $page_id ?: '' ?>" data-scroll='true'>
 <?= $this->render_partial("layouts/side_menu.php") ?>
-    <div data-role="header" data-theme="<?=TOOLBAR_THEME ?>">
-      <a href="<?= $controller->url_for("session/destroy") ?>" data-role="button"  
-      	 data-iconpos="noicon" class="externallink" data-ajax="false">Logout</a>
+
+<div data-role="page" id="<?= $page_id ?: '' ?>" data-scroll='true'>
+    <div data-role="header" data-theme="<?= TOOLBAR_THEME ?>">
+      <a href="<?= $controller->url_for("session/destroy") ?>" data-role="button"
+         data-iconpos="noicon" class="externallink" data-ajax="false">Logout</a>
         <h1><?= $page_title ?: 'Stud.IP' ?></h1>
     </div>
     <div data-role="content">
 
-      
       <div class="ui-grid-b" >
           <div class="ui-block-a grid">
             <a href="<?= $controller->url_for("activities") ?>" class="externallink" data-ajax="false">
@@ -30,19 +30,14 @@ $this->set_layout("layouts/base");
           </div>
           <div class="ui-block-c grid">
             <a href="<?= $controller->url_for("mails") ?>/" class="externallink" data-ajax="false">
-	      <?
-	      	if ($number_unread_mails > 0)
-		{ 
-			?>
-			<span class="notification"><?= $number_unread_mails ?></span>
-			<?
-		}
-		?>
+              <? if ($number_unread_mails > 0) { ?>
+              <span class="notification"><?= $number_unread_mails ?></span>
+              <? } ?>
               <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/mail.png" /><br />
-              <span>Nachrichten</span>              
+              <span>Nachrichten</span>
             </a>
           </div>
-          
+
           <div class="ui-block-a grid scndrow">
             <a href="<?= $controller->url_for("courses") ?>" class="externallink" rel="external" data-ajax="false">
               <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/seminar.png" /><br />
@@ -56,7 +51,7 @@ $this->set_layout("layouts/base");
             </a>
           </div> -->
           <div class="ui-block-c grid scndrow">
-            <a href="<?= $controller->url_for("profiles/show",htmlReady($user_id)) ?>"  
+            <a href="<?= $controller->url_for("profiles/show",htmlReady($user_id)) ?>"
                class="externallink" rel="external" data-ajax="false">
               <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/profile.png" /><br />
               <span>Ich</span>
@@ -67,44 +62,43 @@ $this->set_layout("layouts/base");
       <div style="width:70%;height:15px;"></div>
     <?
 
-	if (!empty($next_courses))
-	{
-		?>
-			<ul id="nextCourses" data-role="listview" data-inset="true" data-theme="c">
-				<li data-role="list-divider" data-theme="b">Als Nächstes</li>
-		<?
-	}
+        if (!empty($next_courses))
+        {
+                ?>
+                        <ul id="nextCourses" data-role="listview" data-inset="true" data-theme="c">
+                                <li data-role="list-divider" data-theme="b">Als Nächstes</li>
+                <?
+        }
     foreach($next_courses as $next)
-	{	
-		?>
-				<li>
-					<?
-						if (strlen($next["id"]) == 32) 
+        {
+                ?>
+                                <li>
+                                        <?
+                                                if (strlen($next["id"]) == 32)
             {
               $this_link = $controller->url_for("courses/show", htmlReady($next["id"]));
             }
-						else 	$this_link = "";
-					?>
-						<a href="<?=$this_link ?>" data-ajax='false'>
-						<p><strong><?=\Studip\Mobile\Helper::get_weekday($next["weekday"]) ?></strong> <?=htmlReady($next["title"]) ?></p>
-						<p>
-							<?=htmlReady($next["description"]) ?>
-						    <span class="ui-li-count">
-						    	<?=htmlReady($next["beginn"])?> - <?=htmlReady($next["ende"])?>
-						    </span>
-						</p>
-						</a>
-				</li>
-		<?
-	}
-	if (!empty($next_courses))
-	{
-		?>
-			</ul>
-		<?
-	}
+                                                else    $this_link = "";
+                                        ?>
+                                                <a href="<?=$this_link ?>" data-ajax='false'>
+                                                <p><strong><?=\Studip\Mobile\Helper::get_weekday($next["weekday"]) ?></strong> <?=htmlReady($next["title"]) ?></p>
+                                                <p>
+                                                        <?=htmlReady($next["description"]) ?>
+                                                    <span class="ui-li-count">
+                                                        <?=htmlReady($next["beginn"])?> - <?=htmlReady($next["ende"])?>
+                                                    </span>
+                                                </p>
+                                                </a>
+                                </li>
+                <?
+        }
+        if (!empty($next_courses))
+        {
+                ?>
+                        </ul>
+                <?
+        }
     ?>
 
     </div>
 </div>
-    
