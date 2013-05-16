@@ -3,6 +3,17 @@
 class StudipMobile extends StudipPlugin implements SystemPlugin
 {
     const DEFAULT_CONTROLLER = "quickdial";
+
+    public function __construct() {
+        parent::__construct();
+
+        $navigation = new AutoNavigation(_('Mobilansicht'));
+        $navigation->setURL(PluginEngine::getURL('StudipMobile', array(), ''));
+        $navigation->setImage(Assets::image_path('blank.gif'));
+        Navigation::addItem('/mobile', $navigation);
+    }
+
+
     /**
      * This method dispatches and displays all actions. It uses the template
      * method design pattern, so you may want to implement the methods #route
