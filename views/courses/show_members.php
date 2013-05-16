@@ -14,9 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-$this->set_layout("layouts/single_page_back");
 $page_title = "Teilnehmer";
 $page_id = "courses-show_members";
+$back_button = true;
+$this->set_layout("layouts/single_page");
 
 //rolle
 $status = '';
