@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, initial-scale=1, user-scalable=0">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="stylesheet" href="<?= $plugin_path ?>/public/stylesheets/mobile.css" />
-  <link rel="stylesheet" href="<?= $plugin_path ?>/public/vendor/jquery.mobile/custom_mobile_theme.min.css" />
+  <link rel="stylesheet" href="<?= $plugin_path ?>/public/vendor/jquery.mobile/studip.min.css" />
   <!-- <link rel="stylesheet" href="<?= $plugin_path ?>/public/vendor/jquery.mobile/jquery.mobile-1.2.0.min.css" /> -->
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
   <link rel="stylesheet" href="<?= $plugin_path ?>/public/stylesheets/mobile.css" />

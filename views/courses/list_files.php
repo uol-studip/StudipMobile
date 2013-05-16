@@ -16,7 +16,7 @@
 
 
 $this->set_layout("layouts/single_page_back");
-$page_title = "Dateien";
+$page_title = "Kurs: ". htmlReady($course->name)." - Dateien";
 $page_id = "courses-list_files";
 
 if (sizeof($files)) 

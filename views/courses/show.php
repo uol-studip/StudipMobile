@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 $this->set_layout("layouts/single_page_back");
-$page_title = "Kurse";
+$page_title = "Kurs: ". htmlReady($course->name);
 $page_id = "courses-show";
 
 // check if there are Geolocations 
