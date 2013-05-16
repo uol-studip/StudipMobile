@@ -1,5 +1,5 @@
 <div data-role="page" id="Nachrichten">
-<? include dirname(__FILE__).'./../layouts/side_menu.php'; ?>
+        <?= $this->render_partial('layouts/side_menu') ?>
 	<div data-role="header" data-theme="a">
                 <?= $this->render_partial('layouts/side_menu_link') ?>
         	<h1>Nachrichten</h1>

@@ -6,7 +6,7 @@ $this->set_layout("layouts/base");
 
 <div data-role="page" id="<?= $page_id ?: '' ?>" >
 
-  <? include("side_menu.php"); ?>
+  <?= $this->render_partial('layouts/side_menu') ?>
 
   <div data-role="header" data-theme="<?=TOOLBAR_THEME ?>">
     <?= $this->render_partial('layouts/side_menu_link') ?>

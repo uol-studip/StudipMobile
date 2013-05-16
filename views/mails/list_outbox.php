@@ -8,7 +8,7 @@ $this->set_layout("layouts/base");
 ?>
   
 <div data-role="page" id="<?= $page_id ?: '' ?>">
-	<? include dirname(__FILE__).'./../layouts/side_menu.php'; ?>
+        <?= $this->render_partial('layouts/side_menu') ?>
 	<div data-role="header" data-theme="a">
                 <?= $this->render_partial('layouts/side_menu_link') ?>
         	<h1><?=$page_title ?: 'Stud.IP' ?></h1>

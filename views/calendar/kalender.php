@@ -14,7 +14,7 @@ $startAt = date("N",$stamp) -1;
 
 ?>
 <div data-role="page" id="calendar">
-        <? include dirname(__FILE__).'./../layouts/side_menu.php'; ?>
+        <?= $this->render_partial('layouts/side_menu') ?>
 
         <div data-role="header" data-theme="e">
         <?= $this->render_partial('layouts/side_menu_link') ?>
