@@ -14,19 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-$this->set_layout("layouts/calendar");
 $page_title = "Planer";
 $page_id = "calendar-index";
 
-					
+$body_class = "calendar";
+$this->set_layout("layouts/base");
+
 $month = date("n");
 $day = date("j");
 $year = date("Y");
 
-/*
-//just to improve
-$weekday= date("N");
-*/
 ?>
 
 <div data-role="page" id="timetable">
