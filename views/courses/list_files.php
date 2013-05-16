@@ -1,6 +1,6 @@
 <?php
 
-$page_title = "Dateien";
+$page_title = "Kurs: ". htmlReady($course->name)." - Dateien"
 $page_id = "courses-list_files";
 $back_button = TRUE;
 $this->set_layout("layouts/single_page");

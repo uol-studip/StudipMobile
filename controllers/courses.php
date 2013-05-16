@@ -32,7 +32,7 @@ class CoursesController extends StudipMobileController
     function list_files_action($id = NULL)
     {
         // is the user in the course?
-        $course      = Course::find($id);
+        $this->course = Course::find($id);
 
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
@@ -119,6 +119,7 @@ class CoursesController extends StudipMobileController
      */
     function show_members_action( $semId )
     {
+        $this->course      = Course::find($semId);
         $this->members = Course::getMembers( $semId );
         if (!Course::isReadable($semId, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
