@@ -14,9 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-$this->set_layout("layouts/single_page_back");
 $page_title = "Kurse";
 $page_id = "courses-show";
+$back_button = true;
+$this->set_layout("layouts/single_page");
 
 // check if there are Geolocations 
 $resources_locations = array();

@@ -1,9 +1,3 @@
-<?
-define("TOOLBAR_THEME",         "a");
-define("TOOLBAR_BUTTONS",       "c");
-define("TOOLBAR_ABORT",         "e");
-define("STANDARD_DIVIDER",      "a");
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,6 +9,7 @@ define("STANDARD_DIVIDER",      "a");
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
     <link rel="stylesheet" href="<?= $plugin_path ?>/public/stylesheets/mobile.css" />
     <link rel="stylesheet"  href="<?= $plugin_path ?>/public/stylesheets/jquery.swipeButton.css" />
+    <link rel="apple-touch-icon" href="<?= $plugin_path ?>/public/images/quickdial/ios.png" type="image/gif" />
 
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
