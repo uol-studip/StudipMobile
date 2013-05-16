@@ -20,6 +20,10 @@ class Activity {
      */
     private function get_activities($user_id, $range, $days, $seminar_cur = 0)
     {
+        # force an absolute URL
+        \URLHelper::setBaseUrl($GLOBALS['ABSOLUTE_URI_STUDIP']);
+
+
         $db = \DBManager::get();
         $now = time();
         $chdate = $now - 24 * 60 * 60 * $days;
@@ -517,6 +521,11 @@ class Activity {
 
         usort($items, create_function('$a, $b', 'return $b["updated"] - $a["updated"];'));
         $items = array_slice($items, 0, 100);
+
+
+        # reset to the default set in plugins.php
+        \URLHelper::setBaseUrl($GLOBALS['CANONICAL_RELATIVE_PATH_STUDIP']);
+
 
         return $items;
     }
