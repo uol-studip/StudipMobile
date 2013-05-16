@@ -1,23 +1,19 @@
 <?
-// Copyright (C) 2013  Nils Bussmann
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-$this->set_layout("layouts/quickdial");
 $page_title = _("Uni Osnabrück");
+$this->set_layout("layouts/base");
 
 ?>
+<link rel="stylesheet" href="<?= $plugin_path ?>/public/stylesheets/startscreen.css" />
+
+<div data-role="page" id="<?= $page_id ?: '' ?>" data-scroll='true'>
+<?= $this->render_partial("layouts/side_menu.php") ?>
+    <div data-role="header" data-theme="<?=TOOLBAR_THEME ?>">
+      <a href="<?= $controller->url_for("session/destroy") ?>" data-role="button"  
+      	 data-iconpos="noicon" class="externallink" data-ajax="false">Logout</a>
+        <h1><?= $page_title ?: 'Stud.IP' ?></h1>
+    </div>
+    <div data-role="content">
+
       
       <div class="ui-grid-b" >
           <div class="ui-block-a grid">
@@ -109,4 +105,6 @@ $page_title = _("Uni Osnabrück");
 	}
     ?>
 
+    </div>
+</div>
     

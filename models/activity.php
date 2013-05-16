@@ -29,21 +29,33 @@ class Activity {
         $chdate = $now - 24 * 60 * 60 * $days;
         $items = array();
 
+        $params = array();
+        $params[':chdate'] = $chdate;
+
         $seminar_add_query = "";
         if (($seminar_cur !== 0))
         {
-            $seminar_add_query =" AND Seminar_id = '$seminar_cur'";
+            //$seminar_add_query =" AND Seminar_id = '$seminar_cur'";
+            $seminar_add_query =" AND Seminar_id = :seminar_id";
+            $params[':seminar_id'] = $seminar_cur;
         }
 
         if ($range === 'user') {
-            $sem_filter = "seminar_user.user_id = '$user_id' AND auth_user_md5.user_id = '$user_id'";
-            $inst_filter = "user_inst.user_id = '$user_id' AND auth_user_md5.user_id = '$user_id'";
+            $sem_filter = "seminar_user.user_id = :user_id AND auth_user_md5.user_id = :user_id";
+            $inst_filter = "user_inst.user_id = :user_id AND auth_user_md5.user_id = :user_id";
+            
+            $params[':user_id'] = $user_id;
         } else if (isset($range)) {
-            $sem_filter = "seminar_user.user_id = '$user_id' AND Seminar_id = '$range'";
-            $inst_filter = "user_inst.user_id = '$user_id' AND Institut_id = '$range'";
+            $sem_filter = "seminar_user.user_id = :user_id AND Seminar_id = :range_id";
+            $inst_filter = "user_inst.user_id = :user_id AND Institut_id = :range_id";
+
+            $params[':user_id'] = $user_id;
+            $params[':range_id'] = $range_id;
         } else {
-            $sem_filter = "seminar_user.user_id = '$user_id'";
-            $inst_filter = "user_inst.user_id = '$user_id'";
+            $sem_filter = "seminar_user.user_id = :user_id";
+            $inst_filter = "user_inst.user_id = :user_id";
+            
+            $params[':user_id'] = $user_id;
         }
 
         $sem_fields = 'auth_user_md5.user_id AS author_id, auth_user_md5.Vorname, auth_user_md5.Nachname, seminare.Name';
@@ -56,11 +68,12 @@ class Activity {
                 JOIN auth_user_md5 USING (user_id)
                 JOIN seminar_user USING (Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND px_topics.chdate > $chdate ". $seminar_add_query;
+                WHERE $sem_filter AND px_topics.chdate > :chdate ". $seminar_add_query;
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => $row['topic_id'],
                 'title' => $row['name'],
@@ -78,16 +91,18 @@ class Activity {
             //'content' => forum_kill_edit($row['description']),
         }
 
+
         $sql = "SELECT px_topics.*, $inst_fields
                 FROM px_topics
                 JOIN auth_user_md5 USING (user_id)
                 JOIN user_inst ON (Seminar_id = Institut_id)
                 JOIN Institute USING (Institut_id)
-                WHERE $inst_filter AND px_topics.chdate > $chdate $seminar_add_query";
+                WHERE $inst_filter AND px_topics.chdate > :chdate $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => $row['topic_id'],
                 'title' => $row['name'],
@@ -112,11 +127,12 @@ class Activity {
                 JOIN auth_user_md5 USING (user_id)
                 JOIN seminar_user USING (Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND dokumente.chdate > $chdate $seminar_add_query";
+                WHERE $sem_filter AND dokumente.chdate > :chdate $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $folder_tree = \TreeAbstract::GetInstance('StudipDocumentTree', array('range_id' => $row['seminar_id']));
 
             if ($folder_tree->isDownloadFolder($row['range_id'], $user_id)) {
@@ -140,11 +156,12 @@ class Activity {
                 JOIN auth_user_md5 USING (user_id)
                 JOIN user_inst ON (seminar_id = Institut_id)
                 JOIN Institute USING (Institut_id)
-                WHERE $inst_filter AND dokumente.chdate > $chdate $seminar_add_query";
+                WHERE $inst_filter AND dokumente.chdate > :chdate $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $folder_tree = \TreeAbstract::GetInstance('StudipDocumentTree', array('range_id' => $row['seminar_id']));
 
             if ($folder_tree->isDownloadFolder($row['range_id'], $user_id)) {
@@ -171,11 +188,12 @@ class Activity {
                 JOIN auth_user_md5 USING (user_id)
                 JOIN seminar_user ON (range_id = Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND wiki.chdate > $chdate $seminar_add_query";
+                WHERE $sem_filter AND wiki.chdate > :chdate $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => md5($row['range_id'] . ':' . $row['keyword'] . ':' . $row['version']),
                 'title' => $row['keyword'],
@@ -190,18 +208,19 @@ class Activity {
                 'category' => 'wiki'
             );
         }
-        if ($seminar_cur == 0)
-        {
+        
+        if ($seminar_cur == 0) {
             $sql = "SELECT wiki.*, $inst_fields
                     FROM wiki
                     JOIN auth_user_md5 USING (user_id)
                     JOIN user_inst ON (range_id = Institut_id)
                     JOIN Institute USING (Institut_id)
-                    WHERE $inst_filter AND wiki.chdate > $chdate ";
+                    WHERE $inst_filter AND wiki.chdate > :chdate ";
 
-            $result = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->execute($params);
 
-            foreach ($result as $row) {
+            while ($row = $stmt->fetch()) {
                 $items[] = array(
                     'id' => md5($row['range_id'] . ':' . $row['keyword'] . ':' . $row['version']),
                     'title' => $row['keyword'],
@@ -225,11 +244,12 @@ class Activity {
                 JOIN auth_user_md5 USING (user_id)
                 JOIN seminar_user ON (range_id = Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND scm.chdate > $chdate $seminar_add_query";
+                WHERE $sem_filter AND scm.chdate > :chdate $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => $row['scm_id'],
                 'title' => $row['tab_name'],
@@ -244,18 +264,19 @@ class Activity {
                 'category' => 'info'
             );
         }
-        if ($seminar_cur == 0)
-        {
+
+        if ($seminar_cur == 0) {
             $sql = "SELECT scm.*, $inst_fields
                     FROM scm
                     JOIN auth_user_md5 USING (user_id)
                     JOIN user_inst ON (range_id = Institut_id)
                     JOIN Institute USING (Institut_id)
-                    WHERE $inst_filter AND scm.chdate > $chdate";
+                    WHERE $inst_filter AND scm.chdate > :chdate";
 
-            $result = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->execute($params);
 
-            foreach ($result as $row) {
+            while ($row = $stmt->fetch()) {
                 $items[] = array(
                     'id' => $row['scm_id'],
                     'title' => $row['tab_name'],
@@ -279,11 +300,12 @@ class Activity {
                     FROM news
                     JOIN news_range USING (news_id)
                     JOIN auth_user_md5 USING (user_id)
-                    WHERE range_id = '$user_id' AND news.date BETWEEN $chdate AND $now";
+                    WHERE range_id = :range_id AND news.date BETWEEN :chdate AND :now";
 
-            $result = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array(':range_id' => $user_id, ':chdate' => $chdate, ':now' => $now));
 
-            foreach ($result as $row) {
+            while ($row = $stmt->fetch()) {
                 $items[] = array(
                     'id' => $row['news_id'],
                     'title' => $row['topic'],
@@ -306,11 +328,12 @@ class Activity {
                 JOIN auth_user_md5 USING (user_id)
                 JOIN seminar_user ON (range_id = Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND news.date BETWEEN $chdate AND $now $seminar_add_query";
+                WHERE $sem_filter AND news.date BETWEEN :chdate AND :now $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array_merge(array(':now' => $now), $params));
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => $row['news_id'],
                 'title' => $row['topic'],
@@ -334,11 +357,12 @@ class Activity {
                     JOIN auth_user_md5 USING (user_id)
                     JOIN user_inst ON (range_id = Institut_id)
                     JOIN Institute USING (Institut_id)
-                    WHERE $inst_filter AND news.date BETWEEN $chdate AND $now";
+                    WHERE $inst_filter AND news.date BETWEEN :chdate AND :now";
 
-            $result = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array_merge(array(':now' => $now), $params));
 
-            foreach ($result as $row) {
+            while ($row = $stmt->fetch()) {
                 $items[] = array(
                     'id' => $row['news_id'],
                     'title' => $row['topic'],
@@ -361,11 +385,12 @@ class Activity {
                 $sql = "SELECT vote.*, $user_fields
                         FROM vote
                         JOIN auth_user_md5 ON (author_id = user_id)
-                        WHERE range_id = '$user_id' AND vote.startdate BETWEEN $chdate AND $now";
+                        WHERE range_id = :range_id AND vote.startdate BETWEEN :chdate AND :now";
 
-                $result = $db->query($sql);
+                $stmt = $db->prepare($sql);
+                $stmt->execute(array(':range_id' => $user_id, ':chdate' => $chdate, ':now' => $now));
 
-                foreach ($result as $row) {
+                while ($row = $stmt->fetch()) {
                     $items[] = array(
                         'id' => $row['vote_id'],
                         'title' => $row['title'],
@@ -382,16 +407,18 @@ class Activity {
                 }
             }
         }
+
         $sql = "SELECT vote.*, $sem_fields
                 FROM vote
                 JOIN auth_user_md5 ON (author_id = user_id)
                 JOIN seminar_user ON (range_id = Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND vote.startdate BETWEEN $chdate AND $now $seminar_add_query";
+                WHERE $sem_filter AND vote.startdate BETWEEN :chdate AND :now $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array_merge(array(':now' => $now), $params));
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => $row['vote_id'],
                 'title' => $row['title'],
@@ -407,18 +434,18 @@ class Activity {
             );
         }
 
-        if ($seminar_cur == 0)
-        {
+        if ($seminar_cur == 0) {
             $sql = "SELECT vote.*, $inst_fields
                     FROM vote
                     JOIN auth_user_md5 ON (author_id = user_id)
                     JOIN user_inst ON (range_id = Institut_id)
                     JOIN Institute USING (Institut_id)
-                    WHERE $inst_filter AND vote.startdate BETWEEN $chdate AND $now";
+                    WHERE $inst_filter AND vote.startdate BETWEEN :chdate AND :now";
 
-            $result = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array_merge(array(':now' => $now), $params));
 
-            foreach ($result as $row) {
+            while ($row = $stmt->fetch()) {
                 $items[] = array(
                     'id' => $row['vote_id'],
                     'title' => $row['title'],
@@ -441,11 +468,12 @@ class Activity {
                         FROM eval
                         JOIN eval_range USING (eval_id)
                         JOIN auth_user_md5 ON (author_id = user_id)
-                        WHERE range_id = '$user_id' AND eval.startdate BETWEEN $chdate AND $now";
+                        WHERE range_id = :range_id AND eval.startdate BETWEEN :chdate AND :now";
 
-                $result = $db->query($sql);
+                $stmt = $db->prepare($sql);
+                $stmt->execute(array(':range_id' => $user_id, ':chdate' => $chdate, ':now' => $now));
 
-                foreach ($result as $row) {
+                while ($row = $stmt->fetch()) {
                     $items[] = array(
                         'id' => $row['eval_id'],
                         'title' => $row['title'],
@@ -462,17 +490,19 @@ class Activity {
                 }
             }
         }
+
         $sql = "SELECT eval.*, $sem_fields
                 FROM eval
                 JOIN eval_range USING (eval_id)
                 JOIN auth_user_md5 ON (author_id = user_id)
                 JOIN seminar_user ON (range_id = Seminar_id)
                 JOIN seminare USING (Seminar_id)
-                WHERE $sem_filter AND eval.startdate BETWEEN $chdate AND $now $seminar_add_query";
+                WHERE $sem_filter AND eval.startdate BETWEEN :chdate AND :now $seminar_add_query";
 
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array_merge(array(':now' => $now), $params));
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id' => $row['eval_id'],
                 'title' => $row['title'],
@@ -488,19 +518,19 @@ class Activity {
             );
         }
 
-        if($seminar_cur == 0)
-        {
+        if($seminar_cur == 0) {
             $sql = "SELECT eval.*, $inst_fields
                     FROM eval
                     JOIN eval_range USING (eval_id)
                     JOIN auth_user_md5 ON (author_id = user_id)
                     JOIN user_inst ON (range_id = Institut_id)
                     JOIN Institute USING (Institut_id)
-                    WHERE $inst_filter AND eval.startdate BETWEEN $chdate AND $now";
+                    WHERE $inst_filter AND eval.startdate BETWEEN :chdate AND :now";
 
-            $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array_merge(array(':now' => $now), $params));
 
-            foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
                 $items[] = array(
                     'id' => $row['eval_id'],
                     'title' => $row['title'],

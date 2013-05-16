@@ -15,9 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-$this->set_layout("layouts/single_page_back");
 $page_title = $data["user_data"]["title_front"]." ".$data["user_data"]["vorname"]." ".$data["user_data"]["nachname"]?:"Profil";
 $page_id = "profile-index";
+$back_button = true;
+$this->set_layout("layouts/single_page");
 
 ?>
 <div class="ui-grid-a" >
