@@ -91,28 +91,4 @@ class CalendarModel {
 
         return \CalendarScheduleModel::getEntries($user_id, $current_semester, 0800, 2000, array($weekday-1), false);
     }
-
-    static function getCalendarEvents($user_id, $month, $year)
-    {
-        $db = \DBManager::get();
-        $query ="SELECT *
-                 FROM calendar_events
-                 WHERE message.message_id = '$msg_id'
-                 AND message_user.user_id != message.autor_id
-                 AND message_user.deleted = '0'
-                 LIMIT 0,1";
-       $result = $db->query($query);
-       foreach ($result as $row)
-       {
-           $items[] = array(
-               'id'        => $row['message_id'],
-               'title'     => $row['subject'],
-               'author'    => $row['vorname'] . ' ' . $row['nachname'],
-               'author_id' => $row['autor_id'],
-               'message'   => $row['message'],
-               'mkdate'    => $row['mkdate'],
-               'receiver'  => get_fullname($row['receiver'])
-           );
-       }
-    }
 }

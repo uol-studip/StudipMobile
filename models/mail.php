@@ -25,12 +25,11 @@ class Mail {
 
     static function deleteMessage($id, $user_id)
     {
-        $db    = \DBManager::get();
-        $query = "UPDATE `message_user`
-                  SET deleted = '1'
-                  WHERE message_user.user_id ='$user_id'
-                  AND message_user.message_id ='$id'";
-        $result = $db->query($query);
+        $stmt = \DBManager::get()->prepare("UPDATE `message_user`
+            SET deleted = '1'
+            WHERE message_user.user_id = ?
+            AND message_user.message_id = ?");
+        $stmt->execute(array($user_id, $id));
     }
 
     static function get_mail($user_id, $msg_id, $mark = 0)
@@ -55,17 +54,18 @@ class Mail {
                             message_user.user_id AS receiver';
 
 
-        $query = "SELECT $user_fields, $msg_fields, $msg_user_fields
-                  FROM message
-                  JOIN auth_user_md5 ON message.autor_id =auth_user_md5.user_id
-                  JOIN message_user USING (message_id)
-                  WHERE           message.message_id   =  '$msg_id'
-                                  AND     message_user.user_id =  '$user_id'
-                                  AND     message_user.deleted =  '0'
-                  LIMIT 0,1";
+        $stmt = $db->prepare("SELECT $user_fields, $msg_fields, $msg_user_fields
+            FROM message
+            JOIN auth_user_md5 ON message.autor_id = auth_user_md5.user_id
+            JOIN message_user USING (message_id)
+            WHERE message.message_id     =  ?
+                AND message_user.user_id =  ?
+                AND message_user.deleted =  '0'
+            LIMIT 0,1");
 
-        $result = $db->query($query);
-        foreach ($result as $row) {
+        $stmt->execute(array($msg_id, $user_id));
+
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id'        => $row['message_id'],
                 'title'     => $row['subject'],
@@ -78,19 +78,18 @@ class Mail {
         }
 
         if ($mark == 1) {
-            // TODO (mlunzena) really?
-            echo "test ..... !";
-            $query2 = "UPDATE `message_user`
-                       SET readed = '0'
-                       WHERE     message_user.user_id    ='$user_id'
-                       AND message_user.message_id ='$msg_id'";
+            $stmt = $db->prepare("UPDATE `message_user`
+                SET readed = '0'
+                WHERE   message_user.user_id    = ?
+                    AND message_user.message_id = ?");
         } else {
-            $query2 = "UPDATE `message_user`
-                       SET readed = '1'
-                       WHERE message_user.user_id ='$user_id'
-                       AND message_user.message_id ='$msg_id'";
+            $stmt = $db->prepare("UPDATE `message_user`
+                SET readed = '1'
+                WHERE   message_user.user_id    = ?
+                    AND message_user.message_id = ?");
         }
-        $db->query($query2);
+        
+        $stmt->execute(array($user_id, $msg_id));
         return $items;
     }
 
@@ -114,26 +113,26 @@ class Mail {
                             message_user.snd_rec,
                             message_user.readed';
         if ($inbox == true) {
-            $where = "WHERE message_user.user_id =  '".$user_id."'
+            $where = "WHERE message_user.user_id =  :user_id
                       AND message_user.snd_rec = 'rec'
                       AND message_user.deleted =  '0'";
         } else {
-            $where = "WHERE message.autor_id =  '".$user_id."'
+            $where = "WHERE message.autor_id =  :user_id
                       AND message_user.snd_rec = 'snd'
                       AND message_user.deleted =  '0'";
         }
 
-        $query ="SELECT $user_fields, $msg_fields, $msg_user_fields
+        $stmt = $db->prepare("SELECT $user_fields, $msg_fields, $msg_user_fields
                  FROM message
                  JOIN message_user      ON message.message_id = message_user.message_id
                  JOIN auth_user_md5     ON message_user.user_id = auth_user_md5.user_id
                  ".$where."
                  ORDER BY message.mkdate DESC
-                 LIMIT 0,30";
+                 LIMIT 0,30");
 
-        $result = $db->query($query);
+        $stmt->execute(array(':user_id' => $user_id));
 
-        foreach ($result as $row) {
+        while ($row = $stmt->fetch()) {
             $items[] = array(
                 'id'        => $row['message_id'],
                 'title'     => $row['subject'],
@@ -156,9 +155,9 @@ class Mail {
         $seminarIdString = "";
         foreach ($seminare AS $seminar) {
             if ($seminarIdString == "") {
-                $seminarIdString .= " Seminar_id='".$seminar["Seminar_id"]."' ";
+                $seminarIdString .= ' Seminar_id = :seminar_id ';
             } else {
-                $seminarIdString .= "OR   Seminar_id='".$seminar["Seminar_id"]."' ";
+                $seminarIdString .= ' OR Seminar_id = :seminar_id ';
             }
         }
 
@@ -169,7 +168,11 @@ class Mail {
                   JOIN   user_info     ON auth_user_md5.user_id = user_info.user_id
                   WHERE $seminarIdString
                   ORDER BY auth_user_md5.Nachname";
-        $stmt = \DBManager::get()->query($query);
+        
+        
+        $stmt = \DBManager::get()->preapre($query);
+        $stmt->execute(array(':seminar_id' => $seminar["Seminar_id"]));
+
         $result = $stmt->fetchAll();
 
 

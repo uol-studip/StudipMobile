@@ -128,10 +128,10 @@ class DropboxCommunication {
 
     static function get_token($user_id)
     {
-        $query ="SELECT *
-                 FROM dropbox_tokens
-                 WHERE dropbox_tokens.user_id =  '$user_id'";
-        $stmt = \DBManager::get()->query($query);
+        $stmt = \DBManager::get()->prepare('SELECT *
+            FROM dropbox_tokens
+            WHERE dropbox_tokens.user_id = ?');
+        $stmt->execute(array($user_id));
         return $stmt->fetchAll();
     }
 
@@ -149,19 +149,18 @@ class DropboxCommunication {
             $stored_tokens = self::get_token( $user_id );
             if (empty($stored_tokens)) {
 
-                //token need to be stored
-                $query = "INSERT INTO `dropbox_tokens`
-                                 (user_id,     token,          token_secret)
-                          VALUES ('$user_id', '$token_token', '$token_secret')";
-                $result = $db->query($query);
+                //token needs to be stored
+                $stmt = $db->prepare('INSERT INTO `dropbox_tokens`
+                    (user_id, token, token_secret)
+                    VALUES (?, ?, ?)');
+                $stmt->execute(array($user_id, $token_token, $token_secret));
             }
         }
     }
 
     static function deleteToken($user_id)
     {
-        $db    = \DBManager::get();
-        $query = "DELETE FROM `dropbox_tokens` WHERE user_id='$user_id'";
-        $db->query($query);
+        $stmt = \DBManager::get()->prepare('DELETE FROM `dropbox_tokens` WHERE user_id = ?');
+        $stmt->execute(array($user_id));
     }
 }
