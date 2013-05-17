@@ -14,7 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+$this->set_layout("layouts/login_page");
 $page_title = "Stud.IP - Login";
+
 ?>
 <center><img src="<?=$plugin_path ?>/public/images/logo.png" style="border:0;width:80%"></center>
 <form action="<?= $controller->url_for('session/create') ?>" method="post" data-ajax="false">

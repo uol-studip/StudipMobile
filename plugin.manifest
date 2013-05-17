@@ -3,5 +3,5 @@ pluginclassname= StudipMobile
 origin= elan-ev
 version= 0.1.1
 studipMinVersion= 2.0
-discription= Mobile Studip Ansicht
+description= Mobile Studip Ansicht
 dbscheme= sql/install.sql
