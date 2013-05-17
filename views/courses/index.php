@@ -1,4 +1,5 @@
 <?php
+
 $this->set_layout("layouts/base");
 $page_title = "Kurse";
 $page_id = "courses-index";

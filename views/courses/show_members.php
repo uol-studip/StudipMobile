@@ -1,6 +1,6 @@
 <?
 
-$page_title = "Kurs: ". htmlReady($course->name)." - Teilnehmer";
+$page_title = "Teilnehmer";
 $page_id = "courses-show_members";
 $back_button = true;
 $this->set_layout("layouts/single_page");
