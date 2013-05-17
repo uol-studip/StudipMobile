@@ -1,7 +1,7 @@
 <div data-role="page" id="Nachrichten">
-        <?= $this->render_partial('layouts/side_menu') ?>
+        <?= $this->render_partial('layouts/_side_menu') ?>
 	<div data-role="header" data-theme="a">
-                <?= $this->render_partial('layouts/side_menu_link') ?>
+                <?= $this->render_partial('layouts/_side_menu_link') ?>
         	<h1>Nachrichten</h1>
         	<a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">Eingang</a>
         	<div data-role="popup" id="popupMenu" data-theme="a">

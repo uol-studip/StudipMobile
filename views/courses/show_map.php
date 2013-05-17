@@ -13,10 +13,10 @@ foreach ($resources AS $reso) {
 
 
 <div data-role="page" id="courses-show_map">
-  <?= $this->render_partial('layouts/side_menu') ?>
+  <?= $this->render_partial('layouts/_side_menu') ?>
 
   <div data-role="header"  data-theme="<?=TOOLBAR_THEME ?>">
-    <?= $this->render_partial('layouts/side_menu_link') ?>
+    <?= $this->render_partial('layouts/_side_menu_link') ?>
     <h1>Karte</h1>
     <a href="javascript:history.back()" class="externallink"
        data-ajax="false" data-icon="delete"

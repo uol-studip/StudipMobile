@@ -5,7 +5,7 @@ $this->set_layout("layouts/base");
 ?>
 <link rel="stylesheet" href="<?= $plugin_path ?>/public/stylesheets/startscreen.css" />
 
-<?= $this->render_partial("layouts/side_menu.php") ?>
+<?= $this->render_partial("layouts/_side_menu.php") ?>
 
 <div data-role="page" id="<?= $page_id ?: '' ?>" data-scroll='true'>
     <div data-role="header" data-theme="<?= TOOLBAR_THEME ?>">

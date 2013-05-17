@@ -6,10 +6,10 @@ $this->set_layout("layouts/base");
 
 <div data-role="page" id="<?= $page_id ?: '' ?>" >
 
-  <?= $this->render_partial('layouts/side_menu') ?>
+  <?= $this->render_partial('layouts/_side_menu') ?>
 
   <div data-role="header" data-theme="<?=TOOLBAR_THEME ?>">
-    <?= $this->render_partial('layouts/side_menu_link') ?>
+    <?= $this->render_partial('layouts/_side_menu_link') ?>
     <h1><?= $page_title ?: 'Stud.IP' ?></h1>
     <a href="javascript:history.back();" class="externallink" data-ajax="false" data-icon="check" data-transition="slidedown" data-theme="<?=TOOLBAR_ABORT ?>" class="externallink" data-ajax="false">Fertig</a>
   </div><!-- /header -->

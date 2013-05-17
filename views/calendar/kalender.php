@@ -14,10 +14,10 @@ $startAt = date("N",$stamp) -1;
 
 ?>
 <div data-role="page" id="calendar">
-        <?= $this->render_partial('layouts/side_menu') ?>
+        <?= $this->render_partial('layouts/_side_menu') ?>
 
         <div data-role="header" data-theme="e">
-        <?= $this->render_partial('layouts/side_menu_link') ?>
+        <?= $this->render_partial('layouts/_side_menu_link') ?>
 
                 <h1>Kalender</h1>
                 <a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">Planer</a>

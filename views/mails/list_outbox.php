@@ -8,9 +8,9 @@ $this->set_layout("layouts/base");
 ?>
   
 <div data-role="page" id="<?= $page_id ?: '' ?>">
-        <?= $this->render_partial('layouts/side_menu') ?>
+        <?= $this->render_partial('layouts/_side_menu') ?>
 	<div data-role="header" data-theme="a">
-                <?= $this->render_partial('layouts/side_menu_link') ?>
+                <?= $this->render_partial('layouts/_side_menu_link') ?>
         	<h1><?=$page_title ?: 'Stud.IP' ?></h1>
         	<a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">Ausgang</a>
         	<div data-role="popup" id="popupMenu" data-theme="a">
