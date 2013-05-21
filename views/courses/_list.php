@@ -11,7 +11,7 @@ foreach ($courses as $course) {
 krsort($groups);
 ?>
 
-<ul id="courses" data-role="listview" data-filter="true" data-filter-placeholder="Suchen" data-divider-theme="d">
+<ul id="courses" data-role="listview" data-filter="true" data-filter-placeholder="Suchen" data-divider-theme="b">
     <? foreach ($groups as $sem_key => $group) { ?>
         <li data-role="list-divider">
              <?= htmlReady($semester[$sem_key]['name']) ?>
