@@ -27,7 +27,7 @@ class Profile {
             $user_inst = $stmt->fetch();
 
             if (!empty($user_inst["Institut_id"])) {
-                $inst = \Institute::find($user_inst[0]["Institut_id"]);
+                $inst = \Institute::find($user_inst["Institut_id"]);
 
                 $institute = array(
                     "inst_name"    => $inst->name,
