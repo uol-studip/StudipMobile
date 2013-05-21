@@ -59,22 +59,30 @@ class Resource
         }
     }
 
+      private static function getPropertyID()
+      {
+          return md5("geoLocation");
+      }
+
     private function extractLocation($resource)
     {
 
-        return array("latitude" => 52.27, "longitude" => 8.05);
+        $query =
+          "SELECT state ".
+          "FROM resources_objects_properties ".
+          "WHERE resource_id = ? ".
+          "AND property_id = ?";
 
-        $plainProp = $resource->getPlainProperties(false);
-        $regex     = "#(?:geoLocation:\s)([0-9\.]+)-([0-9\.]+)#";
-        $geoinfo   = array();
+        $stmt = \DBManager::get()->prepare($query);
+        $stmt->execute(array($resource->id, self::getPropertyID()));
 
-        if (preg_match_all($regex, $plainProp, $geoinfo) > 0) {
-            //pattern gefunden
-            $location["longitude"] = $geoinfo[2][0];
-            $location["latitude"]  = $geoinfo[1][0];
-            return $location;
+        $location = $stmt->fetchColumn();
+        if (!$location) {
+            return false;
         }
 
-        return false;
+        list($latitude, $longitude) = explode("-", $location);
+
+        return compact("latitude", "longitude");
     }
 }
