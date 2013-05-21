@@ -37,15 +37,15 @@ else
 
                     $dayCount = date("j.m.Y",$mail['mkdate']);
                                         ?>
-                            <li  data-role="list-divider"><?= htmlReady($day) ?></li>
+                            <li  data-role="list-divider"><?= Studip\Mobile\Helper::out($day) ?></li>
                     <?php
             }
         
             $time = date("H:i",$mail['mkdate']);
     ?>
 
-            <li data-theme="c" data-swipeurl="<?= $controller->url_for("mails/index", $intervall ,htmlReady($mail['id'])) ?>">
-                    <a href="<?= $controller->url_for("mails/show_msg", htmlReady($mail['id'])) ?>" data-transition="slideup">
+            <li data-theme="c" data-swipeurl="<?= $controller->url_for("mails/index", $intervall ,$mail['id']) ?>">
+                    <a href="<?= $controller->url_for("mails/show_msg", $mail['id']) ?>" data-transition="slideup">
                     <?
                     if ($mail['readed'] == 0)
                     {
@@ -56,11 +56,11 @@ else
                             \Studip\Mobile\Helper::getColorball("#000000",10,true);
                     }
                     ?>
-                    <h3><?= htmlReady($mail['author']) ?></h3>
-                    <p><strong><?= htmlReady($mail['title']) ?></strong></p>
+                    <h3><?= Studip\Mobile\Helper::out($mail['author']) ?></h3>
+                    <p><strong><?= Studip\Mobile\Helper::out($mail['title']) ?></strong></p>
                 
-                    <p><?= htmlReady($mail['message']) ?>
-                    <p class="ui-li-aside"><strong><?= htmlReady($time) ?></strong></p>
+                    <p><?= Studip\Mobile\Helper::out($mail['message']) ?>
+                    <p class="ui-li-aside"><strong><?= Studip\Mobile\Helper::out($time) ?></strong></p>
             </a></li>
 
     <?php
