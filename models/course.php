@@ -38,14 +38,16 @@ class Course {
 
     static function findAllByUser($user_id)
     {
-        foreach (\SemesterData::GetSemesterArray() as $key => $value){
+        foreach (\SemesterData::GetSemesterArray() as $value){
             if (isset($value['beginn']) && $value['beginn']) {
-                $sem_start_times[] = $value['beginn'];
+                $sem_start_times[] = (int) $value['beginn'];
             }
         }
 
-        $sem_number_sql = "INTERVAL(start_time," . join(",",$sem_start_times) .")";
-        $sem_number_end_sql = "IF(duration_time=-1,-1,INTERVAL(start_time+duration_time," . join(",",$sem_start_times) ."))";
+        # these 2 queries are safe
+        $sem_number_sql = sprintf('INTERVAL(start_time,%s)', join(',', $sem_start_times));
+        $sem_number_end_sql = sprintf('IF(duration_time=-1,-1,INTERVAL(start_time+duration_time,%s))',
+                                      join(',', $sem_start_times));
 
         $query = "SELECT seminare.VeranstaltungsNummer AS sem_nr,
                          schedule_seminare.color AS color,
@@ -57,16 +59,17 @@ class Course {
                          modules,IFNULL(visitdate,0) as visitdate,
                          admission_prelim,
                          {$sem_number_sql} as sem_number,
-                         {$sem_number_end_sql} as sem_number_end $add_fields
+                         {$sem_number_end_sql} as sem_number_end
                   FROM seminar_user
                   LEFT JOIN seminare  USING (Seminar_id)
-                  LEFT JOIN schedule_seminare      ON (schedule_seminare.user_id='$user_id'
+                  LEFT JOIN schedule_seminare      ON (schedule_seminare.user_id=:user_id
                         AND schedule_seminare.seminar_id=seminare.Seminar_id)
                   LEFT JOIN object_user_visits ouv ON (ouv.object_id=seminar_user.Seminar_id
-                        AND ouv.user_id='$user_id' AND ouv.type='sem')
-                  WHERE seminar_user.user_id = '$user_id'";
+                        AND ouv.user_id = :user_id AND ouv.type='sem')
+                  WHERE seminar_user.user_id = :user_id";
 
-        $stmt = \DBManager::get()->query($query);
+        $stmt = \DBManager::get()->prepare($query);
+        $stmt->execute(compact("user_id"));
 
         return $stmt->fetchAll();
     }
