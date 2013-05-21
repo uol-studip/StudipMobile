@@ -152,32 +152,27 @@ class Mail {
     {
         //get all seminars
         $seminare = Course::findAllByUser($userId);
-        $seminarIdString = "";
+        $seminar_ids = array();
         foreach ($seminare AS $seminar) {
-            if ($seminarIdString == "") {
-                $seminarIdString .= ' Seminar_id = :seminar_id ';
-            } else {
-                $seminarIdString .= ' OR Seminar_id = :seminar_id ';
-            }
+            $seminar_ids[] = $seminar['Seminar_id'];
         }
-
+        
         $query = "SELECT seminar_user.Seminar_id, seminar_user.user_id, seminar_user.visible,
                   seminar_user.status, auth_user_md5.Vorname, auth_user_md5.Nachname, user_info.title_front
                   FROM   seminar_user
                   JOIN   auth_user_md5 ON auth_user_md5.user_id = seminar_user.user_id
                   JOIN   user_info     ON auth_user_md5.user_id = user_info.user_id
-                  WHERE $seminarIdString
+                  WHERE Seminar_id IN (:seminar_ids)
                   ORDER BY auth_user_md5.Nachname";
         
         
         $stmt = \DBManager::get()->prepare($query);
-        $stmt->execute(array(':seminar_id' => $seminar["Seminar_id"]));
+        $stmt->bindParam(':seminar_ids', $seminar_ids, \StudipPDO::PARAM_ARRAY);
+        $stmt->execute();
 
         $result = $stmt->fetchAll();
-
-
-        //dublicate entfernen
-        //zunächst alle user_ids in array packen
+        
+        // remove dublicates and add all user_id's to array
         $user_ids = array();
         foreach ($result as $member) {
             if (!in_array($member["user_id"], $user_ids)) {
