@@ -78,7 +78,7 @@ $startAt = date("N",$stamp) -1;
                                 $ii = $i+1;
                                 if (($i % 6) == 0)      echo "</tr><tr>";
                                 ?>
-                                <td class="<? echo ($day==$ii) ? "calendar_cell_active":"calendar_cell_inactive"; ?> calendar_cell" onClick="self.location.href='<?= $controller->url_for("calendar/singleDay",htmlReady($year), htmlReady($month)) ?>#day<?=$ii ?>" title="<?=$ii ?>">
+                                <td class="<? echo ($day==$ii) ? "calendar_cell_active":"calendar_cell_inactive"; ?> calendar_cell" onClick="self.location.href='<?= $controller->url_for("calendar/singleDay",htmlReady($year), htmlReady($month)) ?>#day<?=$ii ?>'" title="<?=$ii ?>">
                                         <center>
                                         <?
                                                 for ($j = 1; $j <= $dots[$ii]; $j++)
