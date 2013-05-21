@@ -101,6 +101,10 @@ class Helper {
         return $ausgabe;
     }
 
+    public static function out($text)
+    {
+        return studip_utf8encode(htmlReady($text));
+    }
 
     public static function correctText($text)
     {

@@ -1,5 +1,5 @@
 <?
-$page_title = studip_utf8encode(htmlready($data["user_data"]["title_front"]." ". $data["user_data"]["vorname"]." ".$data["user_data"]["nachname"]?:"Profil"));
+$page_title = Studip\Mobile\Helper::out($data["user_data"]["title_front"]." ". $data["user_data"]["vorname"]." ".$data["user_data"]["nachname"]?:"Profil");
 $page_id = "profile-index";
 $back_button = true;
 $this->set_layout("layouts/single_page");
@@ -48,7 +48,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Telefon</div>
-									<div class="ui-block-b"><?=htmlReady( $data["user_inst"]["Telefon"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_inst"]["Telefon"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -57,7 +57,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Fax</div>
-									<div class="ui-block-b"><?=htmlReady( $data["user_inst"]["Fax"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_inst"]["Fax"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -66,7 +66,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Raum</div>
-									<div class="ui-block-b"><?=htmlReady( $data["user_inst"]["raum"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_inst"]["raum"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -93,7 +93,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Telefon(privat)</div>
-									<div class="ui-block-b"><?=htmlReady( $data["user_data"]["privatnr"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_data"]["privatnr"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -102,7 +102,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Mobiltelefon(privat)</div>
-									<div class="ui-block-b"><?=htmlReady( $data["user_data"]["privatcell"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_data"]["privatcell"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -111,7 +111,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Adresse(privat)</div>
-									<div class="ui-block-b"><?=htmlReady( $data["user_data"]["privadr"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_data"]["privadr"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -139,7 +139,7 @@ $this->set_layout("layouts/single_page");
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Lebenslauf</div>
-									<div class="ui-block-b"><?=htmlReady( \Studip\Mobile\Helper::correctText($data["user_data"]["lebenslauf"])) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::out($data["user_data"]["lebenslauf"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -201,7 +201,7 @@ $this->set_layout("layouts/single_page");
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
 			       			<h3>Schwerpunkte</h3>		
 			       			<p>
-			       			<?=htmlReady($data["user_data"]["schwerp"]) ?>
+			       			<?=Studip\Mobile\Helper::out($data["user_data"]["schwerp"]) ?>
 			       			</p>
 			       		</div>
 			       	<?
@@ -221,7 +221,7 @@ $this->set_layout("layouts/single_page");
 		       				?>
 			       			<div class="ui-grid-a">
 										<div class="ui-block-a">Name</div>
-										<div class="ui-block-b"><?=htmlReady( $data["inst_info"]["inst_name"] ) ?></div>
+										<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_name"] ) ?></div>
 							</div>
 							<?
 						}
@@ -231,8 +231,8 @@ $this->set_layout("layouts/single_page");
 			       			<div class="ui-grid-a">
 										<div class="ui-block-a">Anschrift</div>
 										<div class="ui-block-b">
-											<?=htmlReady( $data["inst_info"]["inst_strasse"] ) ?><br>
-											<?=htmlReady( $data["inst_info"]["inst_plz"] ) ?>
+											<?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_strasse"] ) ?><br>
+											<?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_plz"] ) ?>
 										</div>
 							</div>
 							<?
@@ -242,7 +242,7 @@ $this->set_layout("layouts/single_page");
 		       				?>
 			       			<div class="ui-grid-a">
 										<div class="ui-block-a">Telefon</div>
-										<div class="ui-block-b"><?=htmlReady( $data["inst_info"]["inst_telefon"] ) ?></div>
+										<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_telefon"] ) ?></div>
 							</div>
 							<?
 						}
@@ -251,7 +251,7 @@ $this->set_layout("layouts/single_page");
 		       				?>
 			       			<div class="ui-grid-a">
 										<div class="ui-block-a">Fax</div>
-										<div class="ui-block-b"><?=htmlReady( $data["inst_info"]["inst_fax"] ) ?></div>
+										<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_fax"] ) ?></div>
 							</div>
 							<?
 						}
@@ -260,7 +260,7 @@ $this->set_layout("layouts/single_page");
 		       				?>
 			       			<div class="ui-grid-a">
 										<div class="ui-block-a">Email</div>
-										<div class="ui-block-b"><?=htmlReady( $data["inst_info"]["inst_email"] ) ?></div>
+										<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_email"] ) ?></div>
 							</div>
 							<?
 						}
