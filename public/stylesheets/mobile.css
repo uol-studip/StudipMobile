@@ -312,7 +312,8 @@ img.contact {
         vertical-align: bottom;
         height:30px;
         border:1px dashed rgba(0,0,0,0.1);
-  background-color: rgba(252,238,146,0.5 );
+        background-color: #dee2e8;
+        /* background-color: rgba(252,238,146,0.5 ); */
 }
 .calendar_cell_inactive{
         color:#bbb9b9;
@@ -330,13 +331,15 @@ img.contact {
         width:16.5%;
 }
 .calendar_month_activ{
-        color:#e8c203;
+        /*color:#e8c203;*/
+        color:#24437c;
         width:16.5%;
 }
 .calendar_year{
         font-size:3em;
         float:block;
-        color:#e8c203;
+        /*color:#e8c203;*/
+        color:#24437c;
 }
 .calendar_bubble{
         border:1px dashed rgba(0,0,0,0.1);

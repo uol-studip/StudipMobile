@@ -15,7 +15,7 @@ $year = date("Y");
 <div data-role="page" id="timetable">
         <?= $this->render_partial('layouts/_side_menu') ?>
 
-        <div data-role="header" data-theme="e">
+        <div data-role="header" data-theme="a">
                 <?= $this->render_partial('layouts/_side_menu_link') ?>
                 <h1>Stundenplan</h1>
                 <a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">Planer</a>

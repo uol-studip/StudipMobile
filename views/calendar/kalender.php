@@ -16,7 +16,7 @@ $startAt = date("N",$stamp) -1;
 <div data-role="page" id="calendar">
         <?= $this->render_partial('layouts/_side_menu') ?>
 
-        <div data-role="header" data-theme="e">
+        <div data-role="header" data-theme="a">
         <?= $this->render_partial('layouts/_side_menu_link') ?>
 
                 <h1>Kalender</h1>
@@ -112,7 +112,7 @@ $startAt = date("N",$stamp) -1;
                 ?>
                 <div data-role="page" id="day<?=$key ?>">
 
-                        <div data-role="header" data-theme="e">
+                        <div data-role="header" data-theme="a">
                                 <a href="#calendar" class="externallink" data-ajax="false" data-icon="arrow-l" data-iconpos="notext" data-theme="c"><?=_("back")?></a>
                                 <h1><?=$key ?>.<?=$month ?>.<?=$year ?> </h1>
                         </div>
