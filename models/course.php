@@ -4,11 +4,12 @@ namespace Studip\Mobile;
 
 require_once("resource.php");
 
-//require_once('Dropbox/autoload.php');
-//require_once("dropboxCom.php");
+require_once('Dropbox/autoload.php');
+require_once("dropboxCom.php");
 
 class Course {
 
+    # TODO (mlunzena) remove these
     var $consumerKey     = '5wty9mf06gcuco0';
     var $consumerSecret  = 'hveok3hllw48hji';
 
