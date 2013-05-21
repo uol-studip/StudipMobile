@@ -9,6 +9,7 @@ class Resource
     static function getResources($course)
     {
         $resources = array();
+
         //for cycleDates
         foreach ($course->metadate->cycles as $cycle_date) {
             $metadate_id = $cycle_date->metadate_id;
@@ -16,12 +17,12 @@ class Resource
 
             //filter the resources
             $resourcesForTermin = array();
-            foreach ($termine AS $termin) {
+            foreach ($termine as $termin) {
                 if ($termin["resource_id"] != ""
                     && !in_array($termin["resource_id"], $resourcesForTermin)) {
 
                     //wenn resource_id gefunden in array packen
-                    array_push($resourcesForTermin, $termin["resource_id"]);
+                    $resourcesForTermin[] = $termin["resource_id"];
                 }
             }
 
@@ -29,7 +30,7 @@ class Resource
             // stored in $resourcesForTermin
 
             // for all resources fot the current date
-            foreach ($resourcesForTermin AS $resourceID) {
+            foreach ($resourcesForTermin as $resourceID) {
                 $resObject = \ResourceObject::Factory($resourceID);
                 $location = Resource::getLocationForResource($resObject);
                 $resources[$metadate_id]["id"]          = $resourceID;
@@ -42,76 +43,38 @@ class Resource
         return $resources;
     }
 
-    function getLocationForResource(&$resource)
+    function getLocationForResource($resource)
     {
-        $geoinfo   = array();
-        $location  = array();
-        $plainProp = $resource->getPlainProperties(false);
-        $regex     = "#(?:geoLocation:\s)([0-9\.]+)-([0-9\.]+)#";
-        if (preg_match_all($regex, $plainProp, $geoinfo) > 0) {
-            //pattern gefunden
-            $location["longitude"] = $geoinfo[2][0];
-            $location["latitude"]  = $geoinfo[1][0];
+        if ($location = self::extractLocation($resource)) {
             return $location;
         }
+
         $parentID = $resource->getParentId();
-        $parentObject = $resObject = \ResourceObject::Factory($parentID);
+        $parentObject = \ResourceObject::Factory($parentID);
         if ($parentObject->getId() == $parentObject->getRootId()) {
             return false;
         } else {
             //suche nach geoinfo am parent
             return Resource::getLocationForResource($parentObject);
         }
-
     }
 
-    function getResourceName($resourceID)
+    private function extractLocation($resource)
     {
-        // nachschlagen des namens
-        $query = "SELECT name, parent_id, resource_id FROM resources_objects WHERE resource_id = '$resourceID'";
-        $stmt = \DBManager::get()->query($query);
-        $result = $stmt->fetchAll();
 
+        return array("latitude" => 52.27, "longitude" => 8.05);
 
-        //nachschlagen des namens des parents
-        $parent_id = $result[0]["parent_id"];
-        $query2 = "SELECT name, resource_id FROM resources_objects WHERE resource_id = '$parent_id'";
-        $stmt = \DBManager::get()->query($query2);
-        $result2 = $stmt->fetchAll();
+        $plainProp = $resource->getPlainProperties(false);
+        $regex     = "#(?:geoLocation:\s)([0-9\.]+)-([0-9\.]+)#";
+        $geoinfo   = array();
 
-        if ($result == true && $result2 == true) {
-            return $result[0]["name"] . " / " . $result2[0]["name"];
+        if (preg_match_all($regex, $plainProp, $geoinfo) > 0) {
+            //pattern gefunden
+            $location["longitude"] = $geoinfo[2][0];
+            $location["latitude"]  = $geoinfo[1][0];
+            return $location;
         }
-        return false;
-    }
 
-    function getResourceLongitude($resourceID)
-    {
-        $query = "SELECT * FROM locations WHERE resource_id = '$resourceID'";
-        $stmt = \DBManager::get()->query($query);
-        $result = $stmt->fetchAll();
-        if ($result == true) {
-            return $result[0]["longitude"];
-        }
-        return false;
-    }
-
-    function getResourcelatitude($resourceID)
-    {
-        $query = "SELECT * FROM locations WHERE resource_id = '$resourceID'";
-        $stmt = \DBManager::get()->query($query);
-        $result = $stmt->fetchAll();
-        return $result[0]["latitude"];
-    }
-
-    function getResourceParent($resourceID)
-    {
-        $query = "SELECT parent_id, level, resource_id FROM resources_objects WHERE resource_id = '$resourceID'";
-        $stmt = \DBManager::get()->query($query);
-        $result = $stmt->fetchAll();
-        if ($result == true) {
-            return $result[0];
-        }
         return false;
     }
 }
