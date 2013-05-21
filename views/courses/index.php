@@ -8,10 +8,10 @@ $page_id = "courses-index";
 
 
     <div data-role="page" id="<?= $page_id ?: '' ?>" >
-      <?= $this->render_partial("layouts/side_menu.php") ?>
+      <?= $this->render_partial("layouts/_side_menu.php") ?>
 
       <div data-role="header"  data-theme="<?=TOOLBAR_THEME ?>">
-        <?= $this->render_partial("layouts/side_menu_link.php") ?>
+        <?= $this->render_partial("layouts/_side_menu_link.php") ?>
         <h1><?= $page_title ?: 'Stud.IP' ?></h1>
         <a href="<?= $controller->url_for("quickdial") ?>" class="externallink"
            data-ajax="false" data-icon="grid" data-iconpos="notext" data-theme="d"><?=_("Menu")?></a>

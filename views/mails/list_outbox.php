@@ -8,9 +8,9 @@ $this->set_layout("layouts/base");
 ?>
   
 <div data-role="page" id="<?= $page_id ?: '' ?>">
-        <?= $this->render_partial('layouts/side_menu') ?>
+        <?= $this->render_partial('layouts/_side_menu') ?>
 	<div data-role="header" data-theme="a">
-                <?= $this->render_partial('layouts/side_menu_link') ?>
+                <?= $this->render_partial('layouts/_side_menu_link') ?>
         	<h1><?=$page_title ?: 'Stud.IP' ?></h1>
         	<a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">Ausgang</a>
         	<div data-role="popup" id="popupMenu" data-theme="a">
@@ -41,7 +41,7 @@ $this->set_layout("layouts/base");
 			            if ( ( !$day ) || ( date("j.m.Y",$mail['mkdate']) != $dayCount ) )
 				        {	
 				        		$wochentag = \Studip\Mobile\Helper::get_weekday(date("N", $mail['mkdate']));
-				        		$monat      = \Studip\Mobile\Helper::get_moth(date("m", $mail['mkdate']));
+				        		$monat      = \Studip\Mobile\Helper::get_month(date("m", $mail['mkdate']));
 				        		$day = $wochentag.date(", j. ",$mail['mkdate']).$monat.date(", Y",$mail['mkdate']);
 				
 				                $dayCount = date("j.m.Y",$mail['mkdate']);

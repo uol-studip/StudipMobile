@@ -6,21 +6,16 @@ class Quickdail {
 
     static function get_number_unread_mails($user_id)
     {
-        $items = array();
-        $db = \DBManager::get();
-
         $query ="SELECT COUNT(*)
                  FROM message_user
-                 WHERE user_id = '$user_id '
+                 WHERE user_id = ?
                  AND readed  = 0
                  AND deleted = 0
                  AND snd_rec = 'rec'";
 
-        $result = $db->query($query);
-        foreach ($result as $row) {
-            $ausgabe = $row[0];
-        }
-        return $ausgabe;
+        $stmt = \DBManager::get()->prepare($query);
+        $stmt->execute(array($user_id));
+        return $stmt->fetchColumn(0);
     }
 
     static function get_next_courses($user_id)

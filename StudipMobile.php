@@ -4,6 +4,8 @@ class StudipMobile extends StudipPlugin implements SystemPlugin
 {
     const DEFAULT_CONTROLLER = "quickdial";
 
+    const DROPBOX_ENABLED = false;
+
     public function __construct() {
         parent::__construct();
 
