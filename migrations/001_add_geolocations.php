@@ -45,8 +45,8 @@ class AddGeolocations extends DBMigration {
       $query = "";
       foreach ($data as $_resource) {
           list($id, $name, $lat, $lon) = $_resource;
-          if (!$id) continue;
           $resource = ResourceObject::Factory($id);
+          if (!$resource->id) continue;
           $state = sprintf("%s-%s", $lat, $lon);
           #var_dump("connect:", $id, $state);
           $resource->storeProperty(self::getPropertyID(), $state);
