@@ -170,7 +170,7 @@ class Mail {
                   ORDER BY auth_user_md5.Nachname";
         
         
-        $stmt = \DBManager::get()->preapre($query);
+        $stmt = \DBManager::get()->prepare($query);
         $stmt->execute(array(':seminar_id' => $seminar["Seminar_id"]));
 
         $result = $stmt->fetchAll();
