@@ -26,5 +26,9 @@
         <img src="<?= $plugin_path ?>/public/images/quickdial/bw/profile.png"   class="ui-li-icon ui-corner-none" />
         Ich
     </a></li>
+    <li data-icon="false"><a href="<?= $controller->url_for("session/destroy") ?>" class="externallink contentLink" data-ajax="false">
+        <img src="<?= $plugin_path ?>/public/images/quickdial/bw/logout.png"   class="ui-li-icon ui-corner-none" />
+        Logout
+    </a></li>    
     </ul>
 </div><!-- /panel -->
