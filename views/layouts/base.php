@@ -23,7 +23,6 @@
     <!-- CUSTOM END -->
     <script src="<?= $plugin_path ?>/public/vendor/mustache/jquery.mustache.js"></script>
     <script src="<?= $plugin_path ?>/public/vendor/date/date.js"></script>
-    <script src="<?= $plugin_path ?>/public/javascripts/application.js"></script>
     <script src="<?= $plugin_path ?>/public/javascripts/jquery.swipeButton.min.js"></script>
     <script src="<?= $plugin_path ?>/public/javascripts/side_menu.min.js"></script>
     <script>
