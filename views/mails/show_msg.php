@@ -20,7 +20,7 @@ if (sizeof($mail))
 {
         $time = date("H:i",$mail[0]['mkdate']);
         $wochentag = \Studip\Mobile\Helper::get_weekday(date("N", $mail[0]['mkdate']));
-		$monat      = \Studip\Mobile\Helper::get_moth(date("m", $mail[0]['mkdate']));
+		$monat      = \Studip\Mobile\Helper::get_month(date("m", $mail[0]['mkdate']));
 		$day = $wochentag.date(", j. ",$mail[0]['mkdate']).$monat.date(", Y",$mail[0]['mkdate']);
         ?>
         <ul data-role="listview">

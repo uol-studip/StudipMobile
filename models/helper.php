@@ -58,7 +58,7 @@ class Helper {
         return $ausgabe;
     }
 
-    static function get_moth($month)
+    static function get_month($month)
     {
         switch ($month) {
         case 1:
