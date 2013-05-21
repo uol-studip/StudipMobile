@@ -56,11 +56,11 @@ $this->set_layout("layouts/base");
 			            <li data-theme="c" data-swipeurl="<?= $controller->url_for("mails/list_outbox", htmlReady($mail['id'])) ?>">
 			                    <a href="<?= $controller->url_for("mails/show_msg", htmlReady($mail['id'])) ?>"  data-transition="slideup">
 			                        <img src="<?= $plugin_path ?>/public/images/icons/invisible_dot.png" class="ui-li-icon uis-corner-none ui-li-thumb">
-			                        <h3><?= htmlReady($mail['author']) ?></h3>
-			                        <p><strong><?= htmlReady($mail['title']) ?></strong></p>
+			                        <h3><?= Studip\Mobile\Helper::out($string)($mail['author']) ?></h3>
+			                        <p><strong><?= Studip\Mobile\Helper::out($string)($mail['title']) ?></strong></p>
 			                
 			                        <p><?= htmlReady($mail['message']) ?></p>
-			                        <p class="ui-li-aside"><strong><?= htmlReady($time) ?></strong></p>
+			                        <p class="ui-li-aside"><strong><?= Studip\Mobile\Helper::out($string)($time) ?></strong></p>
 			                    </a>
 			            </li>
 			
