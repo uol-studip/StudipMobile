@@ -37,23 +37,25 @@ class CoursesController extends StudipMobileController
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
+
         // give seminarId to the view
-        $this->seminar_id   = $id;
+        $this->seminar_id = $id;
         // get files as array and give it to the view
-        $this->files        = Course::find_files($id, $this->currentUser()->id);
+        $this->files = Course::find_files($id, $this->currentUser()->id);
     }
 
     function show_action( $id = NULL )
     {
         // get specific course
-        $this->course      = Course::find($id);
+        $this->course = Course::find($id);
         // get specific ressources for the course
-        $this->resources   = Course::getResources($this->course);
+        $this->resources = Course::getResources($this->course);
 
         //exception if course is not readable
         if (!$this->course) {
             throw new Trails_Exception(404);
         }
+
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
@@ -63,9 +65,10 @@ class CoursesController extends StudipMobileController
     function show_map_action($id)
     {
         // get specific course object
-        $this->course      = Course::find($id);
+        $this->course = Course::find($id);
         // get destinations of the course
-        $this->resources   = Course::getResources($this->course);
+        $this->resources = Course::getResources($this->course);
+
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
@@ -73,6 +76,11 @@ class CoursesController extends StudipMobileController
 
     function dropfiles_action( $id = NULL )
     {
+
+        if (!StudipMobile::DROPBOX_ENABLED) {
+            throw new Trails_Exception(400);
+        }
+
         session_start();
 
         if (!Course::isReadable($id, $this->currentUser()->id)) {
@@ -80,17 +88,16 @@ class CoursesController extends StudipMobileController
         }
 
         //generate the callbacklink
-        // TODO (mlunzena): this won't work
-        $call_back_link =  "http://".$_SERVER['HTTP_HOST'].$this->url_for("courses/dropfiles", htmlReady($id) );
+        $call_back_link =  "http://".$_SERVER['HTTP_HOST'].$this->url_for("courses/dropfiles", htmlReady($id));
         // give seminar id to the view
-        $this->seminar_id       = $id;
+        $this->seminar_id = $id;
         // get files to sync width the userers dropbox
         // the view starts the upload via ajax
-        $this->files            = Course::find_files($id, $this->currentUser()->id);
+        $this->files = Course::find_files($id, $this->currentUser()->id);
         // give user_id t the view
-        $this->user_id          = $this->currentUser()->id;
+        $this->user_id = $this->currentUser()->id;
         // start the sync prozess
-        $this->dropCom          = Course::connectToDropbox( $this->currentUser()->id, $call_back_link );
+        $this->dropCom = Course::connectToDropbox( $this->currentUser()->id, $call_back_link );
     }
 
     /*
@@ -99,6 +106,10 @@ class CoursesController extends StudipMobileController
      */
     function upload_action( $fileid )
     {
+        if (!StudipMobile::DROPBOX_ENABLED) {
+            throw new Trails_Exception(400);
+        }
+
         // try to upload a specific file to the users dropboxs
         $this->upload_info = Course::dropboxUpload($fileid);
     }
@@ -111,15 +122,19 @@ class CoursesController extends StudipMobileController
      */
     function createDropboxFolder_action( $semId )
     {
+        if (!StudipMobile::DROPBOX_ENABLED) {
+            throw new Trails_Exception(400);
+        }
+
         $this->createdFolderInfo = Course::createDropboxFolders( $semId );
     }
 
     /*
      *  give an array width all members to the view
      */
-    function show_members_action( $semId )
+    function show_members_action($semId)
     {
-        $this->course      = Course::find($semId);
+        $this->course = Course::find($semId);
         $this->members = Course::getMembers( $semId );
         if (!Course::isReadable($semId, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
@@ -135,6 +150,10 @@ class CoursesController extends StudipMobileController
 
         // TODO (mlunzena) clear up this method
         throw new Trails_Exception(500, "Not implemented.");
+
+        if (!StudipMobile::DROPBOX_ENABLED) {
+            throw new Trails_Exception(400);
+        }
 
         session_start();
         $call_back_link         = $_SERVER['HTTP_HOST'].$this->url_for("courses/dropfiles", htmlReady($id) );
