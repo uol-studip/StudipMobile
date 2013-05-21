@@ -29,7 +29,7 @@ $this->set_layout("layouts/base");
       			// adressat wurde gewählt
 	      		?>
 	      			<p>
-	      			<form action="<?= $controller->url_for("mails/send", htmlReady($empfData['username'])) ?>" method="POST">
+	      			<form action="<?= $controller->url_for("mails/send", $empfData['username']) ?>" method="POST">
 	      				<div class="ui-grid-b a_bit_smaller_text" data-theme="c" style="font-size:10pt;">
                         	<div class="ui-block-a">
 	                        	<img  src="
@@ -37,14 +37,14 @@ $this->set_layout("layouts/base");
 	                        		alt="Profil-Bild">
                         	</div>
                         	<div class="ui-block-b">
-	                        	<h3>Empfänger: </h3><?=$empfData['vorname'] ?> <?=$empfData['nachname'] ?>
+	                        	<h3>Empfänger: </h3><?=Studip\Mobile\Helper::out($empfData['vorname']. " " . $empfData['nachname']) ?>
                         	</div>
                         </div><!-- /grid-a -->
 	      				<hr>
 	      				<h3>Betreff</h3>
 	      				<input name="mail_title">
 	      				<h3>Nachricht</h3>
-	      				<textarea style="min-height:200px;" name="mail_message">Sehr geehrte(r) <?=$empfData['vorname'] ?> <?=$empfData['nachname'] ?>,
+	      				<textarea style="min-height:200px;" name="mail_message">Sehr geehrte(r) <?=Studip\Mobile\Helper::out($empfData['vorname']) ?> <?=Studip\Mobile\Helper::out($empfData['nachname']) ?>,
 
 Mit freundlichen Grüßen</textarea>
 	      				<button value="submit">Senden</button>
@@ -64,9 +64,12 @@ Mit freundlichen Grüßen</textarea>
 					{
 					?>
 				        <li>
-					        <a href="<?= $controller->url_for("mails/write", htmlReady($member['user_id'])) ?>">
+					        <a href="<?= $controller->url_for("mails/write", $member['user_id']) ?>">
 						        <img src="<?= $controller->url_for("avatars/show", $member['user_id'], 'medium') ?>" class="ui-li-thumb">
-						        <h3><?=htmlReady($member["title_front"]) ?> <?=htmlReady($member['Vorname']) ?>  <?=htmlReady($member['Nachname'])?> </h3>
+						        <h3><?=Studip\Mobile\Helper::out($member["title_front"]) ?>
+						            <?=Studip\Mobile\Helper::out($member['Vorname']) ?>
+						            <?=Studip\Mobile\Helper::out($member['Nachname'])?>
+						        </h3>
 						    </a>
 				        </li>
 				    <?
