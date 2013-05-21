@@ -81,8 +81,6 @@ class CoursesController extends StudipMobileController
             throw new Trails_Exception(400);
         }
 
-        session_start();
-
         if (!Course::isReadable($id, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
@@ -155,7 +153,6 @@ class CoursesController extends StudipMobileController
             throw new Trails_Exception(400);
         }
 
-        session_start();
         $call_back_link         = $_SERVER['HTTP_HOST'].$this->url_for("courses/dropfiles", htmlReady($id) );
         $this->files            = Course::findAllFiles( $this->currentUser()->id );
         $this->user_id          = $this->currentUser()->id;
