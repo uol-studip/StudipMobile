@@ -2,19 +2,7 @@
 var DROPBOX_COUNTER = 0;
 // global indicator for upload or login errors
 var DROPBBOX_FAIL    = false;
-//
-var CREATED_FOLDERS = false;
 
-
-function setAjaxASync()
-{
-    $.ajaxSetup({async:true});
-}
-
-function setAjaxSync()
-{
-    $.ajaxSetup({async:false});
-}
 
 /*
  * You use this function to upload a specified
