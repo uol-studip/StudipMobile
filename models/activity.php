@@ -43,7 +43,7 @@ class Activity {
         if ($range === 'user') {
             $sem_filter = "seminar_user.user_id = :user_id AND auth_user_md5.user_id = :user_id";
             $inst_filter = "user_inst.user_id = :user_id AND auth_user_md5.user_id = :user_id";
-            
+
             $params[':user_id'] = $user_id;
         } else if (isset($range)) {
             $sem_filter = "seminar_user.user_id = :user_id AND Seminar_id = :range_id";
@@ -54,7 +54,7 @@ class Activity {
         } else {
             $sem_filter = "seminar_user.user_id = :user_id";
             $inst_filter = "user_inst.user_id = :user_id";
-            
+
             $params[':user_id'] = $user_id;
         }
 
@@ -208,7 +208,7 @@ class Activity {
                 'category' => 'wiki'
             );
         }
-        
+
         if ($seminar_cur == 0) {
             $sql = "SELECT wiki.*, $inst_fields
                     FROM wiki
