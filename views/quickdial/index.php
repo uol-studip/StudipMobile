@@ -1,5 +1,5 @@
 <?
-$page_title = _("Uni Osnabrück");
+$page_title = Studip\Mobile\Helper::out($GLOBALS['UNI_NAME_CLEAN']);
 $this->set_layout("layouts/base");
 
 ?>
@@ -51,7 +51,7 @@ $this->set_layout("layouts/base");
             </a>
           </div> -->
           <div class="ui-block-c grid scndrow">
-            <a href="<?= $controller->url_for("profiles/show",htmlReady($user_id)) ?>"
+            <a href="<?= $controller->url_for("profiles/show",$user_id) ?>"
                class="externallink" rel="external" data-ajax="false">
               <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/profile.png" /><br />
               <span>Ich</span>
@@ -76,16 +76,18 @@ $this->set_layout("layouts/base");
                                         <?
                                                 if (strlen($next["id"]) == 32)
             {
-              $this_link = $controller->url_for("courses/show", htmlReady($next["id"]));
+              $this_link = $controller->url_for("courses/show", $next["id"]);
             }
                                                 else    $this_link = "";
                                         ?>
                                                 <a href="<?=$this_link ?>" data-ajax='false'>
-                                                <p><strong><?=\Studip\Mobile\Helper::get_weekday($next["weekday"]) ?></strong> <?=htmlReady($next["title"]) ?></p>
+                                                <p><strong><?=\Studip\Mobile\Helper::get_weekday($next["weekday"]) ?></strong>
+                                                    <?=Studip\Mobile\Helper::out($next["title"]) ?>
+                                                </p>
                                                 <p>
-                                                        <?=htmlReady($next["description"]) ?>
+                                                    <?=Studip\Mobile\Helper::out($next["description"]) ?>
                                                     <span class="ui-li-count">
-                                                        <?=htmlReady($next["beginn"])?> - <?=htmlReady($next["ende"])?>
+                                                        <?=Studip\Mobile\Helper::out($next["beginn"])?> - <?=Studip\Mobile\Helper::out($next["ende"])?>
                                                     </span>
                                                 </p>
                                                 </a>
