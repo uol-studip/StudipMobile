@@ -32,12 +32,12 @@ $year = date("Y");
 
                 <table border=0 cellspacing=0 class="calendar_month">
                 <tr>
-                        <td class="<?echo ($weekday==1) ? "calendar_month_activ":"calendar_month_inactive"; ?>"  onclick="location.href='<?= $controller->url_for("calendar/index", htmlReady("1")) ?>'">MON</td>
-                        <td class="<?echo ($weekday==2) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", htmlReady("2")) ?>'">DIE</td>
-                        <td class="<?echo ($weekday==3) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", htmlReady("3")) ?>'">MIT</td>
-                        <td class="<?echo ($weekday==4) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", htmlReady("4")) ?>'">DON</td>
-                        <td class="<?echo ($weekday==5) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", htmlReady("5")) ?>'">FRE</td>
-                        <td class="<?echo ($weekday==6) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", htmlReady("6")) ?>'">SAM</td>
+                        <td class="<?echo ($weekday==1) ? "calendar_month_activ":"calendar_month_inactive"; ?>"  onclick="location.href='<?= $controller->url_for("calendar/index", "1") ?>'">MON</td>
+                        <td class="<?echo ($weekday==2) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", "2") ?>'">DIE</td>
+                        <td class="<?echo ($weekday==3) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", "3") ?>'">MIT</td>
+                        <td class="<?echo ($weekday==4) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", "4") ?>'">DON</td>
+                        <td class="<?echo ($weekday==5) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", "5") ?>'">FRE</td>
+                        <td class="<?echo ($weekday==6) ? "calendar_month_activ":"calendar_month_inactive" ; ?>" onclick="location.href='<?= $controller->url_for("calendar/index", "6") ?>'">SAM</td>
                 </tr>
                 </table>
                 <div style="width:100%;height:20px;"></div>
@@ -57,7 +57,7 @@ $year = date("Y");
                                                 {
                                                         if (strlen($termin['id']) >=32)
                                                         {
-                                                                $link = $controller->url_for("courses/show", htmlReady(substr($termin['id'],0,32)));
+                                                                $link = $controller->url_for("courses/show", substr($termin['id'],0,32));
                                                         }
                                                         else
                                                         {
@@ -70,8 +70,8 @@ $year = date("Y");
                                                                 <?=substr($termin["end"],0,2) ?>:<?=substr($termin["end"],2,2) ?>:
                                                         </div>
                                                         <div class="calendar_bubble"  onclick="location.href='<?=$link ?>'">
-                                                                <strong><?=htmlReady($termin["content"]) ?> </strong>
-                                                                <?=htmlReady($termin["title"]) ?>
+                                                                <strong><?=Studip\Mobile\Helper::out($termin["content"]) ?> </strong>
+                                                                <?=Studip\Mobile\Helper::out($termin["title"]) ?>
                                                         </div>
                                                         <?
                                                 }
