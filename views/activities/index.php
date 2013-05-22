@@ -6,7 +6,7 @@ $page_id = "activities-index";
 
 <ul id="activities" data-role="listview" data-filter="true" data-filter-placeholder="Suchen">
   <? foreach ($activities as $activity) { ?>
-    <li class="activity" data-activity="<?= htmlReady($activity['id']) ?>">
+    <li class="activity" data-activity="<?= $activity['id'] ?>">
 
       <? if (!empty($activity["link"])){ ?>
         <a href="<?= $activity['link'] ?>" class="externallink" data-ajax="false">
