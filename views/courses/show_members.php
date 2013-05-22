@@ -20,15 +20,18 @@ $status = '';
 		$status=$member['status'];
 		?>
 			<li data-role="list-divider">
-	         <?=ucfirst(htmlReady($member['status'])) ?>
+	         <?=ucfirst(Studip\Mobile\Helper::out($member['status'])) ?>
 	        </li>
 	    <?
 		}
 		?>
         <li>
-	        <a href=" <?= $controller->url_for("profiles/show", htmlReady($member['user_id'])) ?>" class="externallink" data-ajax="false">
+	        <a href=" <?= $controller->url_for("profiles/show", $member['user_id']) ?>" class="externallink" data-ajax="false">
 		        <img src="<?= $controller->url_for("avatars/show", $member['user_id'], 'medium') ?>" class="ui-li-thumb">
-		        <h3><?=htmlReady($member["title_front"]) ?> <?=htmlReady($member['Vorname']) ?>  <?=htmlReady($member['Nachname'])?> </h3>
+		        <h3><?=Studip\Mobile\Helper::out($member["title_front"]) ?> 
+		            <?=Studip\Mobile\Helper::out($member['Vorname']) ?>  
+		            <?=Studip\Mobile\Helper::out($member['Nachname'])?> 
+		        </h3>
 		    </a>
         </li>
     <?

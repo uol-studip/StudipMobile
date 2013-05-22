@@ -1,6 +1,6 @@
 <?
 
-$page_title = "Kurs: ". htmlReady($course->name);
+$page_title = "Kurs: " . Studip\Mobile\Helper::out($course->name);
 $page_id = "courses-show";
 $back_button = true;
 $this->set_layout("layouts/single_page");
@@ -24,9 +24,9 @@ if ( $course->visible == 1 )
 // print title and subtitle
 ?>
 
-<h2 class="insetText"><?= htmlReady($course->name) ?></h2>
+<h2 class="insetText"><?= Studip\Mobile\Helper::out($course->name) ?></h2>
 <? if ($course->subtitle) { ?>
-    <h4 style="position:relative;top:-15px;"><?= htmlReady($course->subtitle) ?></h4>
+    <h4 style="position:relative;top:-15px;"><?= Studip\Mobile\Helper::out($course->subtitle) ?></h4>
 <? } 
         
 
@@ -61,13 +61,13 @@ if ($course->metadate)
                 {
                         ?>
                                 <div class="ui-grid-b a_bit_smaller_text" data-theme="c">
-                                	<div class="ui-block-a"><strong><?= htmlReady($cycle_date->description) ?></strong></div>
-                                	<div class="ui-block-b"><?= \Studip\Mobile\Helper::get_weekday($cycle_date->weekday) ?><br> von <?=htmlReady(substr($cycle_date->start_time, 0,5)) ?> Uhr<br>bis <?= htmlReady(substr($cycle_date->end_time, 0,5)) ?> Uhr</div>
+                                	<div class="ui-block-a"><strong><?= Studip\Mobile\Helper::out($cycle_date->description) ?></strong></div>
+                                	<div class="ui-block-b"><?= \Studip\Mobile\Helper::get_weekday($cycle_date->weekday) ?><br> von <?=Studip\Mobile\Helper::out(substr($cycle_date->start_time, 0,5)) ?> Uhr<br>bis <?= Studip\Mobile\Helper::out(substr($cycle_date->end_time, 0,5)) ?> Uhr</div>
                                 	<? 
                                 	if(isset($resources[$cycle_date->metadate_id][name]))
                                 	{
                                 	    ?>
-                                	    <div class="ui-block-c">Ort: <?= htmlReady($resources[$cycle_date->metadate_id][name]) ?></div>
+                                	    <div class="ui-block-c">Ort: <?= Studip\Mobile\Helper::out($resources[$cycle_date->metadate_id][name]) ?></div>
                                 	    <?
                             	    }
                             	    ?>
@@ -118,14 +118,14 @@ if ($course->metadate)
 
 <fieldset class="ui-grid-a">
   <div class="ui-block-a">
-    <a href="<?= $controller->url_for("activities/index", htmlReady($course->id)) ?>" data-role="button" data-iconpos="right" data-icon="star" data-theme="b">News</a>
+    <a href="<?= $controller->url_for("activities/index", $course->id) ?>" data-role="button" data-iconpos="right" data-icon="star" data-theme="b">News</a>
   </div>
   <div class="ui-block-b">
   	<?
   		if (!empty($resources_locations))
   		{
 	  		?>
-	  		 <a href="<?= $controller->url_for("courses/show_map", htmlReady($course->id)) ?>" 
+	  		 <a href="<?= $controller->url_for("courses/show_map", $course->id) ?>" 
 	  		    data-role="button" data-iconpos="right" data-icon="star" data-theme="b"
 	  		    class="externallink" data-ajax="false">
 	  		    	Karte
@@ -142,10 +142,10 @@ if ($course->metadate)
   </div>
 
   <div class="ui-block-a">
-    <a href="<?= $controller->url_for("courses/list_files", htmlReady($course->id)) ?>" data-role="button">Dateien</a>
+    <a href="<?= $controller->url_for("courses/list_files", $course->id) ?>" data-role="button">Dateien</a>
   </div>
   <div class="ui-block-b">
-    <a href="<?= $controller->url_for("courses/show_members", htmlReady($course->id)) ?>"  class="externallink" data-ajax="false" data-role="button" data-iconpos="right" data-icon="" >Teilnehmer</a>
+    <a href="<?= $controller->url_for("courses/show_members", $course->id) ?>"  class="externallink" data-ajax="false" data-role="button" data-iconpos="right" data-icon="" >Teilnehmer</a>
   </div>
 </fieldset>
 
@@ -175,7 +175,7 @@ if ( !empty($resources_locations) )
 				?>
 				$('#map_canvas').gmap('addMarker', { 'position':  '<?=$resource['latitude'] ?> ,<?=$resource['longitude'] ?>', 'bounds': false}).click(function() 
 				{
-					$('#map_canvas').gmap('openInfoWindow', { 'content': '<span style="font-weight:bold"><?=htmlReady($resource[name]) ?></span><br><span style="font-weight:normal;"><?=htmlReady($resource[description]) ?></span' }, this);
+					$('#map_canvas').gmap('openInfoWindow', { 'content': '<span style="font-weight:bold"><?=Studip\Mobile\Helper::out($resource[name]) ?></span><br><span style="font-weight:normal;"><?=Studip\Mobile\Helper::out($resource[description]) ?></span' }, this);
 				});
 				<?
 			}

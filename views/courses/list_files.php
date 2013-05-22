@@ -8,7 +8,7 @@ $this->set_layout("layouts/single_page");
 <? if (sizeof($files)) { ?>
 
   <? if (StudipMobile::DROPBOX_ENABLED) : ?>
-  <a href="<?= $controller->url_for("courses/dropfiles", htmlReady($seminar_id)) ?>"
+  <a href="<?= $controller->url_for("courses/dropfiles", $seminar_id) ?>"
      class="externallink" data-ajax="false" data-role="button"
      data-theme="b">
     Alle Dateien in meine Dropbox
@@ -21,9 +21,9 @@ $this->set_layout("layouts/single_page");
         <a href="<?=$file["link"] ?>" class="externallink" data-ajax="false">
           <img src="<?=$plugin_path ?><?=$file["icon_link"] ?>" class="ui-li-icon">
           <div style="padding-left:10px;">
-            <h3><?= htmlReady($file["name"]) ?></h3>
-            <p><strong><?= htmlReady($file["author"]) ?></strong></p>
-            <p><?= htmlReady($file["description"]) ?></p>
+            <h3><?= Studip\Mobile\Helper::out($file["name"]) ?></h3>
+            <p><strong><?= Studip\Mobile\Helper::out($file["author"]) ?></strong></p>
+            <p><?= Studip\Mobile\Helper::out($file["description"]) ?></p>
           </div>
       </a></li>
     <? } ?>

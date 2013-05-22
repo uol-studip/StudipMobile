@@ -54,7 +54,7 @@ foreach ($resources AS $reso) {
               'bounds': false
             }).click(function() {
               $('#map_canvas').gmap('openInfoWindow', {
-                'content': '<span style="font-weight:bold"><?=htmlReady($resource[name]) ?></span><br><span style="font-weight:normal;"><?=htmlReady($resource[description]) ?></span'
+                'content': '<span style="font-weight:bold"><?=Studip\Mobile\Helper::out($resource[name]) ?></span><br><span style="font-weight:normal;"><?=Studip\Mobile\Helper::out($resource[description]) ?></span'
               }, this);
             });
             <? } ?>
