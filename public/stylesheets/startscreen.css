@@ -1,11 +1,11 @@
 .ui-page {
   
-  background: url("../img/studip.png") 50% 95% no-repeat, -webkit-gradient(linear, left top, left bottom, from( #1E3E70 /*{a-body-background-start}*/), to( #3C639E /*{a-body-background-end}*/)); /* Saf4+, Chrome */
-	background: url("../images/quickdial/studip.png") 50% 95% no-repeat, -webkit-linear-gradient(#1E3E70 /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
-	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,   -moz-linear-gradient(#1E3E70 /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* FF3.6 */
-	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,    -ms-linear-gradient(#1E3E70 /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* IE10 */
-	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,     -o-linear-gradient(#1E3E70 /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* Opera 11.10+ */
-	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,        linear-gradient(#1E3E70 /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/);
+  background: url("../img/studip.png") 50% 95% no-repeat, -webkit-gradient(linear, left top, left bottom, from( #24437c /*{a-body-background-start}*/), to( #3C639E /*{a-body-background-end}*/)); /* Saf4+, Chrome */
+	background: url("../images/quickdial/studip.png") 50% 95% no-repeat, -webkit-linear-gradient(#24437c /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,   -moz-linear-gradient(#24437c /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* FF3.6 */
+	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,    -ms-linear-gradient(#24437c /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* IE10 */
+	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,     -o-linear-gradient(#24437c /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* Opera 11.10+ */
+	background: url("../images/quickdial/studip.png") 50% 95% no-repeat,        linear-gradient(#24437c /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/);
 }
 
 .ui-content {
