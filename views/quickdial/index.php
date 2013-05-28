@@ -10,7 +10,7 @@ $this->set_layout("layouts/base");
 <div data-role="page" id="<?= $page_id ?: '' ?>" data-scroll='true'>
     <div data-role="header" data-theme="<?= TOOLBAR_THEME ?>">
       <a href="<?= $controller->url_for("session/destroy") ?>" data-role="button"
-         data-iconpos="noicon" class="externallink" data-ajax="false">Logout</a>
+         data-iconpos="noicon" class="externallink ui-btn-right" data-ajax="false">Logout</a>
         <h1><?= $page_title ?: 'Stud.IP' ?></h1>
     </div>
     <div data-role="content">
