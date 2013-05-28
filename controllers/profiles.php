@@ -32,5 +32,6 @@ class ProfilesController extends StudipMobileController
             $id = $this->currentUser()->id;
         }
         $this->data = Profile::findUser($id);
+        $this->cuid = $this->currentUser()->id;
     }
 }

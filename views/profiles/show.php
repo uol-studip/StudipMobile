@@ -3,6 +3,7 @@ $page_title = Studip\Mobile\Helper::out($data["user_data"]["title_front"]." ". $
 $page_id = "profile-index";
 $back_button = true;
 $this->set_layout("layouts/single_page");
+require_once('lib/user_visible.inc.php');
 
 ?>
 <div class="ui-grid-a" >
@@ -125,7 +126,7 @@ $this->set_layout("layouts/single_page");
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["hobby"]))
+			       		if (!empty($data["user_data"]["hobby"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'hobby'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -134,7 +135,7 @@ $this->set_layout("layouts/single_page");
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["lebenslauf"]))
+			       		if (!empty($data["user_data"]["lebenslauf"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'lebenslauf'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -184,7 +185,7 @@ $this->set_layout("layouts/single_page");
 			    }
 */
        	}
-       	if ( !empty($data["user_data"]["publi"]) )
+       	if ( !empty($data["user_data"]["publi"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'publi') )
 		       	{
 			       	?>
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
@@ -195,7 +196,7 @@ $this->set_layout("layouts/single_page");
 			       		</div>
 			       	<?
 		       	}
-		 if ( !empty($data["user_data"]["schwerp"]) )
+		 if ( !empty($data["user_data"]["schwerp"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'schwerp'))
 		       	{
 			       	?>
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
