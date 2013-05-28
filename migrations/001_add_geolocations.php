@@ -2,7 +2,6 @@
 class AddGeolocations extends DBMigration {
 
     function up() {
-        $this->down();
       $this->addProperty();
       $this->connectProperties();
   }
