@@ -132,11 +132,11 @@ class CoursesController extends StudipMobileController
      */
     function show_members_action($semId)
     {
-        $this->course = Course::find($semId);
-        $this->members = Course::getMembers( $semId );
         if (!Course::isReadable($semId, $this->currentUser()->id)) {
             throw new Trails_Exception(403);
         }
+        $this->course = Course::find($semId);
+        $this->members = Course::getMembers( $semId );
     }
 
     /*
