@@ -8,9 +8,8 @@ require_once('lib/user_visible.inc.php');
 ?>
 <div class="ui-grid-a" >
        <div class="ui-block-a">
-       <? $avatar_user_id = is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'picture') ? $user_id : 'nobody'; ?>  
-    	<img class="contact" style="width:90%;" src="<?= $controller->url_for("avatars/show", $avatar_user_id, 'normal') ?>" alt="Profil-Bild">
-	</div>
+            <?= Avatar::getAvatar($user_id)->getImageTag(Avatar::NORMAL, array('style' => 'width:90%;', 'alt' => 'Profil-Bild')) ?>
+	   </div>
        <div class="ui-block-b">
 	         <ul data-role="listview" data-theme="c" data-inset="true" style="font-size:9pt;">
 	           <?

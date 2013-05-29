@@ -27,7 +27,7 @@ $status = '';
 		?>
         <li>
 	        <a href=" <?= $controller->url_for("profiles/show", $member['user_id']) ?>" class="externallink" data-ajax="false">
-		        <img src="<?= $controller->url_for("avatars/show", $member['user_id'], 'medium') ?>" class="ui-li-thumb">
+	            <?= Avatar::getAvatar($user_id)->getImageTag(Avatar::MEDIUM, array('class' => 'ui-li-thumb')) ?>
 		        <h3><?=Studip\Mobile\Helper::out($member["title_front"]) ?> 
 		            <?=Studip\Mobile\Helper::out($member['Vorname']) ?>  
 		            <?=Studip\Mobile\Helper::out($member['Nachname'])?> 
