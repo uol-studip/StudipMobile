@@ -127,6 +127,9 @@ class CoursesController extends StudipMobileController
         $this->createdFolderInfo = Course::createDropboxFolders( $semId );
     }
 
+
+    const MEMBER_THRESHOLD = 40;
+
     /*
      *  give an array width all members to the view
      */
@@ -136,7 +139,12 @@ class CoursesController extends StudipMobileController
             throw new Trails_Exception(403);
         }
         $this->course = Course::find($semId);
-        $this->members = Course::getMembers( $semId );
+
+        $count = $this->course->countMembers($semId);
+
+        if (Request::submitted("deep") || $count <= self::MEMBER_THRESHOLD) {
+            $this->members = Course::getMembers($semId);
+        }
     }
 
     /*

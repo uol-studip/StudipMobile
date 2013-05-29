@@ -75,7 +75,16 @@ class Course {
         return $stmt->fetchAll();
     }
 
-    function getMembers($semId)
+    function countMembers($id)
+    {
+        //$query = "SELECT COUNT(*) FROM seminar_user WHERE Seminar_id = ? AND status IN ('autor', 'user') AND visible = 'yes'";
+        $query = "SELECT COUNT(*) FROM seminar_user WHERE Seminar_id = ? AND visible = 'yes'";
+        $stmt = \DBManager::get()->prepare($query);
+        $stmt->execute(array($id));
+        return $stmt->fetchColumn();
+    }
+
+    function getMembers($id)
     {
         $query = "SELECT seminar_user.Seminar_id, seminar_user.user_id, seminar_user.visible,
                   seminar_user.status, auth_user_md5.Vorname, auth_user_md5.Nachname, user_info.title_front
@@ -83,12 +92,12 @@ class Course {
                   JOIN   auth_user_md5 ON auth_user_md5.user_id = seminar_user.user_id
                   JOIN   user_info     ON auth_user_md5.user_id = user_info.user_id
                   WHERE  seminar_user.visible = 'yes' AND seminar_user.Seminar_id = ?
-                  ORDER BY FIELD(seminar_user.status, 'dozent','tutor' ,'autor', 'user'), auth_user_md5.Nachname
-                  ";
+                  ORDER BY FIELD(seminar_user.status, 'dozent','tutor' ,'autor', 'user'), auth_user_md5.Nachname";
         $stmt = \DBManager::get()->prepare($query);
-        $stmt->execute(array($semId));
+        $stmt->execute(array($id));
         return $stmt->fetchAll();
     }
+
 
     static function find($id)
     {
