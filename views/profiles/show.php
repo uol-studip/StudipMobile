@@ -4,7 +4,7 @@ $page_id = "profile-index";
 $back_button = true;
 $this->set_layout("layouts/single_page");
 require_once('lib/user_visible.inc.php');
-
+$user_id = $data['user_data']['user_id']
 ?>
 <div class="ui-grid-a" >
        <div class="ui-block-a">
@@ -13,7 +13,7 @@ require_once('lib/user_visible.inc.php');
        <div class="ui-block-b">
 	         <ul data-role="listview" data-theme="c" data-inset="true" style="font-size:9pt;">
 	           <?
-	                if(isset($data["user_data"]["email"]))
+	                if(isset($data["user_data"]["email"]) && (get_visible_email($user_id) != ''))
 	                {
 	                        ?>
 	                                <li><a href="mailto:<?=htmlReady( $data["user_data"]["email"] ) ?>">
@@ -23,7 +23,7 @@ require_once('lib/user_visible.inc.php');
 	                }
 	                ?>
 	                <li>
-	                	<a href="<?= $controller->url_for("mails/write", htmlReady($data["user_data"]['user_id'])) ?>">
+	                	<a href="<?= $controller->url_for("mails/write", htmlReady($user_id)) ?>">
 	                		<p style="margin:auto;">Nachricht senden</p>
 	                	</a>
 	                </li>
@@ -44,7 +44,7 @@ require_once('lib/user_visible.inc.php');
 	       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="false">
 		       		<h3>Kontakt</h3>		       		
 		       		<?
-		       			if (!empty($data["user_inst"]["Telefon"]))
+		       			if (!empty($data["user_inst"]["Telefon"]) && is_element_visible_for_user($cuid, $user_id, 'Telefon'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -53,7 +53,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_inst"]["Fax"]))
+			       		if (!empty($data["user_inst"]["Fax"]) && is_element_visible_for_user($cuid, $user_id, 'fax'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -62,7 +62,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_inst"]["raum"]))
+			       		if (!empty($data["user_inst"]["raum"]) && is_element_visible_for_user($cuid, $user_id, 'raum'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -71,7 +71,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_inst"]["sprechzeiten"]))
+			       		if (!empty($data["user_inst"]["sprechzeiten"]) && is_element_visible_for_user($cuid, $user_id, 'sprechzeiten'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -89,7 +89,7 @@ require_once('lib/user_visible.inc.php');
 			       		<?
 			       		
 		       		    
-		       			if (!empty($data["user_data"]["privatnr"]))
+		       			if (!empty($data["user_data"]["privatnr"]) && is_element_visible_for_user($cuid, $user_id, 'privatnr'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -98,7 +98,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["privatcell"]))
+			       		if (!empty($data["user_data"]["privatcell"]) && is_element_visible_for_user($cuid, $user_id, 'privatcell'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -107,7 +107,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["privadr"]))
+			       		if (!empty($data["user_data"]["privadr"]) && is_element_visible_for_user($cuid, $user_id, 'privatadr'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -116,7 +116,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["home"]))
+			       		if (!empty($data["user_data"]["home"]) && is_element_visible_for_user($cuid, $user_id, 'home'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -126,7 +126,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["hobby"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'hobby'))
+			       		if (!empty($data["user_data"]["hobby"]) && is_element_visible_for_user($cuid, $user_id, 'hobby'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -135,7 +135,7 @@ require_once('lib/user_visible.inc.php');
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["lebenslauf"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'lebenslauf'))
+			       		if (!empty($data["user_data"]["lebenslauf"]) && is_element_visible_for_user($cuid, $user_id, 'lebenslauf'))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -147,45 +147,8 @@ require_once('lib/user_visible.inc.php');
 		       		?>
 	       		</div>
 	       	<?
-/*
-	       	if (!empty($data["user_data"]["privadr"]))
-	       	{
-		       	?>
-		       		<script type="text/javascript">
-				        $(function() {
-				                var yourStartLatLng = new google.maps.LatLng(<?=$first_resource['latitude'] ?> ,<?=$first_resource['longitude'] ?>);
-				                $('#map_canvas').gmap({'center': yourStartLatLng,
-									zoom: 14, 
-									mapTypeId: google.maps.MapTypeId.ROADMAP,
-									'disableDefaultUI':true,
-									navigationControl: false});
-						$('#map_canvas').gmap().bind('init', function() 
-						{ 
-							<?
-							foreach ($resources_locations AS $resource)
-							{
-								if ( !empty($resource['latitude']) ||  !empty($resource['longitude']))
-								?>
-								$('#map_canvas').gmap('addMarker', { 'position':  '<?=$resource['latitude'] ?> ,<?=$resource['longitude'] ?>', 'bounds': false}).click(function() 
-								{
-									$('#map_canvas').gmap('openInfoWindow', { 'content': '<?=htmlReady($resource[name]) ?>' }, this);
-								});
-								<?
-							}
-							?>  
-							                                                                                                                                                                                                                             
-						});
-				        });
-				</script>
-				<div class="ui-bar-c ui-corner-all ui-shadow" style="margin-top:2em;">
-					<div id="map_canvas" style="height:300px"></div>
-				</div>
-
-		       	<?
-			    }
-*/
        	}
-       	if ( !empty($data["user_data"]["publi"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'publi') )
+       	if ( !empty($data["user_data"]["publi"]) && is_element_visible_for_user($cuid, $user_id, 'publi') )
 		       	{
 			       	?>
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
@@ -196,7 +159,7 @@ require_once('lib/user_visible.inc.php');
 			       		</div>
 			       	<?
 		       	}
-		 if ( !empty($data["user_data"]["schwerp"]) && is_element_visible_for_user($cuid, $data["user_data"]['user_id'], 'schwerp'))
+		 if ( !empty($data["user_data"]["schwerp"]) && is_element_visible_for_user($cuid, $user_id, 'schwerp'))
 		       	{
 			       	?>
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
