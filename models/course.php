@@ -16,9 +16,9 @@ class Course {
     function __construct($id)
     {
         $seminar = new \Seminar($id);
-        if ($seminar->isVisible()) {
+        //if ($seminar->isVisible()) {
             $this->delegate = $seminar;
-        }
+        //}
     }
 
     function __get($key)

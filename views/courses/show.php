@@ -19,8 +19,9 @@ foreach ($resources AS $reso)
 
 //ausgabe 
 
-if ( $course->visible == 1 )
+/*if ( $course->visible == 1 )
 {
+*/
 // print title and subtitle
 ?>
 
@@ -196,6 +197,7 @@ if ( !empty($resources_locations) )
 
 
 <?
+/*
 }
 else
 {
@@ -203,3 +205,4 @@ else
                 <h2>Der Kurs ist leider nicht sichtbar</h2>
         <?
 }
+*/
