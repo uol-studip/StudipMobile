@@ -44,9 +44,7 @@ $this->set_layout("layouts/base");
 	      				<h3>Betreff</h3>
 	      				<input name="mail_title">
 	      				<h3>Nachricht</h3>
-	      				<textarea style="min-height:200px;" name="mail_message">Sehr geehrte(r) <?=Studip\Mobile\Helper::out($empfData['vorname']) ?> <?=Studip\Mobile\Helper::out($empfData['nachname']) ?>,
-
-Mit freundlichen Grüßen</textarea>
+	      				<textarea style="min-height:200px;" name="mail_message"></textarea>
 	      				<button value="submit">Senden</button>
 	      				</p>
 	      		<?

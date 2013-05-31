@@ -59,7 +59,7 @@ else
                     <h3><?= Studip\Mobile\Helper::out($mail['author']) ?></h3>
                     <p><strong><?= Studip\Mobile\Helper::out($mail['title']) ?></strong></p>
                 
-                    <p><?= Studip\Mobile\Helper::out($mail['message']) ?>
+                    <p><?= Studip\Mobile\Helper::fout($mail['message']) ?>
                     <p class="ui-li-aside"><strong><?= Studip\Mobile\Helper::out($time) ?></strong></p>
             </a></li>
 

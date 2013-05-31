@@ -56,8 +56,8 @@ class Mail {
 
         $stmt = $db->prepare("SELECT $user_fields, $msg_fields, $msg_user_fields
             FROM message
-            JOIN auth_user_md5 ON message.autor_id = auth_user_md5.user_id
-            JOIN message_user USING (message_id)
+            LEFT JOIN auth_user_md5 ON message.autor_id = auth_user_md5.user_id
+            LEFT JOIN message_user USING (message_id)
             WHERE message.message_id     =  ?
                 AND message_user.user_id =  ?
                 AND message_user.deleted =  '0'
