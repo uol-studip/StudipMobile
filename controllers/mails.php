@@ -96,19 +96,25 @@ class MailsController extends StudipMobileController
                 
             $stmt->execute(array($this->currentUser()->id ));
             $contacts =  $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+            
+            if(!empty($contacts)) {
+                $query = "SELECT auth_user_md5.user_id, auth_user_md5.Vorname, auth_user_md5.Nachname, user_info.title_front
+                              FROM   auth_user_md5 
+                              JOIN   user_info     ON auth_user_md5.user_id = user_info.user_id
+                              WHERE auth_user_md5.user_id IN (:user_ids)
+                              ORDER BY auth_user_md5.Nachname";
+                $stmt = \DBManager::get()->prepare($query);
+                $stmt->bindParam(':user_ids', $contacts, \StudipPDO::PARAM_ARRAY);
+                $stmt->execute();
+
+                $this->members = $stmt->fetchAll();
+            } else {
+                $this->members = false;
+            }
 
         
-          
-            $query = "SELECT auth_user_md5.user_id, auth_user_md5.Vorname, auth_user_md5.Nachname, user_info.title_front
-                          FROM   auth_user_md5 
-                          JOIN   user_info     ON auth_user_md5.user_id = user_info.user_id
-                          WHERE auth_user_md5.user_id IN (:user_ids)
-                          ORDER BY auth_user_md5.Nachname";
-            $stmt = \DBManager::get()->prepare($query);
-            $stmt->bindParam(':user_ids', $contacts, \StudipPDO::PARAM_ARRAY);
-            $stmt->execute();
+           
 
-            $this->members = $stmt->fetchAll();
                 
             
         } else {

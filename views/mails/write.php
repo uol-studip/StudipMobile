@@ -53,27 +53,35 @@ Mit freundlichen Grüßen</textarea>
       		}
       		else
       		{
-	      		//kein adressat wurde gewählt, es werden alle teilnehmer aller besuchten veranstaltungen 
-	      		//zur auswahl gestellt
+	      		//kein adressat wurde gewählt, es werden alle teilnehmer alle Kontakte
 	      		
 	      		?>
 				<ul id="courses" data-role="listview" data-filter="true" data-filter-placeholder="Suchen" data-divider-theme="d" >
 				<li data-role="divider" data-theme="d">Bitte wählen Sie einen Empfänger:</li>
 				<?
-					foreach ($members AS $member)   
-					{
-					?>
-				        <li>
-					        <a href="<?= $controller->url_for("mails/write", $member['user_id']) ?>">
-					            <?= Avatar::getAvatar($member['user_id'])->getImageTag(Avatar::MEDIUM, array('class' => 'ui-li-thumb')) ?>
-						        <h3><?=Studip\Mobile\Helper::out($member["title_front"]) ?>
-						            <?=Studip\Mobile\Helper::out($member['Vorname']) ?>
-						            <?=Studip\Mobile\Helper::out($member['Nachname'])?>
-						        </h3>
-						    </a>
-				        </li>
-				    <?
-				    }
+				    if($members) {
+					    foreach ($members AS $member)   
+    					{
+    					?>
+    				        <li>
+    					        <a href="<?= $controller->url_for("mails/write", $member['user_id']) ?>">
+    					            <?= Avatar::getAvatar($member['user_id'])->getImageTag(Avatar::MEDIUM, array('class' => 'ui-li-thumb')) ?>
+    						        <h3><?=Studip\Mobile\Helper::out($member["title_front"]) ?>
+    						            <?=Studip\Mobile\Helper::out($member['Vorname']) ?>
+    						            <?=Studip\Mobile\Helper::out($member['Nachname'])?>
+    						        </h3>
+    						    </a>
+    				        </li>
+    				    <?
+    				    }
+    				} else {
+    				    ?>
+    				    <li>
+    				    <h3>Sie haben noch keine Kontake!</h3>
+                        <p>Bitte fügen Sie NutzerInnen zu Ihrer Kontaktliste hinzu, um diese als Empfänger auswählen zu können.</p>
+                        </li>
+                        <?
+    				}
 				    ?>
 				</ul>
 				<?
