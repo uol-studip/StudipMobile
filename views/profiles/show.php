@@ -122,7 +122,7 @@ $visibilities = get_local_visibility_by_id($user_id, 'homepage');
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Homepage (privat)</div>
-									<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_data"]["home"])) ?>
+									<div class="ui-block-b"><?=\Studip\Mobile\Helper::fout( $data["user_data"]["home"]) ?>
 									</div>
 								</div>
 				       		<?
@@ -132,7 +132,7 @@ $visibilities = get_local_visibility_by_id($user_id, 'homepage');
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Hobbys</div>
-									<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_data"]["hobby"])) ?></div>
+									<div class="ui-block-b"><?=\Studip\Mobile\Helper::fout($data["user_data"]["hobby"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -141,7 +141,7 @@ $visibilities = get_local_visibility_by_id($user_id, 'homepage');
 				       		?>
 				       			<div class="ui-grid-a">
 									<div class="ui-block-a">Lebenslauf</div>
-									<div class="ui-block-b"><?=Studip\Mobile\Helper::out($data["user_data"]["lebenslauf"]) ?></div>
+									<div class="ui-block-b"><?=Studip\Mobile\Helper::fout($data["user_data"]["lebenslauf"]) ?></div>
 								</div>
 				       		<?
 			       		}
@@ -155,7 +155,7 @@ $visibilities = get_local_visibility_by_id($user_id, 'homepage');
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
 			       			<h3>Publikationen</h3>		
 			       			<p>
-			       			<?=\Studip\Mobile\Helper::correctText(htmlReady($data["user_data"]["publi"])) ?>
+			       			<?=\Studip\Mobile\Helper::fout($data["user_data"]["publi"]) ?>
 			       			</p>
 			       		</div>
 			       	<?
@@ -166,7 +166,7 @@ $visibilities = get_local_visibility_by_id($user_id, 'homepage');
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
 			       			<h3>Schwerpunkte</h3>		
 			       			<p>
-			       			<?=Studip\Mobile\Helper::out($data["user_data"]["schwerp"]) ?>
+			       			<?=Studip\Mobile\Helper::fout($data["user_data"]["schwerp"]) ?>
 			       			</p>
 			       		</div>
 			       	<?
@@ -179,7 +179,7 @@ $visibilities = get_local_visibility_by_id($user_id, 'homepage');
 		 {
 			 	?>
 		       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
-		       			<h3>Institut Infos</h3>		
+		       			<h3>Einrichtungsdaten</h3>		
 		       			<?
 	       				if ( !empty($data["inst_info"]["inst_name"]) )
 	       				{

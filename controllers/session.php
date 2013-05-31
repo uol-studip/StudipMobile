@@ -52,13 +52,14 @@ class SessionController extends StudipMobileController
     function destroy_action()
     {
         global $perm, $user, $auth, $sess, $forced_language, $_language;
+         $auth->logout();
         $perm = null;
         $user = null;
-        $auth->logout();
         $forced_language = null;
         $_language = null;
         $sess->delete();
-        $this->redirect("activities");
+        closeObject();
+        $this->redirect("session/new");
     }
 
     protected function start_session($user_id)

@@ -90,8 +90,14 @@ class MailsController extends StudipMobileController
             
     //        $this->members  = Mail::findAllInvolvedMembers( $this->currentUser()->id );
             
+            
+            $stmt = DBManager::get()->prepare('SELECT user_id FROM contact '.
+                                                  'WHERE owner_id = ?');
+                
+            $stmt->execute(array($this->currentUser()->id ));
+            $contacts =  $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
-            $buddies = GetBuddyIDs( $this->currentUser()->id );
+        
           
             $query = "SELECT auth_user_md5.user_id, auth_user_md5.Vorname, auth_user_md5.Nachname, user_info.title_front
                           FROM   auth_user_md5 
@@ -99,7 +105,7 @@ class MailsController extends StudipMobileController
                           WHERE auth_user_md5.user_id IN (:user_ids)
                           ORDER BY auth_user_md5.Nachname";
             $stmt = \DBManager::get()->prepare($query);
-            $stmt->bindParam(':user_ids', $buddies, \StudipPDO::PARAM_ARRAY);
+            $stmt->bindParam(':user_ids', $contacts, \StudipPDO::PARAM_ARRAY);
             $stmt->execute();
 
             $this->members = $stmt->fetchAll();

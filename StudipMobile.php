@@ -9,11 +9,13 @@ class StudipMobile extends StudipPlugin implements SystemPlugin
     public function __construct() {
         parent::__construct();
 
+        /*
         // TODO (mlunzena) remove this after debugging
         $navigation = new AutoNavigation(_('Mobilansicht'));
         $navigation->setURL(PluginEngine::getURL('StudipMobile', array(), ''));
         $navigation->setImage(Assets::image_path('blank.gif'));
         Navigation::addItem('/mobile', $navigation);
+        */
     }
 
 

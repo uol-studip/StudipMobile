@@ -103,7 +103,12 @@ class Helper {
 
     public static function out($text)
     {
-        return studip_utf8encode(htmlReady($text));
+        return mb_convert_encoding(htmlReady($text) ,'WINDOWS-1252', 'UTF-8');
+    }
+    
+    public static function fout($text)
+    {
+        return mb_convert_encoding(formatReady($text) ,'WINDOWS-1252', 'UTF-8');
     }
 
     public static function correctText($text)
