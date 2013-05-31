@@ -22,10 +22,8 @@
       </div>
 
       <input type="submit" value="Login">
-
     </form>
-
-    <button data-theme="e"><a href="<?=$_SERVER['HTTP_HOST'] ?>">Zur Webansicht</a></button>
+    <a id="login" href="<? echo URLHelper::getlink($GLOBALS['ABSOLUTE_URI_STUDIP']); ?>" data-role="button" data-theme="e">Zur Webansicht</a>
   </div><!-- /content -->
 
 </div>

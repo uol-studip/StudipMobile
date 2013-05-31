@@ -65,7 +65,7 @@ Mit freundlichen Grüßen</textarea>
 					?>
 				        <li>
 					        <a href="<?= $controller->url_for("mails/write", $member['user_id']) ?>">
-						        <img src="<?= $controller->url_for("avatars/show", $member['user_id'], 'medium') ?>" class="ui-li-thumb">
+					            <?= Avatar::getAvatar($member['user_id'])->getImageTag(Avatar::MEDIUM, array('class' => 'ui-li-thumb')) ?>
 						        <h3><?=Studip\Mobile\Helper::out($member["title_front"]) ?>
 						            <?=Studip\Mobile\Helper::out($member['Vorname']) ?>
 						            <?=Studip\Mobile\Helper::out($member['Nachname'])?>

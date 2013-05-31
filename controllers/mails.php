@@ -85,7 +85,26 @@ class MailsController extends StudipMobileController
     function write_action($empf = null)
     {
         if ($empf == null) {
-            $this->members  = Mail::findAllInvolvedMembers( $this->currentUser()->id );
+            
+            
+            
+    //        $this->members  = Mail::findAllInvolvedMembers( $this->currentUser()->id );
+            
+
+            $buddies = GetBuddyIDs( $this->currentUser()->id );
+          
+            $query = "SELECT auth_user_md5.user_id, auth_user_md5.Vorname, auth_user_md5.Nachname, user_info.title_front
+                          FROM   auth_user_md5 
+                          JOIN   user_info     ON auth_user_md5.user_id = user_info.user_id
+                          WHERE auth_user_md5.user_id IN (:user_ids)
+                          ORDER BY auth_user_md5.Nachname";
+            $stmt = \DBManager::get()->prepare($query);
+            $stmt->bindParam(':user_ids', $buddies, \StudipPDO::PARAM_ARRAY);
+            $stmt->execute();
+
+            $this->members = $stmt->fetchAll();
+                
+            
         } else {
             $this->empfData = User::find($empf)->getData();
         }

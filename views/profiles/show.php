@@ -4,7 +4,8 @@ $page_id = "profile-index";
 $back_button = true;
 $this->set_layout("layouts/single_page");
 require_once('lib/user_visible.inc.php');
-$user_id = $data['user_data']['user_id']
+$user_id = $data['user_data']['user_id'];
+$visibilities = get_local_visibility_by_id($user_id, 'homepage');
 ?>
 <div class="ui-grid-a" >
        <div class="ui-block-a">
@@ -44,7 +45,7 @@ $user_id = $data['user_data']['user_id']
 	       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="false">
 		       		<h3>Kontakt</h3>		       		
 		       		<?
-		       			if (!empty($data["user_inst"]["Telefon"]) && is_element_visible_for_user($cuid, $user_id, 'Telefon'))
+		       			if (!empty($data["user_inst"]["Telefon"]))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -53,7 +54,7 @@ $user_id = $data['user_data']['user_id']
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_inst"]["Fax"]) && is_element_visible_for_user($cuid, $user_id, 'fax'))
+			       		if (!empty($data["user_inst"]["Fax"]))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -62,7 +63,7 @@ $user_id = $data['user_data']['user_id']
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_inst"]["raum"]) && is_element_visible_for_user($cuid, $user_id, 'raum'))
+			       		if (!empty($data["user_inst"]["raum"]))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -71,7 +72,7 @@ $user_id = $data['user_data']['user_id']
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_inst"]["sprechzeiten"]) && is_element_visible_for_user($cuid, $user_id, 'sprechzeiten'))
+			       		if (!empty($data["user_inst"]["sprechzeiten"]))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -89,7 +90,7 @@ $user_id = $data['user_data']['user_id']
 			       		<?
 			       		
 		       		    
-		       			if (!empty($data["user_data"]["privatnr"]) && is_element_visible_for_user($cuid, $user_id, 'privatnr'))
+		       			if (!empty($data["user_data"]["privatnr"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['private_phone']))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -98,7 +99,7 @@ $user_id = $data['user_data']['user_id']
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["privatcell"]) && is_element_visible_for_user($cuid, $user_id, 'privatcell'))
+			       		if (!empty($data["user_data"]["privatcell"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['private_cell']))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -107,35 +108,35 @@ $user_id = $data['user_data']['user_id']
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["privadr"]) && is_element_visible_for_user($cuid, $user_id, 'privatadr'))
+			       		if (!empty($data["user_data"]["privadr"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['privadr']))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
-									<div class="ui-block-a">Adresse(privat)</div>
+									<div class="ui-block-a">Adresse (privat)</div>
 									<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["user_data"]["privadr"]) ?></div>
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["home"]) && is_element_visible_for_user($cuid, $user_id, 'home'))
+			       		if (!empty($data["user_data"]["home"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['homepage']))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
-									<div class="ui-block-a">Webseite(privat)</div>
+									<div class="ui-block-a">Homepage (privat)</div>
 									<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_data"]["home"])) ?>
 									</div>
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["hobby"]) && is_element_visible_for_user($cuid, $user_id, 'hobby'))
+			       		if (!empty($data["user_data"]["hobby"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['hobby']))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
-									<div class="ui-block-a">Hobby's</div>
+									<div class="ui-block-a">Hobbys</div>
 									<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText(htmlReady( $data["user_data"]["hobby"])) ?></div>
 								</div>
 				       		<?
 			       		}
-			       		if (!empty($data["user_data"]["lebenslauf"]) && is_element_visible_for_user($cuid, $user_id, 'lebenslauf'))
+			       		if (!empty($data["user_data"]["lebenslauf"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['lebenslauf']))
 			       		{
 				       		?>
 				       			<div class="ui-grid-a">
@@ -148,7 +149,7 @@ $user_id = $data['user_data']['user_id']
 	       		</div>
 	       	<?
        	}
-       	if ( !empty($data["user_data"]["publi"]) && is_element_visible_for_user($cuid, $user_id, 'publi') )
+       	if ( !empty($data["user_data"]["publi"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['publi']))
 		       	{
 			       	?>
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
@@ -159,7 +160,7 @@ $user_id = $data['user_data']['user_id']
 			       		</div>
 			       	<?
 		       	}
-		 if ( !empty($data["user_data"]["schwerp"]) && is_element_visible_for_user($cuid, $user_id, 'schwerp'))
+		 if ( !empty($data["user_data"]["schwerp"]) && is_element_visible_for_user($cuid, $user_id, $visibilities['schwerp']))
 		       	{
 			       	?>
 			       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
@@ -178,7 +179,7 @@ $user_id = $data['user_data']['user_id']
 		 {
 			 	?>
 		       		<div data-role="collapsible" data-theme="c" data-content-theme="d" data-collapsed="true">
-		       			<h3>Institut Info's</h3>		
+		       			<h3>Institut Infos</h3>		
 		       			<?
 	       				if ( !empty($data["inst_info"]["inst_name"]) )
 	       				{
@@ -223,7 +224,7 @@ $user_id = $data['user_data']['user_id']
 	       				{
 		       				?>
 			       			<div class="ui-grid-a">
-										<div class="ui-block-a">Email</div>
+										<div class="ui-block-a">E-Mail</div>
 										<div class="ui-block-b"><?=Studip\Mobile\Helper::out( $data["inst_info"]["inst_email"] ) ?></div>
 							</div>
 							<?
@@ -232,7 +233,7 @@ $user_id = $data['user_data']['user_id']
 	       				{
 		       				?>
 			       			<div class="ui-grid-a">
-										<div class="ui-block-a">Web</div>
+										<div class="ui-block-a">Homepage</div>
 										<div class="ui-block-b"><?=\Studip\Mobile\Helper::correctText( htmlReady($data["inst_info"]["inst_url"] )) ?></div>
 							</div>
 							<?
