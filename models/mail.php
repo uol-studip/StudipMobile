@@ -125,7 +125,7 @@ class Mail {
         $stmt = $db->prepare("SELECT $user_fields, $msg_fields, $msg_user_fields
                  FROM message
                  JOIN message_user      ON message.message_id = message_user.message_id
-                 JOIN auth_user_md5     ON message_user.user_id = auth_user_md5.user_id
+                 LEFT JOIN auth_user_md5 ON message.autor_id = auth_user_md5.user_id
                  ".$where."
                  ORDER BY message.mkdate DESC
                  LIMIT 0,30");

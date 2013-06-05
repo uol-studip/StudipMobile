@@ -74,7 +74,7 @@ class Helper {
             $ausgabe = "April";
             break;
         case 5:
-            $ausgabe = "Mail";
+            $ausgabe = "Mai";
             break;
         case 6:
             $ausgabe = "Juni";

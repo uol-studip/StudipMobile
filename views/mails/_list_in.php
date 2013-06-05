@@ -33,11 +33,11 @@ else
             {	
             		$wochentag = \Studip\Mobile\Helper::get_weekday(date("N", $mail['mkdate']));
             		$monat      = \Studip\Mobile\Helper::get_month(date("m", $mail['mkdate']));
-            		$day = $wochentag.date(", j. ",$mail['mkdate']).$monat.date(", Y",$mail['mkdate']);
+            		$day =  $wochentag.date(", j. ",$mail['mkdate']).$monat.date(", Y",$mail['mkdate']);
 
                     $dayCount = date("j.m.Y",$mail['mkdate']);
                                         ?>
-                            <li  data-role="list-divider"><?= Studip\Mobile\Helper::out($day) ?></li>
+                            <li  data-role="list-divider"><?= $wochentag.date(", j. ",$mail['mkdate']).$monat.date(", Y",$mail['mkdate']); ?></li>
                     <?php
             }
         
@@ -56,10 +56,10 @@ else
                             \Studip\Mobile\Helper::getColorball("#000000",10,true);
                     }
                     ?>
-                    <h3><?= Studip\Mobile\Helper::out($mail['author']) ?></h3>
+                    <h3><?= $mail['author_id'] != '____%system%____' ? Studip\Mobile\Helper::out($mail['author']) : 'Stud.IP-System' ?></h3>
                     <p><strong><?= Studip\Mobile\Helper::out($mail['title']) ?></strong></p>
                 
-                    <p><?= Studip\Mobile\Helper::fout($mail['message']) ?>
+                    <p><?= Studip\Mobile\Helper::fout(mila($mail['message'])) ?>
                     <p class="ui-li-aside"><strong><?= Studip\Mobile\Helper::out($time) ?></strong></p>
             </a></li>
 
