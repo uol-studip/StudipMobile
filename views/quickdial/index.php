@@ -32,7 +32,7 @@ $this->set_layout("layouts/single_page");
   <div class="ui-block-a grid scndrow">
     <a href="<?= $controller->url_for("courses") ?>" class="externallink" rel="external" data-ajax="false">
       <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/seminar.png" /><br />
-      <span>Kurse</span>
+      <span>Veranstaltungen</span>
     </a>
   </div>
 

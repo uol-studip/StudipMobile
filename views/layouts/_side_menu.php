@@ -34,7 +34,7 @@
       <li data-icon="false">
         <a href="<?= $controller->url_for("courses") ?>" class="externallink contentLink" data-ajax="false">
           <img src="<?= $plugin_path ?>/public/images/quickdial/bw/seminar.png"   class="ui-li-icon ui-corner-none" />
-          Kurse
+          Veranstaltungen
         </a>
       </li>
 
