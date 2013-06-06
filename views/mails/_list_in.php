@@ -66,7 +66,9 @@ else
     <?php
     }
 ?>
+<!--
 	<li data-theme="e" data-role="list-divider" data-swipeurl=""><a href=""><center>weitere Nachrichten</center></a></li>	
+	-->
 <?
 }
 ?>
