@@ -113,13 +113,13 @@ if ($course->metadate)
 <!--
 <ul id="course-new-content" data-role="listview" style="margin-top: 1.5em; margin-bottom: 1.5em;">
     <li data-theme="a">News<span class="ui-li-count">1</span></li>
-    <li data-theme="a">Forumsbeitr�ge<span class="ui-li-count">3</span></li>
+    <li data-theme="a">Forumsbeiträge<span class="ui-li-count">3</span></li>
 </ul>
 -->
 
 <fieldset class="ui-grid-a">
   <div class="ui-block-a">
-    <a href="<?= $controller->url_for("activities/index", $course->id) ?>" data-role="button" data-iconpos="right" data-icon="star" data-theme="b">News</a>
+    <a href="<?= $controller->url_for("activities/index", $course->id) ?>" data-role="button" data-iconpos="right" data-icon="star" data-theme="b">Kursaktivitäten</a>
   </div>
   <div class="ui-block-b">
   	<?
