@@ -1,7 +1,6 @@
 <?php
 
 $back_button = true;
-$no_side_menu = true;
 $page_title = "Dateien droppen";
 $page_id = "courses-dropfiles";
 $this->set_layout("layouts/single_page");

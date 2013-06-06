@@ -1,4 +1,4 @@
-.ui-page {
+.ui-body-c {
   
   background: url("../img/studip.png") 50% 95% no-repeat, -webkit-gradient(linear, left top, left bottom, from( #24437c /*{a-body-background-start}*/), to( #3C639E /*{a-body-background-end}*/)); /* Saf4+, Chrome */
 	background: url("../images/quickdial/studip.png") 50% 95% no-repeat, -webkit-linear-gradient(#24437c /*{a-body-background-start}*/, #3C639E /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
