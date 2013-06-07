@@ -28,14 +28,6 @@ class StudipMobileController extends Trails_Controller
     {
         $this->plugin_path = URLHelper::getURL($this->dispatcher->plugin->getPluginPath());
         list($this->plugin_path) = explode("?cid=",$this->plugin_path);
-        # call before filters
-        foreach (get_class_methods($this) as $filter) {
-            if ($filter !== "before_filter" && !strncasecmp("before", $filter, 6)) {
-                if (FALSE === call_user_func(array($this, $filter), $action, $args)) {
-                    return FALSE;
-                }
-            }
-        }
     }
 
     /**
