@@ -61,6 +61,7 @@ class StudipMobileController extends Trails_Controller
         if (!$this->currentUser()) {
             # TODO (mlunzena): store_location
             $this->flash["notice"] = "You must be logged in to access this page";
+            \NotificationCenter::postNotification('mobile.SessionIsMissing');
             $this->redirect("session/new");
             return FALSE;
         }
