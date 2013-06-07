@@ -1,6 +1,6 @@
 <?php
 
-require "StudipMobileController.php";
+require "AuthenticatedController.php";
 require dirname(__FILE__) . "/../models/mail.php";
 
 use Studip\Mobile\Mail;
@@ -11,17 +11,8 @@ use Studip\Mobile\Mail;
  *    @author Marcus Lunzenauer - mlunzena@uos.de
  *    @author André Klaßen - aklassen@uos.de
  */
-class MailsController extends StudipMobileController
+class MailsController extends AuthenticatedController
 {
-    /**
-     * custom before filter (see StudipMobileController#before_filter)
-     */
-    function before()
-    {
-        # require a logged in User or else redirect to session/new
-        $this->requireUser();
-    }
-
     /**
      * lists mails of inbox
      */

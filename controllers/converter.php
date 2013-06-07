@@ -1,22 +1,13 @@
 <?php
 
-require "StudipMobileController.php";
+require "AuthenticatedController.php";
 
 /**
  *    just a few helfull functions
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class ConverterController extends StudipMobileController
+class ConverterController extends AuthenticatedController
 {
-    /**
-     * custom before filter (see StudipMobileController#before_filter)
-     */
-    function before()
-    {
-        # require a logged in User or else redirect to session/new
-       $this->requireUser();
-    }
-
     /*
      * converts a given unix timestamp to
      * a string representing this date

@@ -1,6 +1,6 @@
 <?php
 
-require "StudipMobileController.php";
+require "AuthenticatedController.php";
 require dirname(__FILE__) . "/../models/quickdail.php";
 
 use Studip\Mobile\Quickdail;
@@ -11,17 +11,8 @@ use Studip\Mobile\Quickdail;
  *    @author Marcus Lunzenauer - mlunzena@uos.de
  *    @author André Klaßen - aklassen@uos.de
  */
-class QuickdialController extends StudipMobileController
+class QuickdialController extends AuthenticatedController
 {
-    /**
-     * custom before filter (see StudipMobileController#before_filter)
-     */
-    function before()
-    {
-        # require a logged in User or else redirect to session/new
-        $this->requireUser();
-    }
-
     function index_action()
     {
         // get next 5 courses of the day

@@ -1,6 +1,6 @@
 <?php
 
-require "StudipMobileController.php";
+require "AuthenticatedController.php";
 require dirname(__FILE__) . "/../models/course.php";
 
 use Studip\Mobile\Course;
@@ -10,17 +10,8 @@ use Studip\Mobile\Course;
  *    members ...
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class CoursesController extends StudipMobileController
+class CoursesController extends AuthenticatedController
 {
-    /**
-     * custom before filter (see StudipMobileController#before_filter)
-     */
-    function before()
-    {
-        # require a logged in User or else redirect to session/new
-        $this->requireUser();
-    }
-
     function index_action()
     {
         // get current semester
