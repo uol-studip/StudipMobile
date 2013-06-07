@@ -35,6 +35,7 @@ class SessionController extends StudipMobileController
 
         if (!isset($result) || $result['uid'] === false) {
             $this->flash["notice"] = "login unsuccessful!";
+            \NotificationCenter::postNotification('mobile.SessionDidNotCreate', $this);
             $this->redirect("session/new");
             return;
         }
@@ -46,19 +47,21 @@ class SessionController extends StudipMobileController
         }
 
         $this->flash["notice"] = "login successful!";
+        \NotificationCenter::postNotification('mobile.SessionDidCreate', $this);
         $this->redirect("quickdial");
     }
 
     function destroy_action()
     {
         global $perm, $user, $auth, $sess, $forced_language, $_language;
-         $auth->logout();
+        $auth->logout();
         $perm = null;
         $user = null;
         $forced_language = null;
         $_language = null;
         $sess->delete();
         closeObject();
+        \NotificationCenter::postNotification('Mobile.SessionDidDestroy', $this);
         $this->redirect("session/new");
     }
 
