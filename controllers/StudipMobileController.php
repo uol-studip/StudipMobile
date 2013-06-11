@@ -29,7 +29,8 @@ class StudipMobileController extends Trails_Controller
         $this->plugin_path = URLHelper::getURL($this->dispatcher->plugin->getPluginPath());
         list($this->plugin_path) = explode("?cid=",$this->plugin_path);
         $klass = substr(get_called_class(), 0, -10);
-        \NotificationCenter::postNotification("mobile.performed.$klass_$action", $this);
+        $name = sprintf('mobile.performed.%s_%s', $klass, $action);
+        \NotificationCenter::postNotification($name, $this);
     }
 
     /**
