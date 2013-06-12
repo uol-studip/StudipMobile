@@ -67,7 +67,7 @@ class Course {
                         AND schedule_seminare.seminar_id=seminare.Seminar_id)
                   LEFT JOIN object_user_visits ouv ON (ouv.object_id=seminar_user.Seminar_id
                         AND ouv.user_id = :user_id AND ouv.type='sem')
-                  WHERE seminar_user.user_id = :user_id";
+                  WHERE seminar_user.user_id = :user_id GROUP BY seminare.Seminar_id";
 
         $stmt = \DBManager::get()->prepare($query);
         $stmt->execute(compact("user_id"));
