@@ -1,4 +1,7 @@
-<? $this->set_layout("layouts/base") ?>
+<?
+$this->set_layout("layouts/base");
+$desktop_url = URLHelper::getLink($GLOBALS['ABSOLUTE_URI_STUDIP'], array(StudipMobile::REDIRECTION_STOP_WORD => 1));
+?>
 
 <div data-role="page">
 
@@ -23,7 +26,7 @@
 
       <input type="submit" value="Login">
     </form>
-    <a href="<?=URLHelper::getlink($GLOBALS['ABSOLUTE_URI_STUDIP']) ?>" data-role="button" class="externallink" data-ajax="false" data-theme="e">Zur Webansicht</a>
+    <a href="<?= $desktop_url ?>" data-role="button" class="externallink" data-ajax="false" data-theme="e">Zur Webansicht</a>
   </div><!-- /content -->
 
 </div>

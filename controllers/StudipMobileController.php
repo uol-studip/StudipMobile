@@ -28,9 +28,16 @@ class StudipMobileController extends Trails_Controller
     {
         $this->plugin_path = URLHelper::getURL($this->dispatcher->plugin->getPluginPath());
         list($this->plugin_path) = explode("?cid=",$this->plugin_path);
+
+        // notify on mobile trails action
         $klass = substr(get_called_class(), 0, -10);
         $name = sprintf('mobile.performed.%s_%s', $klass, $action);
         \NotificationCenter::postNotification($name, $this);
+
+        // notify on automatic redirect
+        if (Request::submitted("redirected")) {
+            \NotificationCenter::postNotification("mobile.ClientDidRedirect", $this);
+        }
     }
 
     /**
