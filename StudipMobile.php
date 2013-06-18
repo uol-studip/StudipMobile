@@ -51,20 +51,17 @@ class StudipMobile extends StudipPlugin implements SystemPlugin
 
     private function redirectToMobile()
     {
-        # handle stop word
-        if (Request::submitted(self::REDIRECTION_STOP_WORD)) {
-            setcookie(self::REDIRECTION_STOP_WORD, 1);
-            $_COOKIE[self::REDIRECTION_STOP_WORD] = 1;
-        }
+        // make sure to break out if asked for
+        $this->handleStopWord();
 
         if (!$this->shouldRedirect()) {
             return;
         }
 
+        // add mobile detection script from http://detectmobilebrowsers.com/
         $url = PluginEngine::getLink($this, null, '', true);
         $js = sprintf(self::DETECTION_REGEXP, $url);
         PageLayout::addHeadElement('script', array(), $js);
-
     }
 
     private function shouldRedirect()
@@ -87,5 +84,15 @@ class StudipMobile extends StudipPlugin implements SystemPlugin
         }
 
         return true;
+    }
+
+    private function handleStopWord()
+    {
+        # handle stop word
+        if (Request::submitted(self::REDIRECTION_STOP_WORD)) {
+            \NotificationCenter::postNotification('mobile.RedirectDidPreclude', $this);
+            setcookie(self::REDIRECTION_STOP_WORD, 1);
+            $_COOKIE[self::REDIRECTION_STOP_WORD] = 1;
+        }
     }
 }
