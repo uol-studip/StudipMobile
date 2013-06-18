@@ -12,8 +12,10 @@ require "StudipMobileController.php";
 class SessionController extends StudipMobileController
 {
 
-    function before($action)
+    function before_filter(&$action, &$args)
     {
+        parent::before_filter($action, $args);
+
         if ($action === "destroy") {
             $this->requireUser();
         }
