@@ -25,7 +25,7 @@ class Quickdail {
         $current_semester    = $semdata->getCurrentSemesterData();
         $current_semester_id = $current_semester['semester_id'];
 
-        $entries = \CalendarScheduleModel::getEntries($user_id, $current_semester, 0800, 2000, range(0, 6), false);
+        $entries = \CalendarScheduleModel::getEntries($user_id, $current_semester, 0, 2000, range(0, 6), false);
 
         $output  = array();
         $counter = 0;
