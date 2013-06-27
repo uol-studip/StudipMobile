@@ -51,6 +51,14 @@ class CoursesController extends AuthenticatedController
             throw new Trails_Exception(403);
         }
 
+        $this->next_dates = array();
+        $termine = SeminarDB::getNextDate($id);
+        foreach ($termine["termin"] as $termin) {
+            $this->next_dates[] = new SingleDate($termin);
+        }
+        if ($termine["ex_termin"]) {
+            $this->next_dates[] = new SingleDate($termine["ex_termin"]);
+        }
     }
 
     function show_map_action($id)

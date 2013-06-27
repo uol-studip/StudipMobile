@@ -15,9 +15,40 @@ $resources_locations = array_filter($resources, function ($resource) {
     <h4><?= Studip\Mobile\Helper::out($course->subtitle) ?></h4>
 <? } ?>
 
+
+<? if (count($next_dates)) : ?>
+
+    <ul data-role="listview" data-inset="true">
+
+      <li data-role="list-divider" data-theme="c">
+        Nächster Termin
+      </li>
+
+      <? foreach($next_dates as $next) { ?>
+      <li data-theme="<?= ($is_ex = $next->isExTermin()) ? 'e' : ''?>">
+
+        <?= $next->getDatesHTML() ?>
+        <?= Studip\Mobile\Helper::out($next->getRoom())?>
+
+        <? if ($is_ex) : ?>
+        <i>Fällt aus! (Kommentar: <?= Studip\Mobile\Helper::out($next->getComment())?>)</i>
+        <?= Assets::img("icons/16/black/exclaim", array("class"=>"ui-li-icon")) ?>
+        <? endif ?>
+
+      </li>
+      <? } ?>
+
+      <li data-role="list-divider" data-theme="c">
+        Alle Termine
+      </li>
+
+    </ul>
+<? endif ?>
+
+
 <? if ($course->metadate) { ?>
     <div data-role="collapsible" data-theme="c" data-content-theme="d" class="small_text">
-      <h3>Termine</h3>
+      <h3>Alle Termine</h3>
       <? if ($course->metadate->seminarStartTime) { ?>
       <div class="ui-grid-b a_bit_smaller_text" data-theme="c" style="font-size:10pt;">
         <div class="ui-block-a"><strong>Beginn:</strong></div>
