@@ -101,18 +101,17 @@ $resources_locations = array_filter($resources, function ($resource) {
 <fieldset class="ui-grid-a">
 
   <div class="ui-block-a">
-    <a href="<?= $controller->url_for("activities/index", $course->id) ?>" data-role="button" data-iconpos="right" data-icon="star" data-theme="b">Kursaktivitäten</a>
+    <a href="<?= $controller->url_for("activities/index", $course->id) ?>" data-role="button">Aktivitäten</a>
   </div>
 
   <div class="ui-block-b">
     <? if (!empty($resources_locations)) { ?>
         <a href="<?= $controller->url_for("courses/show_map", $course->id) ?>"
-           data-role="button" data-iconpos="right" data-icon="star" data-theme="b"
-           class="externallink" data-ajax="false">
+           data-role="button" class="externallink" data-ajax="false">
             Karte
         </a>
     <? } else { ?>
-        <a href="#" data-role="button" data-iconpos="right" data-icon="star" data-theme="d">keine Karte</a>
+        <a href="#" data-role="button">keine Karte</a>
     <? } ?>
   </div>
 
@@ -122,7 +121,7 @@ $resources_locations = array_filter($resources, function ($resource) {
   </div>
 
   <div class="ui-block-b">
-    <a href="<?= $controller->url_for("courses/show_members", $course->id) ?>"  class="externallink" data-ajax="false" data-role="button" data-iconpos="right" data-icon="" >Teilnehmer</a>
+    <a href="<?= $controller->url_for("courses/show_members", $course->id) ?>"  class="externallink" data-ajax="false" data-role="button">Teilnehmer</a>
   </div>
 </fieldset>
 
