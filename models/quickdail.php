@@ -31,35 +31,33 @@ class Quickdail {
         $counter = 0;
         $currentWeekDay = date("N") - 1;
         $currentTime = date("Gi");
+
         if (!empty($entries)) {
-            for ($i = 0; $i <= 6; $i++)
-            {
-                $currentWeekDay +=$i;
-                if ($currentWeekDay > 6) {
-                    $currentWeekDay = 0;
-                }
+            for ($offset = 0; $offset < 7; $offset++) {
 
-                $currentDayObject= $entries[$currentWeekDay];
+                $day_pt = ($currentWeekDay + $offset) % 6;
+                $currentDayObject = $entries[$day_pt];
+
                 if (!empty($currentDayObject)) {
-                    //sortieren der einträge des tages
-                    $arrayObject = new \ArrayObject($currentDayObject->getEntries());
-                    $arrayObject->uasort('\Studip\Mobile\Helper::cmpEarlier');
-                    foreach ($arrayObject->getArrayCopy() AS $entry) {
-                        if ($counter >= 3) {
-                            break;
-                            $i = 7;
-                        }
 
-                        if ($entry["start"] > $currentTime || $i != 0)
+                    //sortieren der einträge des tages
+                    $tmp = $currentDayObject->getEntries();
+                    uasort($tmp, '\Studip\Mobile\Helper::cmpEarlier');
+                    foreach ($tmp as $entry) {
+
+
+                        if ($entry["ende"] > $currentTime || $day_pt != $currentWeekDay)
                         {
-                            $output[ $counter ] = array(
+                            $output[] = array(
                                 "title"       => $entry["title"],
                                 "description" => $entry["content"],
                                 "beginn"      => $entry["start_formatted"],
                                 "ende"        => $entry["end_formatted"],
-                                "weekday"     => $currentWeekDay + 1,
+                                "weekday"     => $pt + 1,
                                 "id"          => substr($entry["id"], 0, 32));
-                            $counter++;
+                            if (sizeof($output) >= 3) {
+                              break;
+                            }
                         }
                     }
                 }
