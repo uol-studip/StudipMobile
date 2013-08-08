@@ -13,6 +13,7 @@
 
     <script src="<?= $plugin_path ?>/public/vendor/jquery/jquery-1.9.1.min.js"></script>
     <script src="<?= $plugin_path ?>/public/vendor/jquery.mobile/jquery.mobile-1.3.1.min.js"></script>
+    <script src="<?= $plugin_path ?>/public/vendor/jquery.mobile/inlinelistview.js"></script>
 
     <!-- MAP-->
     <script src="//maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>

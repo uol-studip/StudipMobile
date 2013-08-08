@@ -7,7 +7,7 @@ $this->set_layout("layouts/single_page");
 // check if there are Geolocations
 $resources_locations = array_filter($resources, function ($resource) {
         return is_numeric($resource['latitude']) && is_numeric($resource['longitude']);
-    });
+});
 ?>
 
 <h2><?= Studip\Mobile\Helper::out($course->name) ?></h2>
@@ -16,39 +16,44 @@ $resources_locations = array_filter($resources, function ($resource) {
 <? } ?>
 
 
-<? if (count($next_dates)) : ?>
-
-    <ul data-role="listview" data-inset="true">
-
-      <li data-role="list-divider" data-theme="c">
-        Nächster Termin
-      </li>
-
-      <? foreach($next_dates as $next) { ?>
-      <li data-theme="<?= ($is_ex = $next->isExTermin()) ? 'e' : ''?>">
-
-        <?= $next->getDatesHTML() ?>
-        <?= Studip\Mobile\Helper::out($next->getRoom())?>
-
-        <? if ($is_ex) : ?>
-        <i>Fällt aus! (Kommentar: <?= Studip\Mobile\Helper::out($next->getComment())?>)</i>
-        <?= Assets::img("icons/16/black/exclaim", array("class"=>"ui-li-icon")) ?>
-        <? endif ?>
-
-      </li>
-      <? } ?>
-
-      <li data-role="list-divider" data-theme="c">
-        Alle Termine
-      </li>
-
-    </ul>
-<? endif ?>
+<ul data-role="inlinelistview" data-inset="true">
+  <? if (count($next_dates)) : ?>
 
 
-<? if ($course->metadate) { ?>
-    <div data-role="collapsible" data-theme="c" data-content-theme="d" class="small_text">
-      <h3>Alle Termine</h3>
+  <li data-role="list-divider" data-theme="c">
+    Nächster Termin
+  </li>
+
+  <? foreach($next_dates as $next) { ?>
+  <li data-theme="<?= ($is_ex = $next->isExTermin()) ? 'e' : ''?>">
+
+    <?= $next->toString() ?>
+    <?= Studip\Mobile\Helper::out($next->getRoom())?>
+    <? $location = reset(array_filter($resources, function ($r) use ($next) { return $r["id"] == $next->resource_id; })) ?>
+
+    <? if ($location) { ?>
+      <span class="ui-li-aside">
+        <a href="<?= $controller->url_for("courses/show_map", $course->id) ?>" class="externallink" data-ajax="false">
+          <?= $location["description"] ?>
+        </a>
+      </span>
+    <? } ?>
+
+    <? if ($is_ex) : ?>
+      <i>Fällt aus! (Kommentar: <?= Studip\Mobile\Helper::out($next->getComment())?>)</i>
+    <? endif ?>
+
+  </li>
+  <? } ?>
+
+  <li data-rel="inline">
+      <a href="#inlinecontent">Alle Termine</a>
+  </li>
+
+  <li id="inlinecontent">
+    <div>
+
+      <? if ($course->metadate) { ?>
       <? if ($course->metadate->seminarStartTime) { ?>
       <div class="ui-grid-b a_bit_smaller_text" data-theme="c" style="font-size:10pt;">
         <div class="ui-block-a"><strong>Beginn:</strong></div>
@@ -75,7 +80,18 @@ $resources_locations = array_filter($resources, function ($resource) {
             <? } ?>
         <? } ?>
       <? } ?>
+    <? } ?>
+
     </div>
+
+  </li>
+
+  <? endif ?>
+</ul>
+
+
+<? if ($course->metadate) { ?>
+
 
     <div data-role="collapsible" data-theme="c" data-content-theme="d">
       <h3>Beschreibung</h3>
@@ -124,42 +140,3 @@ $resources_locations = array_filter($resources, function ($resource) {
     <a href="<?= $controller->url_for("courses/show_members", $course->id) ?>"  class="externallink" data-ajax="false" data-role="button">Teilnehmer</a>
   </div>
 </fieldset>
-
-
-<? if (sizeof($resources_locations))  {
-  $first_resource = array_shift($resources_locations);
-  array_unshift($resources_locations,$first_resource);
-?>
-
-    <script>
-    $(function() {
-      var yourStartLatLng = new google.maps.LatLng(<?= $first_resource['latitude'] ?>, <?= $first_resource['longitude'] ?>);
-      $('#map_canvas').gmap({
-        center: yourStartLatLng,
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true,
-        navigationControl: false});
-
-      $('#map_canvas').gmap().bind('init', function() {
-        <? foreach ($resources_locations as $resource) : ?>
-          <? if (sizeof($resource['latitude']) || sizeof($resource['longitude'])) ?>
-            $('#map_canvas').gmap('addMarker', {
-                'position': '<?=$resource['latitude'] ?> ,<?=$resource['longitude'] ?>',
-                'bounds': false})
-              .click(function() {
-                $('#map_canvas').gmap('openInfoWindow', {
-                  'content': '<span style="font-weight:bold"><?= Studip\Mobile\Helper::out($resource[name]) ?></span><br><span style="font-weight:normal;"><?=Studip\Mobile\Helper::out($resource[description]) ?></span'
-                }, this);
-            });
-        <? endforeach ?>
-      });
-    });
-    </script>
-
-
-    <div class="ui-bar-c ui-corner-all ui-shadow" style="margin-top:2em;">
-      <div id="map_canvas" style="height:300px"></div>
-    </div>
-
-<? } ?>
