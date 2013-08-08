@@ -69,27 +69,49 @@ class SessionController extends StudipMobileController
 
     protected function start_session($user_id)
     {
-        global $perm, $user, $auth, $sess, $forced_language, $_language;
+
+        // TODO: für Stud.IP v2.3
+        if (is_callable(array('Seminar_User', 'start'))) {
+            global $perm, $user, $auth, $sess, $forced_language, $_language;
 
 
-        $user = new Seminar_User();
-        $user->start($user_id);
+            $user = new Seminar_User();
+            $user->start($user_id);
 
-        foreach (array(
-                     "uid" => $user_id,
-                     "perm" => $user->perms,
-                     "uname" => $user->username,
-                     "auth_plugin" => $user->auth_plugin,
-                     "exp" => time() + 60 * 15,
-                     "refresh" => time()
-                 ) as $k => $v) {
-            $auth->auth[$k] = $v;
+            foreach (array(
+                         "uid" => $user_id,
+                         "perm" => $user->perms,
+                         "uname" => $user->username,
+                         "auth_plugin" => $user->auth_plugin,
+                         "exp" => time() + 60 * 15,
+                         "refresh" => time()
+                     ) as $k => $v) {
+                $auth->auth[$k] = $v;
+            }
+
+            $auth->nobody = false;
+
+            $sess->regenerate_session_id(array('auth', 'forced_language','_language'));
+            $sess->freeze();
         }
 
-        $auth->nobody = false;
+        // TODO: für Stud.IP v2.5
+        else {
 
+            $user = User::find($user_id);
 
-        $sess->regenerate_session_id(array('auth', 'forced_language','_language'));
-        $sess->freeze();
+            $GLOBALS['auth'] = new Seminar_Auth();
+            $GLOBALS['auth']->auth = array(
+                'uid'   => $user->user_id,
+                'uname' => $user->username,
+                'perm'  => $user->perms,
+                "auth_plugin" => $user->auth_plugin,
+            );
+
+            $GLOBALS['user'] = new Seminar_User($user);
+
+            $GLOBALS['perm'] = new Seminar_Perm();
+            $GLOBALS['MAIL_VALIDATE_BOX'] = false;
+        }
     }
 }
