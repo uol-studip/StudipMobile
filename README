@@ -10,9 +10,9 @@ Install Notes:
 	- PHP Pear HTTP:OAuth should be installed
 	- PHP Pear Dropbox shoud be installed	
 - you have to run the sql-files from the sql folder
-- change the dropbox developerkey in models/dropCom.php and models/course.php
+- change the dropbox developer key in models/dropCom.php and models/course.php
 
-Just install it via the studip-root user. Important the plugin needs to be acceable from
+Just install it via the studip-root user. Important the plugin needs to be accessable from
 the nobody-user.
 You can reach the mobile-view at:
   yourstudipadress / plugins.php / studipmobile
