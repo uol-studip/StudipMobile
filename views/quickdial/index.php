@@ -36,7 +36,7 @@ $this->set_layout("layouts/single_page");
     </a>
   </div>
 
-  <div class="ui-block-c grid scndrow">
+  <div class="ui-block-b grid scndrow">
     <a href="<?= $controller->url_for("profiles/show",$user_id) ?>"
        class="externallink" rel="external" data-ajax="false">
       <img class="icon" src="<?= $plugin_path ?>/public/images/quickdial/profile.png" /><br />
