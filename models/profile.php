@@ -14,7 +14,12 @@ class Profile {
     {
         if (get_visibility_by_id($id)) {
 
-            $user_data = \User::find($id)->getData();
+            $user_data = \User::find($id);
+
+            // pre 2.5 check
+            if (method_exists($user_data, 'getData')) {
+                $user_data = $user_data->getData();
+            }
 
             if ($user_data["visible"] == "no" || $user_data["visible"] == "never") {
                 return null;
