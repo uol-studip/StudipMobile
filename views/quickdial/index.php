@@ -53,19 +53,17 @@ $this->set_layout("layouts/single_page");
 
   <li data-role="list-divider" data-theme="b">Als Nächstes</li>
 
-  <? foreach($next_courses as $next) { ?>
+  <? foreach($next_courses as $date) { ?>
   <li>
-    <? $this_link = strlen($next["id"]) == 32 ? $controller->url_for("courses/show", $next["id"]) : "" ?>
-    <a href="<?= $this_link ?>" data-ajax="false">
+    <a href="<?= $controller->url_for("courses/show", $date->getRangeId()) ?>" data-ajax="false">
       <p>
-        <strong><?=\Studip\Mobile\Helper::get_weekday($next["weekday"]) ?></strong>
-        <?=Studip\Mobile\Helper::out($next["title"]) ?>
+        <? $sem = Seminar::getInstance($date->getRangeId()) ?>
+        <?=Studip\Mobile\Helper::out($sem->name) ?>
       </p>
 
       <p>
-        <?=Studip\Mobile\Helper::out($next["description"]) ?>
         <span class="ui-li-count">
-          <?=Studip\Mobile\Helper::out($next["beginn"])?> - <?=Studip\Mobile\Helper::out($next["ende"])?>
+            <strong><?= $date->toString() ?></strong>
         </span>
       </p>
     </a>

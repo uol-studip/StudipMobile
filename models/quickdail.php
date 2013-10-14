@@ -20,52 +20,30 @@ class Quickdail {
 
     static function get_next_courses($user_id)
     {
-        //get current semester
-        $semdata = new \SemesterData();
-        $current_semester    = $semdata->getCurrentSemesterData();
-        $current_semester_id = $current_semester['semester_id'];
+        $ret = array();
 
-        $entries = \CalendarScheduleModel::getEntries($user_id, $current_semester, 0, 2000, range(0, 6), false);
+        // get list of all my courses
+        $stmt = \DBManager::get()->prepare('SELECT DISTINCT Seminar_id
+            FROM seminar_user
+            WHERE user_id = ?');
+        $stmt->execute(array($user_id));
 
-        $output  = array();
-        $counter = 0;
-        $currentWeekDay = date("N") - 1;
-        $currentTime = date("Gi");
+        $seminar_ids = $stmt->fetchAll(\PDO::FETCH_COLUMN);
 
-        if (!empty($entries)) {
-            for ($offset = 0; $offset < 7; $offset++) {
+        // get upcoming events
+        $stmt_next = \DBManager::get()->prepare('SELECT termin_id FROM termine
+            WHERE range_id IN (:seminar_ids)
+                AND date >= (UNIX_TIMESTAMP() - 3600) /* get events that started in the last hour as well */
+            ORDER BY date ASC LIMIT 3');
+        $stmt_next->bindValue(':seminar_ids', $seminar_ids, \StudipPDO::PARAM_ARRAY);
 
-                $day_pt = ($currentWeekDay + $offset) % 6;
-                $currentDayObject = $entries[$day_pt];
+        $stmt_next->execute();
 
-                if (!empty($currentDayObject)) {
-
-                    //sortieren der einträge des tages
-                    $tmp = $currentDayObject->getEntries();
-                    uasort($tmp, '\Studip\Mobile\Helper::cmpEarlier');
-                    foreach ($tmp as $entry) {
-
-
-                        if ($entry["ende"] > $currentTime || $day_pt != $currentWeekDay)
-                        {
-                            $output[] = array(
-                                "title"       => $entry["title"],
-                                "description" => $entry["content"],
-                                "beginn"      => $entry["start_formatted"],
-                                "ende"        => $entry["end_formatted"],
-                                "weekday"     => $pt + 1,
-                                "id"          => substr($entry["id"], 0, 32));
-                            if (sizeof($output) >= 3) {
-                              break;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            return null;
+        // return upcoming events
+        while ($termin_id = $stmt_next->fetchColumn()) {
+            $ret[] = new \SingleDate($termin_id);
         }
 
-        return $output;
+        return $ret;
     }
 }
