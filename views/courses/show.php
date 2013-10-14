@@ -52,36 +52,8 @@ $resources_locations = array_filter($resources, function ($resource) {
 
   <li id="inlinecontent">
     <div>
-
-      <? if ($course->metadate) { ?>
-      <? if ($course->metadate->seminarStartTime) { ?>
-      <div class="ui-grid-b a_bit_smaller_text" data-theme="c" style="font-size:10pt;">
-        <div class="ui-block-a"><strong>Beginn:</strong></div>
-        <div class="ui-block-b"><?= \Studip\Mobile\Helper::stamp_to_dat(htmlReady($course->metadate->seminarStartTime)) ?></div>
-      </div><!-- /grid-a -->
-      <div class='little_space'></div>
-      <? } ?>
-
-
-      <? if ($course->metadate->cycles) {
-        $single_cycledate= true;
-        foreach ($course->metadate->cycles as $cycle_date) { ?>
-
-            <div class="ui-grid-b a_bit_smaller_text" data-theme="c">
-              <div class="ui-block-a"><strong><?= Studip\Mobile\Helper::out($cycle_date->description) ?></strong></div>
-              <div class="ui-block-b"><?= \Studip\Mobile\Helper::get_weekday($cycle_date->weekday) ?><br> von <?=Studip\Mobile\Helper::out(substr($cycle_date->start_time, 0,5)) ?> Uhr<br>bis <?= Studip\Mobile\Helper::out(substr($cycle_date->end_time, 0,5)) ?> Uhr</div>
-              <? if (isset($resources[$cycle_date->metadate_id][name])) { ?>
-                  <div class="ui-block-c">Ort: <?= Studip\Mobile\Helper::out($resources[$cycle_date->metadate_id][name]) ?></div>
-              <? } ?>
-            </div><!-- /grid-b -->
-
-            <? if ($single_cycledate) { $single_cycledate = false; ?>
-                <div class='little_space'></div>
-            <? } ?>
-        <? } ?>
-      <? } ?>
-    <? } ?>
-
+        <? $sem = Seminar::getInstance($course->id) ?>
+        <?= nl2br(Studip\Mobile\Helper::out($sem->getDatesExport())) ?>
     </div>
 
   </li>
