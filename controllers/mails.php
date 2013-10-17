@@ -103,13 +103,13 @@ class MailsController extends AuthenticatedController
                 $this->members = false;
             }
 
-        
-           
-
-                
-            
         } else {
-            $this->empfData = User::find($empf)->getData();
+            $this->empfData = User::find($empf);
+
+            // pre 2.5 check
+            if (method_exists($this->empfData, 'getData')) {
+                $this->empfData = $this->empfData->getData();
+            }
         }
     }
 
