@@ -13,7 +13,27 @@
 			</div>
 	</div><!-- /header -->
       <div data-role="content">
- <? //<ul id="messages" data-role="listview" data-filter="true" data-filter-placeholder="Suchen" data-inset="false" data-divider-theme="d"> ?>
+
+        <? if (isset($flash['notice'])) { ?>
+
+          <div id="popup-flash-notice" data-role="popup" data-history="false" data-theme=b>
+            <p><?= Studip\Mobile\Helper::out($flash['notice']) ?></p>
+          </div>
+
+          <script>
+           $(document).one("pageshow", function() {
+             var notice = $("#popup-flash-notice");
+             if (!notice.length) return;
+             setTimeout(function () {
+               notice.popup("open").on("popupafterclose", function () {
+                 $(this).remove();
+               });
+             }, 100);
+           });
+          </script>
+        <? } ?>
+
+<? //<ul id="messages" data-role="listview" data-filter="true" data-filter-placeholder="Suchen" data-inset="false" data-divider-theme="d"> ?>
  <ul id="swipeMe" data-role="listview" data-filter="true" data-filter-placeholder="Suchen" data-inset="false" data-divider-theme="d">
 <?
 //laden der nachrichten 

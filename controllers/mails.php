@@ -120,6 +120,11 @@ class MailsController extends AuthenticatedController
     {
         $betreff     = Request::get("mail_title");
         $nachricht   = Request::get("mail_message");
+
+        # TODO checken!
         $this->sendmessage = Mail::send( $empf, $betreff, $nachricht, $this->currentUser()->id );
+
+        $this->flash["notice"] = _("Nachricht verschickt.");
+        $this->redirect("mails");
     }
 }

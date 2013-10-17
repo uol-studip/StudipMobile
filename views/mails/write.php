@@ -29,7 +29,7 @@ $this->set_layout("layouts/base");
       			// adressat wurde gewählt
 	      		?>
 	      			<p>
-	      			<form action="<?= $controller->url_for("mails/send", $empfData['username']) ?>" method="POST">
+	      			<form action="<?= $controller->url_for("mails/send", $empfData['username']) ?>" method="POST" data-ajax="false">
 	      				<div class="ui-grid-b a_bit_smaller_text" data-theme="c" style="font-size:10pt;">
                         	<div class="ui-block-a">
 	                        	<img  src="

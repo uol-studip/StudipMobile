@@ -34,6 +34,8 @@ class StudipMobileController extends Trails_Controller
         $name = sprintf('mobile.performed.%s_%s', $klass, $action);
         \NotificationCenter::postNotification($name, $this);
 
+        $this->flash = Trails_Flash::instance();
+
         // notify on automatic redirect
         if (Request::submitted("redirected")) {
             \NotificationCenter::postNotification("mobile.ClientDidRedirect", $this);
