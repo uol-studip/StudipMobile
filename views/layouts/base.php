@@ -24,7 +24,6 @@
     <!-- CUSTOM END -->
     <script src="<?= $plugin_path ?>/public/vendor/date/date.js"></script>
     <script src="<?= $plugin_path ?>/public/javascripts/jquery.swipeButton.min.js"></script>
-    <script src="<?= $plugin_path ?>/public/javascripts/side_menu.js"></script>
     <script>
       var STUDIP = STUDIP || {};
       STUDIP.ABSOLUTE_URI_STUDIP = "<?= $GLOBALS['ABSOLUTE_URI_STUDIP'] ?>";
