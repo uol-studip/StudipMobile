@@ -33,7 +33,7 @@ class Quickdail {
         // get upcoming events
         $stmt_next = \DBManager::get()->prepare('SELECT termin_id FROM termine
             WHERE range_id IN (:seminar_ids)
-                AND date >= (UNIX_TIMESTAMP() - 3600) /* get events that started in the last hour as well */
+                AND date >= (UNIX_TIMESTAMP() - 3600)
             ORDER BY date ASC LIMIT 3');
         $stmt_next->bindValue(':seminar_ids', $seminar_ids, \StudipPDO::PARAM_ARRAY);
 
