@@ -1,5 +1,5 @@
 <? foreach ($dates as $key => $value) : ?>
-  <div data-role="page" id="day<?=$key ?>" data-add-back-btn="true">
+  <div data-role="page" id="day<?= $key ?>" data-add-back-btn="true">
 
     <div data-role="header" data-theme="a">
       <a href="#calendar" data-icon="arrow-l" data-iconpos="notext" data-theme="c">

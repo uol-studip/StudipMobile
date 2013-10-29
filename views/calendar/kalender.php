@@ -37,8 +37,6 @@ $startAt     = date("N", $stamp) - 1;
     <td class="<?= $month == 4 ? "calendar_month_activ" : "calendar_month_inactive" ?>" onclick="location.href='<?= $controller->url_for("calendar/kalender", $year, "4") ?>'">APR</td>
     <td class="<?= $month == 5 ? "calendar_month_activ" : "calendar_month_inactive" ?>" onclick="location.href='<?= $controller->url_for("calendar/kalender", $year, "5") ?>'">MAI</td>
     <td class="<?= $month == 6 ? "calendar_month_activ" : "calendar_month_inactive" ?>" onclick="location.href='<?= $controller->url_for("calendar/kalender", $year, "6") ?>'">JUN</td>
-  </tr>
-  <tr>
     <td class="<?= $month == 7 ? "calendar_month_activ" : "calendar_month_inactive" ?>" onclick="location.href='<?= $controller->url_for("calendar/kalender", $year, "7") ?>'">JUL</td>
     <td class="<?= $month == 8 ? "calendar_month_activ" : "calendar_month_inactive" ?>" onclick="location.href='<?= $controller->url_for("calendar/kalender", $year, "8") ?>'">AUG</td>
     <td class="<?= $month == 9 ? "calendar_month_activ" : "calendar_month_inactive" ?>" onclick="location.href='<?= $controller->url_for("calendar/kalender", $year, "9") ?>'">SEP</td>
@@ -59,24 +57,27 @@ $startAt     = date("N", $stamp) - 1;
 <table border=0 cellspacing=0 class="calendar">
   <tr>
 <?
-$i  = 0;
-$jj = 0 - $startAt;
-while ($i < $daysOfMonth) {
-    $ii = $i+1;
-    if ($i % 6 == 0)  echo "</tr><tr>";
-?>
+$empty_start_cells = date("N", $stamp) - 1;
+$empty_end_cells = 7 - ($empty_start_cells + $daysOfMonth) % 7;
 
-    <td class="calendar_cell_<?= $day == $ii ? "active" : "inactive" ?> calendar_cell" title="<?=$ii ?>">
+echo str_repeat("<td></td>", $empty_start_cells);
+
+for ($i = 1; $i <= $daysOfMonth; $i++) {?>
+
+    <td class="calendar_cell_<?= $day == $i ? "active" : "inactive" ?> calendar_cell" title="<?= $i ?>">
       <center>
-        <? for ($j = 1; $j <= $dots[$ii]; $j++) { if ($j >= 4) break; ?>
-        <img src="<?= $plugin_path
-                  ?>/public/images/icons/calendar_dot.png">
+        <? for ($j = 1; $j <= sizeof($dates[$i]); $j++) { if ($j >= 4) break; ?>
+          <img src="<?= $plugin_path ?>/public/images/icons/calendar_dot.png">
         <? } ?>
       </center>
-      <?= $ii ?>
+      <?= $i ?>
     </td>
-<? $i++; } ?>
 
+    <? if (($i + $empty_start_cells - 1) % 7 == 6)  echo "</tr><tr>"; ?>
+
+<? }
+echo str_repeat("<td></td>", $empty_end_cells) . "</tr>";
+?>
   </tr>
 </table>
 

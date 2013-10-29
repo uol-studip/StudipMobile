@@ -15,71 +15,40 @@ class CalendarModel {
         // hat leserechte : $_calendar->havePermission( 2 )
         $cal = new \DbCalendarMonth($_calendar, $timestamp, null, \Calendar::getBindSeminare($user_id) );
 
-        $start_stamp   = $cal->getStart();
-        $end_stamp     = $cal->getEnd();
-        $daily_seconds = 86400;  //secound of a single day
-        $monthDates    =  array();
-        $act_stamp      = $start_stamp;
-        $i=0;
-        while ($act_stamp <= $end_stamp)
-        {
+        $start_stamp = $cal->getStart() + 0.5 * 86400;
+        $end_stamp   = $cal->getEnd();
+        $monthDates  =  array();
+
+        for ($act_stamp = $start_stamp; $act_stamp < $end_stamp; $act_stamp += 86400) {
             $event = $cal->getEventsOfDay($act_stamp);
-            if ($event!= NULL)
-            {
-                foreach ($event as $key => $value)
-                {
-                    if (($value != NULL) && (is_object($value)))
-                    {
+
+            $dates = array();
+
+            if (isset($event)) {
+
+                foreach ($event as $key => $value) {
+                    if ($value != NULL && is_object($value)) {
                         //if is type of CalendarEvent ....
                         if (is_a($value, 'CalendarEvent') || is_a($value, 'SeminarEvent')) {
-                            if ($value->getPermission() >= 2)
-                            {
-                                $monthDates[$i][$key]["title"] =  $value->getTitle ();
-                                $monthDates[$i][$key]["start"] =  date("G:i", $value->getStart());
-                                $monthDates[$i][$key]["end"] =  date("G:i", $value->getEnd());
-                                $monthDates[$i][$key]["description"] =  $value->getDescription();
-                                $monthDates[$i][$key]["duration"] =  date('H:i', $value->getDuration());
-                                $monthDates[$i][$key]["location"] =  $value->getLocation();
+                            if ($value->getPermission() >= 2) {
+                                $dates[$key] = array(
+                                    "date"         =>  date("r", $value->getStart()),
+                                    "title"        =>  $value->getTitle (),
+                                    "start"        =>  date("G:i", $value->getStart()),
+                                    "end"          =>  date("G:i", $value->getEnd()),
+                                    "description"  =>  $value->getDescription(),
+                                    "duration"     =>  date('H:i', $value->getDuration()),
+                                    "location"     =>  $value->getLocation());
                             }
                         }
                     }
-                    else
-                    {
-                        $monthDates[$i][$key] = NULL;
-                    }
                 }
             }
-            else
-            {
-                $monthDates[$i] = NULL;
-            }
-            $i++;
-            $act_stamp += $daily_seconds;
 
+            $monthDates[date("j", $act_stamp)] = $dates;
         }
+
         return $monthDates;
-    }
-
-    static function getMonthDayCounts($monthevents)
-    {
-        $MonthDayCounts = array();
-        foreach ($monthevents as $key => $value)
-        {
-            $MonthDayCounts[$key] = count($value);
-        }
-        return $MonthDayCounts;
-    }
-
-    static function getMonthDayCountsRaw($user_id, $timestamp)
-    {
-        $monthevents = CalendarModel::getMonthDates($user_id, $timestamp);
-        $MonthDayCounts = array();
-
-        foreach ($monthevents as $key => $value)
-        {
-            $MonthDayCounts[$key] = count($value);
-        }
-        return $MonthDayCounts;
     }
 
     static function getDayDates($user_id, $weekday)

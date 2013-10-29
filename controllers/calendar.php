@@ -34,7 +34,5 @@ class CalendarController extends AuthenticatedController
         $this->stamp = mktime(0,0,0,$month,1, $year);
         //get dates of the month
         $this->dates = CalendarModel::getMonthDates( $this->currentUser,$this->stamp );
-        //get the dots for each day
-        $this->dots = CalendarModel::getMonthDayCounts( $this->dates );
     }
 }
