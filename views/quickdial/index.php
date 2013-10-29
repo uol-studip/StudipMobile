@@ -63,7 +63,12 @@ $this->set_layout("layouts/single_page");
 
       <p>
         <span class="ui-li-count">
-            <strong><?= $date->toString() ?> in <?= Studip\Mobile\Helper::out($date->getRoom()) ?></strong>
+            <strong>
+              <?= $date->toString() ?> 
+              <? if ($room = $date->getRoom()) : ?>
+                in <?= Studip\Mobile\Helper::out($room) ?>
+              <? endif ?>
+            </strong>
         </span>
       </p>
     </a>
