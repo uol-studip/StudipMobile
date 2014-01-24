@@ -9,7 +9,7 @@ use Studip\Mobile\CalendarModel;
  * Get cycle events and dates for schedule and calendar
  * @author Nils Bussmann - nbussman@uos.de
  */
-class CalendarController extends AuthenticatedController
+class CalendarController extends StudipMobileAuthenticatedController
 {
     function index_action($weekday = NULL)
     {

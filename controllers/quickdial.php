@@ -11,7 +11,7 @@ use Studip\Mobile\Quickdail;
  *    @author Marcus Lunzenauer - mlunzena@uos.de
  *    @author André Klaßen - aklassen@uos.de
  */
-class QuickdialController extends AuthenticatedController
+class QuickdialController extends StudipMobileAuthenticatedController
 {
     function index_action()
     {

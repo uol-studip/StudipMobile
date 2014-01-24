@@ -10,7 +10,7 @@ use Studip\Mobile\Course;
  *    members ...
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class CoursesController extends AuthenticatedController
+class CoursesController extends StudipMobileAuthenticatedController
 {
     function index_action()
     {

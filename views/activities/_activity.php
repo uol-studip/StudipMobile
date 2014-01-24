@@ -1,4 +1,4 @@
-<img src="<?= $controller->url_for("avatars/show", $activity['author_id']) ?>"
+<img src="<?= $controller->url_for("avatars/show", $activity['author_id'], 'small') ?>"
      alt="<?= Studip\Mobile\Helper::out($activity['category']) ?>"
      class="ui-li-icon" style="padding-top: 20px">
  

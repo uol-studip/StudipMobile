@@ -11,7 +11,7 @@ use Studip\Mobile\Mail;
  *    @author Marcus Lunzenauer - mlunzena@uos.de
  *    @author André Klaßen - aklassen@uos.de
  */
-class MailsController extends AuthenticatedController
+class MailsController extends StudipMobileAuthenticatedController
 {
     /**
      * lists mails of inbox

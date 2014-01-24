@@ -12,7 +12,7 @@ use Studip\Mobile\Activity;
  *    @author André Klaßen - aklassen@uos.de
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class ActivitiesController extends AuthenticatedController
+class ActivitiesController extends StudipMobileAuthenticatedController
 {
     function index_action($seminar_cur = 0)
     {

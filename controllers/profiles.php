@@ -10,7 +10,7 @@ use Studip\Mobile\Profile;
  *    get the profile of a user, if visible
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class ProfilesController extends AuthenticatedController
+class ProfilesController extends StudipMobileAuthenticatedController
 {
     function index_action()
     {

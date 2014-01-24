@@ -6,7 +6,7 @@ require "AuthenticatedController.php";
  *    just a few helfull functions
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class ConverterController extends AuthenticatedController
+class ConverterController extends StudipMobileAuthenticatedController
 {
     /*
      * converts a given unix timestamp to

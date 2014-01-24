@@ -8,7 +8,7 @@ use Studip\Mobile\News;
 /**
  *    @author mlunzena@uos.de
  */
-class NewsController extends AuthenticatedController
+class NewsController extends StudipMobileAuthenticatedController
 {
     function show_action($id)
     {

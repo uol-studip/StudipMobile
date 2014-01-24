@@ -7,7 +7,7 @@ require "AuthenticatedController.php";
  *    @author Marcus Lunzenauer - mlunzena@uos.de
  *    @author André Klaßen - aklassen@uos.de
  */
-class AvatarsController extends AuthenticatedController
+class AvatarsController extends StudipMobileAuthenticatedController
 {
     function show_action($id = NULL, $size = Avatar::SMALL)
     {
