@@ -1,6 +1,6 @@
 <?php
 
-require "AuthenticatedController.php";
+require "StudipMobileAuthenticatedController.php";
 
 /**
  *    just a few helfull functions

@@ -8,7 +8,7 @@ require_once 'StudipMobileController.php';
  *    @author André Klaßen - aklassen@uos.de
  *    @author Nils Bussmann - nbussman@uos.de
  */
-class AuthenticatedController extends StudipMobileController
+class StudipMobileAuthenticatedController extends StudipMobileController
 {
     function before_filter(&$action, &$args)
     {

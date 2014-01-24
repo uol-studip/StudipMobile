@@ -1,6 +1,6 @@
 <?php
 
-require "AuthenticatedController.php";
+require "StudipMobileAuthenticatedController.php";
 require dirname(__FILE__) . "/../models/calendar.php";
 
 use Studip\Mobile\CalendarModel;

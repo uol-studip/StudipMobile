@@ -1,6 +1,6 @@
 <?php
 
-require "AuthenticatedController.php";
+require "StudipMobileAuthenticatedController.php";
 require dirname(__FILE__) . "/../models/activity.php";
 
 use Studip\Mobile\Activity;
