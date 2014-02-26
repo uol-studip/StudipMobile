@@ -42,7 +42,6 @@ class SessionController extends StudipMobileController
                     $username = $temp;
                 }
             } catch (Exception $e) {
-                echo '<pre>';var_dump($e);die;
             }
         } elseif (isset($username) && isset($password)) {
             $result = StudipAuthAbstract::CheckAuthentication($username, $password);
