@@ -31,7 +31,20 @@ class SessionController extends StudipMobileController
         $username = Request::get("username");
         $password = Request::get("password");
 
-        if (isset($username) && isset($password)) {
+        if (($plugin = PluginEngine::getPlugin('CLEPlugin')) && $plugin->shouldUseCAS($username)) {
+            $result = null;
+            try {
+                $plugin->cas_login($username, $password);
+
+                $uid = $username;
+                if ($temp = $plugin->getStudipUsername($uid)) {
+                    $result = compact('uid');
+                    $username = $temp;
+                }
+            } catch (Exception $e) {
+                echo '<pre>';var_dump($e);die;
+            }
+        } elseif (isset($username) && isset($password)) {
             $result = StudipAuthAbstract::CheckAuthentication($username, $password);
         }
 
